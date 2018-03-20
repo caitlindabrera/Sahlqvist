@@ -106,3 +106,23 @@ Search plus "comm".
     rewrite plus_Sn_m. rewrite plus_n_Sm.
     rewrite Nat.sub_add_distr. reflexivity.
 Qed.
+
+Lemma leb_plus_r : forall (i n m : nat),
+  Nat.leb i n = true -> Nat.leb i (n + m) = true.
+Proof.
+intros. firstorder.
+  intros i' n' m.
+  generalize n' i'.
+  induction m; intros n i H.
+    rewrite plus_zero.
+    exact H.
+
+    specialize (IHm (n + 1) i).
+    rewrite one_suc.
+    rewrite arith_plus_comm with (a := m).
+    rewrite <- arith_plus_assoc.
+    apply IHm.
+    rewrite <- one_suc.
+    apply leb_suc_r.
+    exact H.
+Qed.
