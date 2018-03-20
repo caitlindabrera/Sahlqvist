@@ -114,6 +114,7 @@ Proof.
       induction phi1; rewrite Hbeq in *; rewrite Hleb in *;
       discriminate.
 Qed.
+Require Import Omega.
 
 Lemma occ_in_phi_mdisj_l : forall (phi1 phi2 : Modal) (i : nat),
   occ_in_phi phi1 i = true -> 
@@ -127,6 +128,12 @@ Proof.
     induction phi1; rewrite Hbeq in *; simpl; discriminate.
 
     case_eq (Nat.leb i (length (pv_in phi1))); intros Hleb.
+
+Search   (_ -> ((_ _ (_ + _)) = _)).
+Search  (_ -> (_ le (_ + _))).
+Search Nat.leb le.
+Search Nat.lt plus.
+
       rewrite leb_plus_r;
         [reflexivity | exact Hleb].
 
