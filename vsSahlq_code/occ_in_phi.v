@@ -1,7 +1,7 @@
 Require Import Modal.
 Require Import Arith.EqNat.
 Require Import ST_setup my_arith Coq.Arith.PeanoNat.
-Require Import my_arith__my_leb_nat my_bool.
+Require Import my_arith my_bool.
 
 
 
