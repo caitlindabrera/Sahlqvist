@@ -5,10 +5,6 @@ Open Scope type_scope.
 (* --------------------------------- *)
 (* Belongs in vsSahlq_instant13 *)
 
-Locate "existsT2".
-Locate "existsT".
-Locate sigT.
-
 Lemma preprocess_vsSahlq_ante_againTRY_loc : forall alpha x,
   closed_except alpha x ->
   conjSO_exFO_relatSO alpha = true ->
@@ -877,10 +873,7 @@ free_FO (list_closed_allFO  (implSO
   y = false.
 Admitted.
 
-
-
-
-
+(* Up to here *)
 Lemma closed_except_eg1 : forall rel atm phi2 xn lv lP,
    closed_except (list_closed_allFO (implSO (conjSO rel atm) (ST phi2 (Var xn))) lv) (Var xn) ->
 closed_except (replace_pred_l   (list_closed_allFO (implSO (conjSO rel atm)
@@ -891,12 +884,13 @@ closed_except (replace_pred_l   (list_closed_allFO (implSO (conjSO rel atm)
         lv) lP (list_Var (length lP) (Var (new_FOv_pp_pre2 atm)))
      (vsS_syn_l (FOv_att_P_l (conjSO rel atm) lP) (Var (new_FOv_pp_pre2 atm)))) (Var xn).
 Proof.
-  intros rel atm phi2 xn lv lP [H1 H2].
+Admitted.
+(*   intros rel atm phi2 xn lv lP [H1 H2].
   rewrite rep_pred_l_list_closed_allFO.
   rewrite rep_pred_l_implSO. unfold closed_except in *.
   apply conj. apply closed_except_eg1_free_t. assumption.
   apply closed_except_eg1_free_f. assumption.
-Qed.
+Qed. *)
 (* 
   apply (closed_except_list_closed_allFO _ _ _ _ (closed_except_eg1_pre _ _ _ _ _) H).
 Qed.
@@ -1048,7 +1042,8 @@ split; intros H.
       apply (is_in_pred_l_trans _ _ _ HH1 Hin0).
 
       apply ex_P_occ_in_alpha_ST.
-Defined.
+Admitted.
+(* Defined. *)
 
 Lemma hopeful4_REV'_withex'_FULL_allFO : forall lP xn phi1 phi2,
   vsSahlq_ante phi1 = true ->
@@ -1732,9 +1727,8 @@ Proof.
   apply vsSahlq_full_Modal_sep; assumption.
 Defined.
 
+Locate iff_refl.
 
+Search "((_ <-> _) -> (_ <-> _))" Prop  not.
 
-
-
-(* Print All Dependencies vsSahlq_full_Modal.
- *)
+Print All Dependencies vsSahlq_full_Modal.
