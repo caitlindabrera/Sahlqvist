@@ -80,14 +80,14 @@ Proof.
   intros phi W R V w. apply classic.
 Qed.
 
-Lemma modal_lem_model : forall phi W R V,
+Lemma modal_LEM_model : forall phi W R V,
   mturnst_model W R V (mdisj phi (mneg phi)).
 Proof.
-  intros phi W R V w. apply modal_lem.
+  intros phi W R V w. apply modal_LEM.
 Qed.
 
-Lemma modal_lem_frame : forall phi W R,
+Lemma modal_LEM_frame : forall phi W R,
   mturnst_frame W R (mdisj phi (mneg phi)).
 Proof.
-  intros phi W R V. apply modal_lem_model.
+  intros phi W R V. apply modal_LEM_model.
 Qed.
