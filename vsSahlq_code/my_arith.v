@@ -1,5 +1,6 @@
 Require Import Coq.Arith.PeanoNat.
 Require Import EqNat.
+Require Import Arith.
 
 Lemma beq_nat_comm : forall (n m : nat),
   beq_nat n m = beq_nat m n.
@@ -110,19 +111,52 @@ Qed.
 Lemma leb_plus_r : forall (i n m : nat),
   Nat.leb i n = true -> Nat.leb i (n + m) = true.
 Proof.
-intros. firstorder.
   intros i' n' m.
   generalize n' i'.
   induction m; intros n i H.
-    rewrite plus_zero.
+    rewrite plus_0_r.
     exact H.
 
     specialize (IHm (n + 1) i).
-    rewrite one_suc.
-    rewrite arith_plus_comm with (a := m).
-    rewrite <- arith_plus_assoc.
+    rewrite <- Nat.add_1_r.
+    rewrite Nat.add_comm with (n := m).
+    rewrite <- plus_assoc_reverse.
     apply IHm.
-    rewrite <- one_suc.
-    apply leb_suc_r.
-    exact H.
+    rewrite Nat.add_1_r.
+    apply leb_correct. apply le_S.
+    apply leb_complete. assumption.
+Qed.
+
+Lemma leb_minus_pre : forall (n m : nat),
+  Nat.leb n m = true -> Nat.leb (n-1) (m-1) = true.
+Proof.
+  intros n m Hleb.
+  induction n.
+    induction m.
+      simpl; reflexivity.
+
+      simpl in *; reflexivity.
+
+    induction m.
+      simpl in *; discriminate.
+
+      simpl in *. 
+      do 2 rewrite Nat.sub_0_r.
+      assumption.
+Qed.
+
+Lemma leb_minus : forall (i n m : nat),
+  Nat.leb n m = true -> Nat.leb (n-i) (m-i) = true.
+Proof.
+  induction i.
+    intros.
+    do 2 rewrite Nat.sub_0_r; assumption.
+
+    intros n m Hleb.
+    rewrite <- Nat.add_1_r.
+    rewrite Nat.add_comm.
+    do 2 rewrite arith_minus_exp.
+    apply IHi.
+    apply leb_minus_pre.
+    assumption.
 Qed.
