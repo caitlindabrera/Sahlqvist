@@ -2,7 +2,7 @@ Require Import Modal.
 Require Import Arith.EqNat.
 Require Import ST_setup my_arith Coq.Arith.PeanoNat.
 Require Import my_arith my_bool.
-
+Require Import Omega.
 
 
 Fixpoint occ_in_phi (phi : Modal) (i : nat) : bool :=
@@ -114,7 +114,6 @@ Proof.
       induction phi1; rewrite Hbeq in *; rewrite Hleb in *;
       discriminate.
 Qed.
-Require Import Omega.
 
 Lemma occ_in_phi_mdisj_l : forall (phi1 phi2 : Modal) (i : nat),
   occ_in_phi phi1 i = true -> 
@@ -128,12 +127,6 @@ Proof.
     induction phi1; rewrite Hbeq in *; simpl; discriminate.
 
     case_eq (Nat.leb i (length (pv_in phi1))); intros Hleb.
-
-Search   (_ -> ((_ _ (_ + _)) = _)).
-Search  (_ -> (_ le (_ + _))).
-Search Nat.leb le.
-Search Nat.lt plus.
-
       rewrite leb_plus_r;
         [reflexivity | exact Hleb].
 
@@ -170,14 +163,16 @@ Proof.
   simpl.
   case_eq (beq_nat (length (pv_in phi1) + i) 0); intros Hbeq.
     apply beq_nat_true in Hbeq.
-    apply beq_nat_0 in Hbeq.
+    apply plus_is_O in Hbeq.
     destruct Hbeq as [Hl Hi].
     rewrite Hi in *.
     unfold occ_in_phi in Hocc.
     destruct phi2; simpl in *; discriminate.
 
     rewrite List.app_length.
-    rewrite <- leb_plus_pre with (m := (length (pv_in phi1))).
+    rewrite leb_correct. reflexivity.
+    apply plus_le_compat_l.
+    apply leb_complete.
     apply occ_in_phi_leb2 in Hocc.
     destruct Hocc as [l r].
     rewrite r.
@@ -192,14 +187,16 @@ Proof.
   simpl.
   case_eq (beq_nat (length (pv_in phi1) + i) 0); intros Hbeq.
     apply beq_nat_true in Hbeq.
-    apply beq_nat_0 in Hbeq.
+    apply plus_is_O in Hbeq.
     destruct Hbeq as [Hl Hi].
     rewrite Hi in *.
     unfold occ_in_phi in Hocc.
     destruct phi2; simpl in *; discriminate.
 
     rewrite List.app_length.
-    rewrite <- leb_plus_pre with (m := (length (pv_in phi1))).
+    rewrite leb_correct. reflexivity.
+    apply plus_le_compat_l.
+    apply leb_complete.
     apply occ_in_phi_leb2 in Hocc.
     destruct Hocc as [l r].
     rewrite r.
@@ -214,14 +211,16 @@ Proof.
   simpl.
   case_eq (beq_nat (length (pv_in phi1) + i) 0); intros Hbeq.
     apply beq_nat_true in Hbeq.
-    apply beq_nat_0 in Hbeq.
+    apply plus_is_O in Hbeq.
     destruct Hbeq as [Hl Hi].
     rewrite Hi in *.
     unfold occ_in_phi in Hocc.
     destruct phi2; simpl in *; discriminate.
 
     rewrite List.app_length.
-    rewrite <- leb_plus_pre with (m := (length (pv_in phi1))).
+    rewrite leb_correct. reflexivity.
+    apply plus_le_compat_l.
+    apply leb_complete.
     apply occ_in_phi_leb2 in Hocc.
     destruct Hocc as [l r].
     rewrite r.
@@ -240,7 +239,10 @@ Proof.
   destruct H as [H1 H2].
   case_eq (beq_nat (i - length (pv_in phi1)) 0); intros Hbeq.
     rewrite occ_in_phi_defn in Hocc1.
-    apply beq_nat_leb in Hbeq.
+    symmetry in Hbeq. apply beq_nat_eq in Hbeq.
+    apply Nat.sub_0_le in Hbeq.
+    apply leb_correct in Hbeq.
+(*     apply beq_nat_leb in Hbeq. *)
     rewrite Hbeq in *.
     rewrite H1 in *.
     discriminate.
@@ -248,7 +250,7 @@ Proof.
     simpl in H2.
     rewrite List.app_length in H2.
     apply leb_minus with (i := (length (pv_in phi1))) in H2.
-    rewrite arith_plus_3 in H2.
+    rewrite minus_plus in H2.
     rewrite H2 in *.
     reflexivity.
 Qed.
@@ -264,7 +266,9 @@ Proof.
   destruct H as [H1 H2].
   case_eq (beq_nat (i - length (pv_in phi1)) 0); intros Hbeq.
     rewrite occ_in_phi_defn in Hocc1.
-    apply beq_nat_leb in Hbeq.
+    symmetry in Hbeq. apply beq_nat_eq in Hbeq.
+    apply Nat.sub_0_le in Hbeq.
+    apply leb_correct in Hbeq.
     rewrite Hbeq in *.
     rewrite H1 in *.
     discriminate.
@@ -272,7 +276,7 @@ Proof.
     simpl in H2.
     rewrite List.app_length in H2.
     apply leb_minus with (i := (length (pv_in phi1))) in H2.
-    rewrite arith_plus_3 in H2.
+    rewrite minus_plus in H2.
     rewrite H2 in *.
     reflexivity.
 Qed.
