@@ -110,10 +110,10 @@ Qed.
 
 Lemma simpl_alt_l : forall (W:Set) (u v:W) (Iv: FOvariable -> W) (Ip: predicate -> W -> Prop)
                   (xn: nat), 
-                      (altered_Iv (altered_Iv Iv u (Var xn)) v (Var (xn+1))) (Var xn) = u.
+                      (alt_Iv (alt_Iv Iv u (Var xn)) v (Var (xn+1))) (Var xn) = u.
 Proof.
   intros W u v Iv Ip xn.
-  unfold altered_Iv.
+  unfold alt_Iv.
   assert (EqNat.beq_nat (xn+1) xn = false).
     induction xn.
       simpl; reflexivity.
@@ -126,10 +126,10 @@ Qed.
 
 Lemma simpl_alt_r : forall (W:Set) (u v:W) (Iv: FOvariable -> W) (Ip: predicate -> W -> Prop)
                   (xn: nat), 
-                      (altered_Iv (altered_Iv Iv u (Var xn)) v (Var (xn+1))) (Var (xn+1)) = v.
+                      (alt_Iv (alt_Iv Iv u (Var xn)) v (Var (xn+1))) (Var (xn+1)) = v.
 Proof.
   intros W u v Iv Ip xn.
-  unfold altered_Iv.
+  unfold alt_Iv.
   rewrite <- EqNat.beq_nat_refl; reflexivity.
 Qed.
 
@@ -138,7 +138,7 @@ Qed.
 Lemma R_relatSO : forall (W:Set) (R: W -> W -> Prop) (u v:W) (Iv: FOvariable -> W) 
                          (Ip: predicate -> W -> Prop) (xn:nat),
        (R u v)
-     <-> (SOturnst W (altered_Iv (altered_Iv Iv u (Var xn)) v (Var (xn+1))) Ip R (relatSO (Var xn) (Var (xn+1)))).
+     <-> (SOturnst W (alt_Iv (alt_Iv Iv u (Var xn)) v (Var (xn+1))) Ip R (relatSO (Var xn) (Var (xn+1)))).
 Proof.
   intros W R u v Iv Ip xn.
   unfold SOturnst.

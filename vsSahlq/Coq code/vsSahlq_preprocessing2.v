@@ -216,7 +216,7 @@ Qed.
 Lemma list_closed_SO_pa_choose : forall l beta W Iv Ip Ir,
 (forall pa_l : nlist_pa W (length l),
      SOturnst W Iv
-       (altered_Ip_list Ip
+       (alt_Ip_list Ip
           (nlist_list_pa W (length l) pa_l) l) Ir beta) ->
 SOturnst W Iv Ip Ir beta.
 Proof. 
@@ -228,9 +228,9 @@ Proof.
     simpl in *.
     apply IHl.
     intros pa_l.
-    specialize (H (consn_pa _ _ ((altered_Ip_list Ip (nlist_list_pa W (length l) pa_l) l) a) pa_l) ).
+    specialize (H (consn_pa _ _ ((alt_Ip_list Ip (nlist_list_pa W (length l) pa_l) l) a) pa_l) ).
     simpl in H.
-    rewrite unaltered_fun in H. 
+    rewrite unalt_fun in H. 
     assumption.
 Qed.
 
@@ -253,7 +253,7 @@ Qed.
 Lemma try3a : forall l beta W Iv Ip Ir,
 (forall pa_l : nlist_pa W (length l),
      SOturnst W Iv
-       (altered_Ip_list Ip
+       (alt_Ip_list Ip
           (nlist_list_pa W (length l) pa_l) l) Ir beta) ->
 SOturnst W Iv Ip Ir beta.
 Proof. 
@@ -265,9 +265,9 @@ Proof.
     simpl in *.
     apply IHl.
     intros pa_l.
-    specialize (H (consn_pa _ _ ((altered_Ip_list Ip (nlist_list_pa W (length l) pa_l) l) a) pa_l) ).
+    specialize (H (consn_pa _ _ ((alt_Ip_list Ip (nlist_list_pa W (length l) pa_l) l) a) pa_l) ).
     simpl in H.
-    rewrite unaltered_fun in H. 
+    rewrite unalt_fun in H. 
     assumption.
 Qed.
 
@@ -524,7 +524,7 @@ Proof.
     destruct a as [Qm]. simpl list_closed_SO in SOt.
     rewrite SOturnst_allSO in SOt.
     specialize (SOt (Ip (Pred Qm))).
-    rewrite unaltered_fun in SOt.
+    rewrite unalt_fun in SOt.
     apply IHl; assumption.
 Qed.
 
@@ -672,7 +672,7 @@ Qed.
 Lemma is_in_pred_list_closed_SO : forall l alpha P W Iv Ip Ir pa,
   is_in_pred P l = true ->
   SOturnst W Iv Ip Ir (list_closed_SO alpha l) ->
-  SOturnst W Iv (altered_Ip Ip pa P) Ir (list_closed_SO alpha l).
+  SOturnst W Iv (alt_Ip Ip pa P) Ir (list_closed_SO alpha l).
 Proof.
   induction l; intros alpha [Pn] W Iv Ip Ir pa Hin SOt.
     simpl in *. discriminate.
@@ -683,10 +683,10 @@ Proof.
     specialize (SOt pa2).
     case_eq (beq_nat Pn Qm); intros Hbeq.
       rewrite (beq_nat_true _ _ Hbeq) in *.
-      rewrite altered_Ip_eq.
+      rewrite alt_Ip_eq.
       assumption.
 
-      rewrite altered_Ip_switch.
+      rewrite alt_Ip_switch.
       apply IHl.
         simpl in Hin.
         rewrite Hbeq in Hin.
@@ -859,7 +859,7 @@ Lemma SOt_alt_SOQFree' : forall (alpha : SecOrder) (W : Set)
                       (Iv : FOvariable -> W) (Ip : predicate -> W -> Prop)
                     (Ir : W -> W -> Prop)  (Q : predicate) x,
   SOQFree alpha = true ->
-    (SOturnst W Iv (altered_Ip Ip pa_f Q) Ir alpha <->
+    (SOturnst W Iv (alt_Ip Ip pa_f Q) Ir alpha <->
       SOturnst W Iv Ip Ir (replace_pred alpha Q x
        (negSO (eqFO (Var 1) (Var 1))))).
 Proof.
@@ -970,7 +970,7 @@ Proof.
   intros pa. apply SOt_alt_SOQFree'.
     assumption.
 
-    rewrite altered_Ip_eq.
+    rewrite alt_Ip_eq.
     apply SOt.
 Qed.
 
@@ -984,10 +984,10 @@ Proof.
   case_eq (beq_nat Pn Qm); intros Hbeq.
     rewrite (beq_nat_true _ _ Hbeq) in *.
     specialize (SOt paP paP).
-    rewrite altered_Ip_eq in *.
+    rewrite alt_Ip_eq in *.
     assumption.
 
-    rewrite altered_Ip_switch.
+    rewrite alt_Ip_switch.
     specialize (SOt paP paQ).
     assumption.
 
@@ -1429,14 +1429,14 @@ Proof.
   case_eq (beq_nat Pn Qm); intros Hbeq.
     rewrite (beq_nat_true _ _ Hbeq) in *.
     intros pa2.
-    rewrite altered_Ip_eq.
+    rewrite alt_Ip_eq.
     specialize (SOt pa2 pa2).
-    rewrite altered_Ip_eq in *.
+    rewrite alt_Ip_eq in *.
     assumption.
 
     intros paP.
     specialize (SOt paP paQ).
-    rewrite altered_Ip_switch. assumption.
+    rewrite alt_Ip_switch. assumption.
     intros H; rewrite H in Hbeq.
     rewrite <- beq_nat_refl in Hbeq.
     discriminate.
@@ -1457,7 +1457,7 @@ Proof.
       rewrite Hbeq in *.
       rewrite (beq_nat_true _ _ Hbeq) in *.
       intros pa1 pa2.
-      rewrite altered_Ip_eq.
+      rewrite alt_Ip_eq.
       specialize (SOt pa2).
       assumption.
 
@@ -1877,7 +1877,7 @@ Proof.
 
     apply nlist_list_closed_SO.
     intros pa_l d.
-    destruct (nlist_list_closed_SO W (altered_Iv Iv d (Var xn)) Ir alpha l Ip) as [fwd rev].
+    destruct (nlist_list_closed_SO W (alt_Iv Iv d (Var xn)) Ir alpha l Ip) as [fwd rev].
     apply fwd.
     apply SOt.
 Qed.

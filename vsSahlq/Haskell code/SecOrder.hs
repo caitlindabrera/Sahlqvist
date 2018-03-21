@@ -87,8 +87,8 @@ coq_SecOrder_rec :: (Coq_predicate -> FOvariable -> a1) -> (FOvariable ->
 coq_SecOrder_rec =
   coq_SecOrder_rect
 
-altered_Iv :: (FOvariable -> a1) -> a1 -> FOvariable -> FOvariable -> a1
-altered_Iv iv d x y =
+alt_Iv :: (FOvariable -> a1) -> a1 -> FOvariable -> FOvariable -> a1
+alt_Iv iv d x y =
   case PeanoNat._Nat__eqb x y of {
    Datatypes.Coq_true -> d;
    Datatypes.Coq_false -> iv y}

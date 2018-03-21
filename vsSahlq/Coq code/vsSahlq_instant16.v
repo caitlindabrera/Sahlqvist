@@ -2,7 +2,7 @@ Require Export vsSahlq_instant15.
 
 (* ---------------------------------------------------------- *)
 
-Lemma  altered_Ip_rel : forall rel W Iv Ip1 Ip2 Ir,
+Lemma  alt_Ip_rel : forall rel W Iv Ip1 Ip2 Ir,
   REL rel = true ->
   SOturnst W Iv Ip1 Ir rel =
   SOturnst W Iv Ip2 Ir rel.
@@ -1221,7 +1221,7 @@ Qed.
 
 Lemma lem_b7 : forall lP P W Ip1 Ip2,
   Ip_extends_l W Ip1 Ip2 (cons P lP) ->
-  Ip_extends_l W (altered_Ip Ip1 (Ip2 P) P) Ip2 lP.
+  Ip_extends_l W (alt_Ip Ip1 (Ip2 P) P) Ip2 lP.
 Proof.
   unfold Ip_extends_l.
   intros lP [Pn] W Ip1 Ip2 Hext [Qm].
@@ -1244,7 +1244,7 @@ Qed.
 
 Lemma lem_b7_down : forall lP P W Ip1 Ip2,
   Ip_extends_l W Ip2 Ip1 (cons P lP) ->
-  Ip_extends_l W Ip2 (altered_Ip Ip1 (Ip2 P) P) lP.
+  Ip_extends_l W Ip2 (alt_Ip Ip1 (Ip2 P) P) lP.
 Proof.
   unfold Ip_extends_l.
   intros lP [Pn] W Ip1 Ip2 Hext [Qm].
@@ -1268,7 +1268,7 @@ Qed.
 
 Lemma lem_b8 : forall lP P W Ip1 Ip2,
   Ip_extends_l W Ip1 Ip2 (cons P lP) ->
-  Ip_extends_l W Ip1 (altered_Ip Ip1 (Ip2 P) P) (cons P nil).
+  Ip_extends_l W Ip1 (alt_Ip Ip1 (Ip2 P) P) (cons P nil).
 Proof.
   intros lP [Pn] W Ip1 Ip2 Hext [Qm].
   specialize (Hext (Pred Qm)). destruct Hext as [H1 H2].
@@ -1286,7 +1286,7 @@ Qed.
 
 Lemma lem_b8_down : forall lP P W Ip1 Ip2,
   Ip_extends_l W Ip2 Ip1 (cons P lP) ->
-  Ip_extends_l W (altered_Ip Ip1 (Ip2 P) P) Ip1 (cons P nil).
+  Ip_extends_l W (alt_Ip Ip1 (Ip2 P) P) Ip1 (cons P nil).
 Proof.
   intros lP [Pn] W Ip1 Ip2 Hext [Qm].
   specialize (Hext (Pred Qm)). destruct Hext as [H1 H2].
@@ -1310,7 +1310,7 @@ Lemma lem_b6 : forall lP P alpha,
 Proof.
   unfold alpha_upward_monotone_lP.
   intros lP P alpha H1 H2 W Iv Ir Ip1 Ip2 Hext SOt.
-  apply H2 with (Ip := (altered_Ip Ip1 (Ip2 P) P)).
+  apply H2 with (Ip := (alt_Ip Ip1 (Ip2 P) P)).
     apply lem_b7. assumption.
 
   apply H1 with (Ip := Ip1).
@@ -1324,7 +1324,7 @@ Lemma lem_b6_down : forall lP P alpha,
 Proof.
   unfold alpha_upward_monotone_lP.
   intros lP P alpha H1 H2 W Iv Ir Ip1 Ip2 Hext SOt.
-  apply H2 with (Ip := (altered_Ip Ip1 (Ip2 P) P)).
+  apply H2 with (Ip := (alt_Ip Ip1 (Ip2 P) P)).
     apply lem_b7_down. assumption.
 
   apply H1 with (Ip := Ip1).
@@ -1339,7 +1339,7 @@ Proof.
   unfold alpha_upward_monotone_lP.
   intros W Iv Ir Ip1 Ip2 Hext SOt.
   unfold Ip_extends_l in Hext.
-assert (Ip2 = altered_Ip Ip1 (Ip2 P) P) as H.
+assert (Ip2 = alt_Ip Ip1 (Ip2 P) P) as H.
     destruct P as [Pn]. apply functional_extensionality.
     intros [Qm]. simpl.
     case_eq (beq_nat Pn Qm); intros Hbeq.
@@ -1362,7 +1362,7 @@ Proof.
   unfold alpha_upward_monotone_lP.
   intros W Iv Ir Ip1 Ip2 Hext SOt.
   unfold Ip_extends_l in Hext.
-assert (Ip2 = altered_Ip Ip1 (Ip2 P) P) as H.
+assert (Ip2 = alt_Ip Ip1 (Ip2 P) P) as H.
     destruct P as [Pn]. apply functional_extensionality.
     intros [Qm]. simpl.
     case_eq (beq_nat Pn Qm); intros Hbeq.
@@ -2043,7 +2043,7 @@ Qed.
 
 Lemma lem_bb : forall lP W Ip Ip' pa Q,
 Ip_extends_l W Ip Ip' lP ->
-Ip_extends_l W (altered_Ip Ip pa Q) (altered_Ip Ip' pa Q) lP.
+Ip_extends_l W (alt_Ip Ip pa Q) (alt_Ip Ip' pa Q) lP.
 Proof.
   unfold Ip_extends_l. intros lP W Ip Ip' pa [Pn] H [Qm].
   apply conj; intros Hpocc.
@@ -2065,7 +2065,7 @@ Proof.
   rewrite SOturnst_allSO.
   rewrite SOturnst_allSO in SOt. intros pa.
   specialize (SOt pa).
-  apply Hmono with (Ip := (altered_Ip Ip pa Q)).
+  apply Hmono with (Ip := (alt_Ip Ip pa Q)).
     apply lem_bb. all : assumption.
 Qed.
 
@@ -2079,7 +2079,7 @@ Proof.
   rewrite SOturnst_exSO.
   rewrite SOturnst_exSO in SOt. destruct SOt as [pa SOt].
   exists pa.
-  apply Hmono with (Ip := (altered_Ip Ip pa Q)).
+  apply Hmono with (Ip := (alt_Ip Ip pa Q)).
     apply lem_bb. all : assumption.
 Qed.
 
@@ -2093,7 +2093,7 @@ Proof.
   rewrite SOturnst_allSO.
   rewrite SOturnst_allSO in SOt. intros pa.
   specialize (SOt pa).
-  apply Hmono with (Ip := (altered_Ip Ip pa Q)).
+  apply Hmono with (Ip := (alt_Ip Ip pa Q)).
     apply lem_bb. all : assumption.
 Qed.
 
@@ -2106,7 +2106,7 @@ Proof.
   intros W Iv R Ip Ip' Ipext SOt.
   rewrite SOturnst_exSO.
   rewrite SOturnst_exSO in SOt. destruct SOt as [pa SOt]. exists pa.
-  apply Hmono with (Ip := (altered_Ip Ip pa Q)).
+  apply Hmono with (Ip := (alt_Ip Ip pa Q)).
     apply lem_bb. all : assumption.
 Qed.
 
@@ -2474,7 +2474,7 @@ Qed.
 
 Lemma lem_Ip_extends_rem_pred : forall lP P W Ip Ip' pa,
   Ip_extends_l W Ip Ip' lP ->
-  Ip_extends_l W (altered_Ip Ip pa P) (altered_Ip Ip' pa P) (rem_pred lP P).
+  Ip_extends_l W (alt_Ip Ip pa P) (alt_Ip Ip' pa P) (rem_pred lP P).
 Proof.
   intros lP P W Ip Ip' pa H.
   unfold Ip_extends_l in *. intros [Qm].
@@ -2503,7 +2503,7 @@ Proof.
   intros lP P alpha Hin H.
   unfold alpha_upward_monotone_lP in *. intros W Iv Ir Ip Ip' Hext SOt.
   rewrite SOturnst_allSO in *. intros pa. specialize (SOt pa).
-  apply H with (Ip := (altered_Ip Ip pa P)).
+  apply H with (Ip := (alt_Ip Ip pa P)).
   apply lem_Ip_extends_rem_pred. assumption.
     assumption.
 Qed.
@@ -2516,7 +2516,7 @@ Proof.
   intros lP P alpha Hin H.
   unfold alpha_upward_monotone_lP in *. intros W Iv Ir Ip Ip' Hext SOt.
   rewrite SOturnst_exSO in *. destruct SOt as [pa SOt]. exists pa.
-  apply H with (Ip := (altered_Ip Ip pa P)).
+  apply H with (Ip := (alt_Ip Ip pa P)).
   apply lem_Ip_extends_rem_pred. assumption.
     assumption.
 Qed.
@@ -2529,7 +2529,7 @@ Proof.
   intros lP P alpha Hin H.
   unfold alpha_downward_monotone_lP in *. intros W Iv Ir Ip Ip' Hext SOt.
   rewrite SOturnst_allSO in *. intros pa. specialize (SOt pa).
-  apply H with (Ip := (altered_Ip Ip pa P)).
+  apply H with (Ip := (alt_Ip Ip pa P)).
   apply lem_Ip_extends_rem_pred. assumption.
     assumption.
 Qed.
@@ -2542,7 +2542,7 @@ Proof.
   intros lP P alpha Hin H.
   unfold alpha_downward_monotone_lP in *. intros W Iv Ir Ip Ip' Hext SOt.
   rewrite SOturnst_exSO in *. destruct SOt as [pa SOt]. exists pa.
-  apply H with (Ip := (altered_Ip Ip pa P)).
+  apply H with (Ip := (alt_Ip Ip pa P)).
   apply lem_Ip_extends_rem_pred. assumption.
     assumption.
 Qed.

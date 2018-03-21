@@ -14,7 +14,7 @@ Fixpoint ineffective_pa_l (W : Set) (Ip : predicate -> W -> Prop) (n : nat)
   end.
 
 Lemma  ineffective_Ip2 : forall (W : Set) (l : list predicate) (Ip : predicate -> W -> Prop) ,  
-   altered_Ip_list Ip (nlist_list_pa W (length l) 
+   alt_Ip_list Ip (nlist_list_pa W (length l) 
        (ineffective_pa_l W Ip (length l) (list_nlist(*_pred*) l))) l
    = Ip.
 Proof.
@@ -27,7 +27,7 @@ Proof.
     intros.
     simpl.
     rewrite (IHl Ip).
-    rewrite unaltered_fun.
+    rewrite unalt_fun.
     reflexivity.
 Qed.
 
@@ -46,7 +46,7 @@ Proof.
     intros.
     apply nlist_list_closed_SO.
     intros.
-    rewrite <- (Ip_V_Ip W) with (Ip := (altered_Ip_list Ip
+    rewrite <- (Ip_V_Ip W) with (Ip := (alt_Ip_list Ip
                   (nlist_list_pa W (length (preds_in (allFO x (ST phi x)))) pa_l)
                   (preds_in (allFO x (ST phi x))))).
     apply correctness_ST_model.
@@ -55,7 +55,7 @@ Proof.
     intros.
     apply (correctness_ST_model W R V phi x Iv).
     remember (preds_in (allFO x (ST phi x))) as l.
-    assert (altered_Ip_list (V_to_Ip W V)
+    assert (alt_Ip_list (V_to_Ip W V)
        (nlist_list_pa W (length l)
           (ineffective_pa_l W (V_to_Ip W V) (length l) (list_nlist(*_pred*) l))) l = 
               V_to_Ip W V) as H0.
@@ -72,7 +72,7 @@ Theorem correctness_ST_loc : forall (W:Set) (R: W -> W -> Prop) (x:FOvariable)
                         (Iv: FOvariable -> W) (Ip: predicate -> W -> Prop) (w : W)
                         (phi:Modal) ,
        (mturnst_frame_loc W R w phi) <-> 
-                (SOturnst W (altered_Iv Iv w x) Ip R (uni_closed_SO (ST phi x))).
+                (SOturnst W (alt_Iv Iv w x) Ip R (uni_closed_SO (ST phi x))).
 Proof.
   intros.
   unfold mturnst_frame.
@@ -81,7 +81,7 @@ Proof.
     intros.
     apply nlist_list_closed_SO.
     intros.
-    rewrite <- (Ip_V_Ip W) with (Ip := (altered_Ip_list Ip
+    rewrite <- (Ip_V_Ip W) with (Ip := (alt_Ip_list Ip
                   (nlist_list_pa W (length (preds_in (ST phi x))) pa_l)
                   (preds_in (ST phi x)))).
     apply correctness_ST_world.
@@ -90,7 +90,7 @@ Proof.
     intros. intros V.
     apply (correctness_ST_world W R V phi w x Iv).
     remember (preds_in (allFO x (ST phi x))) as l.
-    assert (altered_Ip_list (V_to_Ip W V)
+    assert (alt_Ip_list (V_to_Ip W V)
        (nlist_list_pa W (length l)
           (ineffective_pa_l W (V_to_Ip W V) (length l) (list_nlist(*_pred*) l))) l = 
               V_to_Ip W V) as H0.

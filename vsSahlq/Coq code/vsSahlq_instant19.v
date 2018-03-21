@@ -68,7 +68,7 @@ Qed.
 
 Lemma lem_d28 : forall l P Q W Iv Ip Ir pa,
   ~ P = Q ->
-  SOturnst W Iv (altered_Ip Ip pa Q) Ir
+  SOturnst W Iv (alt_Ip Ip pa Q) Ir
     (passing_conj (passing_predSO_l P l)) <->
   SOturnst W Iv Ip Ir (passing_conj (passing_predSO_l P l)).
 Proof.
@@ -100,16 +100,16 @@ is_in_in_FOvar_ll ( l3) (l2) = true ->
  consistent_lP_llv (lP) (l3) ->
  consistent_lP_llv (lP) (l2) ->
 ex_nil_in_llv (l3) = false ->
-SOturnst W Iv (altered_Ip_list Ip (vsS_pa_l Iv l3 lx) lP) Ir
+SOturnst W Iv (alt_Ip_list Ip (vsS_pa_l Iv l3 lx) lP) Ir
         (passing_conj (passing_predSO_l P a)) ->
-SOturnst W Iv (altered_Ip_list Ip (vsS_pa_l Iv l2 lx) lP) Ir
+SOturnst W Iv (alt_Ip_list Ip (vsS_pa_l Iv l2 lx) lP) Ir
   (passing_conj (passing_predSO_l P a)).
 Proof.
   induction l2; intros l3 lP lx P l W Iv Ip Ir Hin Hcon1 Hcon2 Hcon3 Hex SOt.
     simpl in *. destruct l3. assumption. discriminate.
 
     simpl in *. destruct lx. simpl in *. destruct l3; assumption.
-    simpl in *. destruct lP. rewrite altered_Ip_list_nil in SOt.
+    simpl in *. destruct lP. rewrite alt_Ip_list_nil in SOt.
       assumption.
     destruct l3. discriminate.
     simpl in *.
@@ -149,9 +149,9 @@ Lemma lem_try18''_tryinggenlP : forall l l2 l1 lP lP0 lx W Ip Ir Iv ,
   ex_nil_in_llv l1 = false ->
   length lP0 = length l ->
   is_in_pred_l lP0 lP = true ->
-   SOturnst W Iv (altered_Ip_list Ip (vsS_pa_l Iv l1 lx) lP) Ir 
+   SOturnst W Iv (alt_Ip_list Ip (vsS_pa_l Iv l1 lx) lP) Ir 
       (passing_conj (passing_predSO_ll lP0 l)) ->
-  SOturnst W Iv (altered_Ip_list Ip (vsS_pa_l Iv l2 lx) lP) Ir 
+  SOturnst W Iv (alt_Ip_list Ip (vsS_pa_l Iv l2 lx) lP) Ir 
       (passing_conj (passing_predSO_ll lP0 l)).
 Proof.
   induction l; intros l2 l1 lP lP0 lx W Ip Ir Iv Hcon1 Hcon2 Hcon3 Hlength1 
@@ -176,13 +176,13 @@ case_eq (is_in_pred p lP); intros Hin3; rewrite Hin3 in *.
     case_eq (beq_nat Pn Qm); intros Hbeq.
       rewrite (beq_nat_true _ _ Hbeq) in *.
       destruct l1. discriminate. simpl vsS_pa_l in SOt.
-      rewrite altered_Ip_list_cons in SOt.
+      rewrite alt_Ip_list_cons in SOt.
       apply lem_try18_pre with (l1 := l1).
         destruct l1; discriminate. simpl in Hin.
         case_eq (is_in_FOvar_l l1 l0); intros Hin6.
           reflexivity. rewrite Hin6 in *. discriminate.
         apply lem_try23 with 
-          (Ip1 := (altered_Ip_list Ip (vsS_pa_l Iv l3 lx) lP)).
+          (Ip1 := (alt_Ip_list Ip (vsS_pa_l Iv l3 lx) lP)).
         assumption.
 
         apply lem_d28.
@@ -190,7 +190,7 @@ intros HH. inversion HH as [HH']. rewrite HH' in *. rewrite <- beq_nat_refl in *
 discriminate.
 
         destruct l1. discriminate. simpl vsS_pa_l in SOt.
-        rewrite altered_Ip_list_cons in SOt.
+        rewrite alt_Ip_list_cons in SOt.
         apply lem_d28 in SOt.
         apply lem_d29 with (l3 := l3).
           simpl in Hin. case_eq (is_in_FOvar_l l1 l0 );
@@ -223,9 +223,9 @@ Lemma lem_try9_tryinggenlP : forall lP lx llx0 lP0 W Iv Ip Ir beta gamma,
   length lP = length lx ->
   length lP0 = length llx0 ->
   is_in_pred_l lP0 lP = true ->
-  SOturnst W Iv (altered_Ip_list Ip (vsS_pa_l Iv (FOv_att_P_l gamma lP) lx) lP) Ir
+  SOturnst W Iv (alt_Ip_list Ip (vsS_pa_l Iv (FOv_att_P_l gamma lP) lx) lP) Ir
       (passing_conj (passing_predSO_ll lP0 llx0)) ->
-  SOturnst W Iv (altered_Ip_list Ip (vsS_pa_l Iv (FOv_att_P_l (conjSO beta gamma) lP) lx) lP) Ir
+  SOturnst W Iv (alt_Ip_list Ip (vsS_pa_l Iv (FOv_att_P_l (conjSO beta gamma) lP) lx) lP) Ir
       (passing_conj (passing_predSO_ll lP0 llx0)).
 Proof.
   intros until 0. intros Hun Hcon Hlength1 Hlength2 Hin SOt.
@@ -266,9 +266,9 @@ Lemma lem_try9_tryinggenlP_l : forall lP lx llx0 lP0 W Iv Ip Ir beta gamma,
   length lP = length lx ->
   length lP0 = length llx0 ->
   is_in_pred_l lP0 lP = true ->
-  SOturnst W Iv (altered_Ip_list Ip (vsS_pa_l Iv (FOv_att_P_l beta lP) lx) lP) Ir
+  SOturnst W Iv (alt_Ip_list Ip (vsS_pa_l Iv (FOv_att_P_l beta lP) lx) lP) Ir
       (passing_conj (passing_predSO_ll lP0 llx0)) ->
-  SOturnst W Iv (altered_Ip_list Ip (vsS_pa_l Iv (FOv_att_P_l (conjSO beta gamma) lP) lx) lP) Ir
+  SOturnst W Iv (alt_Ip_list Ip (vsS_pa_l Iv (FOv_att_P_l (conjSO beta gamma) lP) lx) lP) Ir
       (passing_conj (passing_predSO_ll lP0 llx0)).
 Proof.
   intros until 0. intros  Hcon Hlength1 Hlength2 Hin SOt.
@@ -309,9 +309,9 @@ Lemma lem_d61' : forall atm atm2 lP lP2 x  (W : Set) Iv Ip Ir (pa2 : W -> Prop),
   is_in_pred_l lP lP2 = true ->
   AT atm = true ->
   AT atm2 = true ->
-  SOturnst W Iv (altered_Ip_list Ip
+  SOturnst W Iv (alt_Ip_list Ip
     (vsS_pa_l Iv (FOv_att_P_l atm2 lP) (list_Var (length lP) x)) lP) Ir atm ->
-  SOturnst W Iv (altered_Ip_list Ip 
+  SOturnst W Iv (alt_Ip_list Ip 
     (vsS_pa_l Iv (FOv_att_P_l atm2 lP2) (list_Var (length lP2) x)) lP2) Ir atm.
 Proof.
   induction atm; intros atm0 lP lP2 x W Iv Ip Ir pa2 Hin1 Hin2 Hin3 Hat Hat0 SOt; try discriminate.
@@ -714,10 +714,10 @@ Lemma lem_a21'' : forall lP atm beta lx W Iv Ip Ir,
 AT atm = true ->
 length lP = length lx ->
 consistent_lP_lx lP lx ->
-SOturnst W Iv (altered_Ip_list Ip
+SOturnst W Iv (alt_Ip_list Ip
    (vsS_pa_l Iv (FOv_att_P_l atm lP) lx) lP) Ir beta <->
 SOturnst W Iv
-  (altered_Ip_list Ip
+  (alt_Ip_list Ip
      (vsS_pa_l Iv (FOv_att_P_l atm (cap_pred lP (preds_in beta)))
         (cap_pred_lx lP (preds_in beta) lx))
      (cap_pred lP (preds_in beta))) Ir beta.
@@ -729,8 +729,8 @@ Proof.
     inversion Hl.
     simpl in *. case_eq (is_in_pred a (preds_in beta));
       intros Hin2. simpl.
-      rewrite altered_Ip__list_consistent_lP_lpa with (pa2 := pa_t).
-      rewrite altered_Ip__list_consistent_lP_lpa with (pa2 := pa_t).
+      rewrite alt_Ip__list_consistent_lP_lpa with (pa2 := pa_t).
+      rewrite alt_Ip__list_consistent_lP_lpa with (pa2 := pa_t).
       apply IHlP; try assumption.
       apply consistent_lP_lx_cons_rem_gen in Hcon. assumption.
 
@@ -752,7 +752,7 @@ Qed.
 
 Lemma lem_d62 : forall lP P x y W Iv Ip,
 is_in_pred P lP = true ->
-@altered_Ip_list W Ip
+@alt_Ip_list W Ip
   (vsS_pa_l Iv (FOv_att_P_l (predSO P x) lP)
      (list_Var (length lP) y)) lP P (Iv x).
 Proof.
@@ -838,7 +838,7 @@ Lemma hopeful9'_further' : forall atm lP x (y:FOvariable) (W : Set) Iv Ip Ir (pa
   AT atm = true ->
 is_in_pred_l (preds_in atm) lP = true ->
 SOturnst W Iv
-  (altered_Ip_list Ip
+  (alt_Ip_list Ip
      (vsS_pa_l Iv (FOv_att_P_l atm lP) (list_Var (length lP) x)) lP) Ir
   atm.
 Proof.
@@ -1000,14 +1000,14 @@ ex_FOvar_x_ll x (FOv_att_P_l atm lP) = false ->
   length lP2 = length llx2 ->
   @consistent_lP_lpa W pa2 lP pa_l ->
   length lP = length pa_l ->
-  SOturnst W Iv (altered_Ip_list Ip pa_l lP) Ir atm ->
+  SOturnst W Iv (alt_Ip_list Ip pa_l lP) Ir atm ->
   uniform_pos_SO beta ->
   is_in_pred_l (preds_in beta) (preds_in atm) = true ->
 SOturnst W Iv
-        (altered_Ip_list Ip
+        (alt_Ip_list Ip
            (vsS_pa_l Iv (FOv_att_P_l atm lP) (list_Var (length lP) x)) lP)
         Ir beta ->
-SOturnst W Iv (altered_Ip_list Ip pa_l lP) Ir beta.
+SOturnst W Iv (alt_Ip_list Ip pa_l lP) Ir beta.
 Proof.
   intros lP lP2 llx W Iv Ip Ir lpa beta atm x pa2 HAT Hnil Hex Hex2 Hcap Hlength Hcon Hlength2 SOt Hun Hin1 SOt2.
   pose proof (monotonicity_lP_SO' beta (cap_pred lP (preds_in beta))) as H.
@@ -1023,11 +1023,11 @@ Proof.
       apply lP_is_pos_SO_uni; try assumption.
 
     unfold alpha_upward_monotone_lP in H1.
-    specialize (H1 HlPpos W Iv Ir (altered_Ip_list Ip
+    specialize (H1 HlPpos W Iv Ir (alt_Ip_list Ip
             (vsS_pa_l Iv (FOv_att_P_l atm (cap_pred lP (preds_in beta))) 
             (list_Var (length (cap_pred lP (preds_in beta))) x))
             (cap_pred lP (preds_in beta)))
-     (altered_Ip_list Ip (cap_pred_lpa lpa lP (preds_in beta))
+     (alt_Ip_list Ip (cap_pred_lpa lpa lP (preds_in beta))
      (cap_pred lP (preds_in beta)))).
 
     apply H1.  
@@ -1072,28 +1072,28 @@ Lemma hopeful8_lP_again_mono_tryinggenlP: forall lP lP2 rel atm beta x llx W Iv 
   length lP = length llx ->
   ex_nil_in_llv llx = false ->
   uniform_pos_SO beta ->
-SOturnst W Iv (altered_Ip_list Ip
+SOturnst W Iv (alt_Ip_list Ip
   (vsS_pa_l Iv (FOv_att_P_l (conjSO rel atm) lP2) (list_Var (length lP2) x)) lP2) Ir
   (implSO (conjSO rel atm) beta) ->
   (forall pa_l,
       length lP2 = length pa_l ->
       @consistent_lP_lpa _ pa2 lP2 pa_l ->
-    SOturnst W Iv (altered_Ip_list Ip pa_l lP2) Ir (implSO (conjSO rel atm) beta)).
+    SOturnst W Iv (alt_Ip_list Ip pa_l lP2) Ir (implSO (conjSO rel atm) beta)).
 Proof.
    intros lP lP2 rel atm beta  x llx2 W Iv Ip Ir pa2 Hin3 HREL HAT Hin1 Hin2 Hex Hl1 Hex2 Hun SOt pa_l Hnil Hcon SOt1.
   case_eq lP2. intros HlP; rewrite HlP in *. simpl in *. 
-    rewrite altered_Ip_list_nil in *. apply SOt. assumption.
+    rewrite alt_Ip_list_nil in *. apply SOt. assumption.
   intros P lP' HlP. rewrite <- HlP.
   rewrite SOturnst_implSO in SOt.
   rewrite SOturnst_conjSO in *.
   destruct SOt1 as [SOt1 SOt2].
-  rewrite altered_Ip_rel with (Ip2 := Ip)  in SOt1 .
-  rewrite altered_Ip_rel with (Ip2 := Ip) in SOt.
+  rewrite alt_Ip_rel with (Ip2 := Ip)  in SOt1 .
+  rewrite alt_Ip_rel with (Ip2 := Ip) in SOt.
       assert (P_occurs_in_alpha rel P = false) as Hpocc.
         apply P_occurs_in_rel. assumption.
   assert (SOturnst W Iv Ip Ir rel /\
       SOturnst W Iv
-        (altered_Ip_list Ip
+        (alt_Ip_list Ip
            (vsS_pa_l Iv (FOv_att_P_l (conjSO rel atm) lP2) (list_Var (length lP2) x)) lP2)
         Ir atm) as Hass.
     apply conj. assumption.
@@ -1124,8 +1124,8 @@ apply hopeful9'_further'; try assumption.
   rewrite FOv_att_P_l_conjSO_rel in SOt.
   case_eq (cap_pred lP2 (preds_in beta)).
     intros Hcap.
-    apply altered_Ip_list_cap_pred_nil. assumption.
-    apply altered_Ip_list_cap_pred_nil in SOt; assumption.
+    apply alt_Ip_list_cap_pred_nil. assumption.
+    apply alt_Ip_list_cap_pred_nil in SOt; assumption.
 
     intros Q lQ HlQ. 
 case_eq lP.
@@ -1151,22 +1151,22 @@ Lemma hopeful8_lP_again_mono_tryinggenlP_atm: forall lP lP2 atm beta x llx W Iv 
   length lP = length llx ->
   ex_nil_in_llv llx = false ->
   uniform_pos_SO beta ->
-SOturnst W Iv (altered_Ip_list Ip
+SOturnst W Iv (alt_Ip_list Ip
   (vsS_pa_l Iv (FOv_att_P_l atm lP2) (list_Var (length lP2) x)) lP2) Ir
   (implSO atm beta) ->
   (forall pa_l,
       length lP2 = length pa_l ->
       @consistent_lP_lpa _ pa2 lP2 pa_l ->
-    SOturnst W Iv (altered_Ip_list Ip pa_l lP2) Ir (implSO atm beta)).
+    SOturnst W Iv (alt_Ip_list Ip pa_l lP2) Ir (implSO atm beta)).
 Proof.
    intros lP lP2 atm beta  x llx2 W Iv Ip Ir pa2 Hin3 HAT Hin1 Hin2 Hex Hl1 Hex2 Hun SOt pa_l Hnil Hcon SOt1.
   case_eq lP2. intros HlP; rewrite HlP in *. simpl in *. 
-    rewrite altered_Ip_list_nil in *. apply SOt. assumption.
+    rewrite alt_Ip_list_nil in *. apply SOt. assumption.
   intros P lP' HlP. rewrite <- HlP.
   rewrite SOturnst_implSO in SOt.
   assert (
       SOturnst W Iv
-        (altered_Ip_list Ip
+        (alt_Ip_list Ip
            (vsS_pa_l Iv (FOv_att_P_l atm lP2) (list_Var (length lP2) x)) lP2)
         Ir atm) as Hass.
       rewrite HAT.
@@ -1194,8 +1194,8 @@ apply hopeful9'_further'; try assumption.
   simpl in *.
   case_eq (cap_pred lP2 (preds_in beta)).
     intros Hcap.
-    apply altered_Ip_list_cap_pred_nil. assumption.
-    apply altered_Ip_list_cap_pred_nil in SOt; assumption.
+    apply alt_Ip_list_cap_pred_nil. assumption.
+    apply alt_Ip_list_cap_pred_nil in SOt; assumption.
 
     intros Q lQ HlQ. 
 case_eq lP.
@@ -1247,7 +1247,7 @@ assert (AT atm = true) as Hat'.
   apply (equiv_new_simpl3_lP _ _ _ _ _ _ _ _ pa_f) in SOt.
   apply nlist_list_closed_SO. intros pa_l. rewrite Hat in *.
 
-pose proof (altered_Ip_list_consistent_lP_lpa' lP W Ip (nlist_list_pa W (length lP) pa_l) pa2)
+pose proof (alt_Ip_list_consistent_lP_lpa' lP W Ip (nlist_list_pa W (length lP) pa_l) pa2)
   as Halt.
 rewrite length_nlist_list_pa in Halt. specialize (Halt eq_refl).
 destruct Halt as [lpa' [Hcon [Hl2 Halt]]].
@@ -1379,7 +1379,7 @@ assert (AT atm = true) as Hat'.
   apply (equiv_new_simpl3_lP _ _ _ _ _ _ _ _ pa_f) in SOt.
   apply nlist_list_closed_SO. intros pa_l. rewrite Hat in *.
 
-pose proof (altered_Ip_list_consistent_lP_lpa' lP W Ip (nlist_list_pa W (length lP) pa_l) pa2)
+pose proof (alt_Ip_list_consistent_lP_lpa' lP W Ip (nlist_list_pa W (length lP) pa_l) pa2)
   as Halt.
 rewrite length_nlist_list_pa in Halt. specialize (Halt eq_refl).
 destruct Halt as [lpa' [Hcon [Hl2 Halt]]].

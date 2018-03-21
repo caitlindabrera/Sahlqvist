@@ -225,8 +225,8 @@ Definition closed_except (alpha : SecOrder) (x : FOvariable) : Prop :=
 
 Lemma hopeful4 : forall alpha x y W Iv Ip Ir d,
   x_occ_in_alpha alpha y = false ->
-  SOturnst W (altered_Iv Iv d y) Ip Ir (rename_FOv alpha x y) <->
-  SOturnst W (altered_Iv Iv d x) Ip Ir alpha.
+  SOturnst W (alt_Iv Iv d y) Ip Ir (rename_FOv alpha x y) <->
+  SOturnst W (alt_Iv Iv d x) Ip Ir alpha.
 Proof.
   induction alpha; intros [xn] [ym] W Iv Ip Ir d Hocc.
     destruct p; destruct f as [zn].
@@ -298,7 +298,7 @@ Proof.
       split ;intros SOt d2;
         specialize (SOt d2);
         rewrite (beq_nat_true _ _ Hbeq2) in *;
-        rewrite altered_Iv_eq in *;
+        rewrite alt_Iv_eq in *;
         apply (IHalpha (Var xn) (Var ym) W _ Ip Ir d2 Hocc);
         apply SOt.
 
@@ -311,7 +311,7 @@ Proof.
         rewrite H' in Hbeq2. rewrite <- beq_nat_refl in Hbeq2.
         discriminate.
       split; intros SOt d2; specialize (SOt d2);
-        rewrite altered_Iv_switch in *.
+        rewrite alt_Iv_switch in *.
         apply (IHalpha (Var xn) (Var ym) W _ Ip Ir _ Hocc).
         all : try assumption. 
 
@@ -327,7 +327,7 @@ Proof.
       split ;intros SOt; destruct SOt as [d2 SOt];
         exists d2;
         rewrite (beq_nat_true _ _ Hbeq2) in *;
-        rewrite altered_Iv_eq in *;
+        rewrite alt_Iv_eq in *;
         apply (IHalpha (Var xn) (Var ym) W _ Ip Ir d2 Hocc);
         apply SOt.
 
@@ -341,7 +341,7 @@ Proof.
         discriminate.
       split; intros SOt; destruct SOt as [d2 SOt];
         exists d2;
-        rewrite altered_Iv_switch in *.
+        rewrite alt_Iv_switch in *.
         apply (IHalpha (Var xn) (Var ym) W _ Ip Ir _ Hocc).
         all : try assumption. 
 

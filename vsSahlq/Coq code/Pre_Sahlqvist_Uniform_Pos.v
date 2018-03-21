@@ -35,7 +35,7 @@ Lemma rep_pred_false_pa_f : forall (alpha : SecOrder)  (W : Set) (Iv : FOvariabl
   SOQFree alpha = true ->
   SOturnst W Iv Ip Ir (replace_pred alpha P (Var 1)
                           (negSO (eqFO (Var 1) (Var 1)))) <->
-  SOturnst W Iv (altered_Ip Ip pa_f P) Ir alpha.
+  SOturnst W Iv (alt_Ip Ip pa_f P) Ir alpha.
 Proof.
   induction alpha; intros W Iv Ip Ir P noSO;
     try destruct P as [Pn]; try destruct p as [Qm];

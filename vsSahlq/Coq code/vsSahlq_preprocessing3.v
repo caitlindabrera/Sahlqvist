@@ -36,13 +36,13 @@ Proof.
     split; intros SOt.
       apply IHl.
       specialize (SOt (Ip (Pred Pn))).
-      rewrite unaltered_fun in SOt.
+      rewrite unalt_fun in SOt.
       assumption.
 
       intros pa.
       apply IHl.
       pose proof (Ip_uni_closed W alpha Iv Ip 
-        (altered_Ip Ip pa (Pred Pn))) as H2.
+        (alt_Ip Ip pa (Pred Pn))) as H2.
       apply H2. assumption.
 Qed.
 
@@ -217,13 +217,13 @@ Proof.
       rewrite SOturnst_exFO.
       exists d. assumption.
     specialize (H SOt').
-    apply altered_Iv_equiv; assumption.
+    apply alt_Iv_equiv; assumption.
 
     intros SOt.
     rewrite SOturnst_exFO in SOt.
     destruct SOt as [d SOt].
     specialize (H d SOt).
-    apply altered_Iv_equiv in H; assumption.
+    apply alt_Iv_equiv in H; assumption.
 Qed.
 
 Lemma equiv_implSO2 : forall alpha beta gamma,

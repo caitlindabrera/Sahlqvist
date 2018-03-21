@@ -98,7 +98,7 @@ Qed.
 Lemma lemma17_pre : forall l P x W Iv Ip Ir w pa,
   ~ l = nil ->
   is_in_FOvar x l = false ->
-  SOturnst W Iv (altered_Ip Ip pa P) Ir (passing_conj (passing_predSO_l P l)) ->
+  SOturnst W Iv (alt_Ip Ip pa P) Ir (passing_conj (passing_predSO_l P l)) ->
   CM_pa2_l_gen Iv l x w ->
   pa w.
 Proof.
@@ -173,7 +173,7 @@ Lemma lemma17_again : forall lP llx P x W Iv Ip Ir pa w,
   ex_nil_in_llv llx = false ->
   is_in_FOvar x (fun2 (passing_conj (passing_predSO_ll lP llx)) P)  = false ->
   P_occurs_in_alpha (passing_conj (passing_predSO_ll lP llx)) P = true ->
-  SOturnst W Iv (altered_Ip Ip pa P) Ir (passing_conj (passing_predSO_ll lP llx)) ->
+  SOturnst W Iv (alt_Ip Ip pa P) Ir (passing_conj (passing_predSO_ll lP llx)) ->
   CM_pa2_l_gen Iv (fun2 (passing_conj (passing_predSO_ll lP llx)) P) x w ->
   pa w.
 Proof.
@@ -668,7 +668,7 @@ Lemma lemma17' : forall atm P x W Iv Ip Ir pa w,
   AT atm = true ->
   P_occurs_in_alpha atm P = true ->
   is_in_FOvar x (fun2 atm P) = false ->
-  SOturnst W Iv (altered_Ip Ip pa P) Ir atm ->
+  SOturnst W Iv (alt_Ip Ip pa P) Ir atm ->
   CM_pa2_l_gen Iv (fun2 atm P) x w ->
   pa w.
 Proof.
@@ -723,9 +723,9 @@ Qed.
 
 Lemma lemma_try4 : forall lP alpha P x W Iv Ip w,
   P_occurs_in_l lP P = true ->
-  @altered_Ip_list W Ip 
+  @alt_Ip_list W Ip 
     (vsS_pa_l Iv (FOv_att_P_l alpha lP) (list_Var (length lP) x)) lP P w =
-  altered_Ip Ip (CM_pa2_l_gen Iv (fun2 alpha P) x) P P w.
+  alt_Ip Ip (CM_pa2_l_gen Iv (fun2 alpha P) x) P P w.
 Proof.
   induction lP; intros alpha P x W Iv Ip w Hpocc.
     simpl in *. discriminate.
@@ -848,8 +848,8 @@ Qed.
 
 Lemma lem_a2 : forall lP P Q W Ip pa lpa',
 ~ P = Q ->
-@altered_Ip_list W Ip (fun_change_ln lpa' (indicies_l2 lP P) pa) lP Q
- = altered_Ip_list Ip lpa' lP Q.
+@alt_Ip_list W Ip (fun_change_ln lpa' (indicies_l2 lP P) pa) lP Q
+ = alt_Ip_list Ip lpa' lP Q.
 Proof.
   induction lP; intros [Pn] [Qm] W Ip pa lpa' Hneq.
     simpl in *. reflexivity.
@@ -886,8 +886,8 @@ Proof.
 Qed.
 
 Lemma lem_a1 : forall lP P W Ip pa lpa',
-@altered_Ip W (altered_Ip_list Ip lpa' lP) pa P =
-altered_Ip (altered_Ip_list Ip (fun_change_ln lpa' (indicies_l2 lP P) pa) lP)
+@alt_Ip W (alt_Ip_list Ip lpa' lP) pa P =
+alt_Ip (alt_Ip_list Ip (fun_change_ln lpa' (indicies_l2 lP P) pa) lP)
   pa P.
 Proof.
   intros.
@@ -1192,20 +1192,20 @@ Proof.
   simpl. rewrite length_fun_change. apply IHln.
 Qed. 
 
-Lemma altered_Ip_list_consistent_lP_lpa' : forall lP (W : Set) Ip lpa pa2,
+Lemma alt_Ip_list_consistent_lP_lpa' : forall lP (W : Set) Ip lpa pa2,
   length lP = length lpa ->
   exists lpa',
     @consistent_lP_lpa W pa2 lP lpa' /\
     length lP = length lpa' /\
-    altered_Ip_list Ip lpa lP =
-    altered_Ip_list Ip lpa' lP.
+    alt_Ip_list Ip lpa lP =
+    alt_Ip_list Ip lpa' lP.
 Proof.
   induction lP; intros W Ip lpa pa2 Hlength.
     exists nil. simpl. apply conj.
       apply consistent_lP_lpa_nil_l.
       apply conj. reflexivity.
 
-      apply altered_Ip_list_nil.
+      apply alt_Ip_list_nil.
 
     destruct lpa. discriminate.
     simpl. destruct (IHlP W Ip lpa pa2) as [lpa' [Hcon [Hl Halt]]].
@@ -1348,16 +1348,16 @@ Proof.
   reflexivity.
 Qed.
 
-Lemma altered_Ip_alt_list_alt_same : forall lP W Ip lpa pa pa2 P,
-  @altered_Ip W (altered_Ip_list (altered_Ip Ip pa P) lpa lP) pa2 P =
-  altered_Ip (altered_Ip_list Ip lpa lP) pa2 P.
+Lemma alt_Ip_alt_list_alt_same : forall lP W Ip lpa pa pa2 P,
+  @alt_Ip W (alt_Ip_list (alt_Ip Ip pa P) lpa lP) pa2 P =
+  alt_Ip (alt_Ip_list Ip lpa lP) pa2 P.
 Proof.
   induction lP; intros W Ip lpa pa pa2 P.
-    rewrite altered_Ip_list_nil.
-    rewrite altered_Ip_list_nil. rewrite altered_Ip_eq.
+    rewrite alt_Ip_list_nil.
+    rewrite alt_Ip_list_nil. rewrite alt_Ip_eq.
     reflexivity.
 
-    destruct lpa. simpl. rewrite altered_Ip_eq.
+    destruct lpa. simpl. rewrite alt_Ip_eq.
       reflexivity.
 
       simpl. destruct a as [Qm]. destruct P as [Pn].
@@ -1365,8 +1365,8 @@ Proof.
         rewrite (beq_nat_true _ _ Hbeq).
         rewrite IHlP. reflexivity.
 
-        rewrite <- altered_Ip_switch. rewrite IHlP.
-        rewrite <- altered_Ip_switch. reflexivity.
+        rewrite <- alt_Ip_switch. rewrite IHlP.
+        rewrite <- alt_Ip_switch. reflexivity.
         apply beq_nat_false. assumption.
         apply beq_nat_false. rewrite beq_nat_comm. assumption.
 Qed.
@@ -1386,24 +1386,24 @@ Proof.
   assumption.
 Qed.
 
-Lemma altered_Ip__list_consistent_lP_lpa : forall lP P W Ip lpa pa pa2,
+Lemma alt_Ip__list_consistent_lP_lpa : forall lP P W Ip lpa pa pa2,
   @consistent_lP_lpa W pa2 (cons P lP) (cons pa lpa) ->
-  altered_Ip (altered_Ip_list Ip lpa lP) pa P =
-  altered_Ip_list (altered_Ip Ip pa P) lpa lP.
+  alt_Ip (alt_Ip_list Ip lpa lP) pa P =
+  alt_Ip_list (alt_Ip Ip pa P) lpa lP.
 Proof.
   induction lP; intros P W Ip lpa pa pa2 Hcon .
-    do 2 rewrite altered_Ip_list_nil. reflexivity.
+    do 2 rewrite alt_Ip_list_nil. reflexivity.
 
     destruct lpa. simpl. reflexivity.
     simpl. destruct P as [Pn]. destruct a as [Qm].
     case_eq (beq_nat Pn Qm); intros Hbeq.
       rewrite (beq_nat_true _ _ Hbeq) in *.
       apply consistent_lP_lpa_cons_cons_same in Hcon.
-      rewrite Hcon. rewrite altered_Ip_eq.
-      rewrite altered_Ip_alt_list_alt_same. reflexivity.
+      rewrite Hcon. rewrite alt_Ip_eq.
+      rewrite alt_Ip_alt_list_alt_same. reflexivity.
 
       specialize (IHlP (Pred Pn) W Ip lpa pa pa2).
-      rewrite <- IHlP. rewrite altered_Ip_switch.
+      rewrite <- IHlP. rewrite alt_Ip_switch.
       reflexivity.
 
       intros H. rewrite H in *.  rewrite <- beq_nat_refl in *.
@@ -1770,8 +1770,8 @@ Qed.
 Lemma lem_a13 : forall lP W Ip pa lpa P,
   length lP = length lpa ->
   is_in_pred P lP = true ->
-  @altered_Ip_list W (altered_Ip Ip pa P) lpa lP =
-  altered_Ip_list Ip lpa lP.
+  @alt_Ip_list W (alt_Ip Ip pa P) lpa lP =
+  alt_Ip_list Ip lpa lP.
 Proof.
   induction lP; intros W Ip pa lpa [Pn] Hlength Hin.
     simpl in *. discriminate.
@@ -1781,22 +1781,22 @@ Proof.
     inversion Hlength as [Hl].
     case_eq (beq_nat Pn Qm); intros Hbeq;
       rewrite Hbeq in *.
-      rewrite altered_Ip_list_cons. 
-      rewrite altered_Ip_list_cons. 
+      rewrite alt_Ip_list_cons. 
+      rewrite alt_Ip_list_cons. 
       rename P into pa2.
       case_eq (is_in_pred (Pred Pn) lP);
         intros Hin2.
         rewrite IHlP. reflexivity. assumption.
         assumption.
 
-        rewrite altered_Ip__list_occ_f.
+        rewrite alt_Ip__list_occ_f.
         rewrite (beq_nat_true _ _ Hbeq).
-        rewrite altered_Ip_eq. reflexivity.
+        rewrite alt_Ip_eq. reflexivity.
         rewrite occ_in_l_is_in_pred. assumption.
 
 
-      rewrite altered_Ip_list_cons. 
-      rewrite altered_Ip_list_cons. 
+      rewrite alt_Ip_list_cons. 
+      rewrite alt_Ip_list_cons. 
       rename P into pa2.
       rewrite IHlP. reflexivity. assumption.
       assumption.
@@ -1926,19 +1926,19 @@ Lemma lemma_try7_again : forall lP atm W Ip Iv Ir pa_l x pa2 lP0 pa_l0,
   AT atm = true ->
   is_in_pred_l lP (preds_in atm) = true ->
   ex_FOvar_x_ll x (FOv_att_P_l atm lP) = false ->
-  SOturnst W Iv (altered_Ip_list Ip pa_l0 lP0) Ir atm ->
+  SOturnst W Iv (alt_Ip_list Ip pa_l0 lP0) Ir atm ->
   is_in_pred_l lP lP0 = true ->
   @consistent_lP_lpa _ pa2 (app lP lP0) (app pa_l pa_l0) ->
   length lP0 = length pa_l0 ->
   length lP = length pa_l ->
   @consistent_lP_lpa _ pa2 lP pa_l ->
 Ip_extends_l W
-  (altered_Ip_list Ip
+  (alt_Ip_list Ip
      (vsS_pa_l Iv (FOv_att_P_l atm lP) (list_Var (length lP) x)) lP)
-  (altered_Ip_list Ip pa_l lP) lP.
+  (alt_Ip_list Ip pa_l lP) lP.
 Proof.
   induction lP; intros atm W Ip Iv Ir lpa x pa2 lP0 lpa0 Hat Hin Hex SOt Hin4 Hcon4 Hlength4 Hlength Hcon.
-    simpl in *. rewrite altered_Ip_list_nil. apply Ip_extends_l_refl.
+    simpl in *. rewrite alt_Ip_list_nil. apply Ip_extends_l_refl.
 
     destruct lpa. discriminate. simpl in *.
     unfold Ip_extends_l. rename P into pa. rename a into P.
@@ -1953,18 +1953,18 @@ assert (@consistent_lP_lpa _ pa2 lP lpa) as Hcon2.
       simpl in Hpocc. simpl in Halt. simpl. rewrite beq_nat_comm in Hpocc.
       case_eq (beq_nat Pn Qm); intros Hbeq; rewrite Hbeq in *.
 
-        apply lemma17' with (Ip := (altered_Ip_list Ip lpa0 lP0)) (Ir := Ir) (pa := pa) in Halt;
+        apply lemma17' with (Ip := (alt_Ip_list Ip lpa0 lP0)) (Ir := Ir) (pa := pa) in Halt;
         try assumption.
 
         rewrite <- P_occ_in_alpha_is_in_pred_equiv. assumption.
 
         inversion Hlength.
-assert ((altered_Ip (altered_Ip_list Ip lpa0 lP0) pa (Pred Pn)) =
-  ((altered_Ip_list (altered_Ip Ip pa (Pred Pn)) lpa0 lP0))) as Hass.
+assert ((alt_Ip (alt_Ip_list Ip lpa0 lP0) pa (Pred Pn)) =
+  ((alt_Ip_list (alt_Ip Ip pa (Pred Pn)) lpa0 lP0))) as Hass.
   apply lem_a14 in Hcon4.
   apply lem_a15 in Hcon4.
   apply lem_a16 in Hcon4.
-  apply altered_Ip__list_consistent_lP_lpa with (pa2 := pa2).
+  apply alt_Ip__list_consistent_lP_lpa with (pa2 := pa2).
   all : try assumption.
   simpl. rewrite Hlength4. reflexivity. simpl in *. rewrite Hlength4.
     reflexivity.
@@ -2362,12 +2362,12 @@ Qed.
 Lemma lem_a19 : forall lP W Iv Ip Ir pa_l beta pa2,
   length lP = length pa_l ->
   @consistent_lP_lpa W pa2 lP pa_l ->
-  SOturnst W Iv (altered_Ip_list Ip pa_l lP) Ir beta <->
-  SOturnst W Iv (altered_Ip_list Ip (cap_pred_lpa pa_l lP (preds_in beta)) 
+  SOturnst W Iv (alt_Ip_list Ip pa_l lP) Ir beta <->
+  SOturnst W Iv (alt_Ip_list Ip (cap_pred_lpa pa_l lP (preds_in beta)) 
      (cap_pred lP (preds_in beta))) Ir beta.
 Proof.
   induction lP; intros W Iv Ip Ir pa_l beta pa2 Hl Hcon.
-    simpl in *. do 2 rewrite altered_Ip_list_nil.
+    simpl in *. do 2 rewrite alt_Ip_list_nil.
     apply iff_refl.
 
     destruct pa_l. simpl. apply iff_refl.
@@ -2375,8 +2375,8 @@ Proof.
     pose proof Hcon as Hcon'.
     apply consistent_lP_lpa_cons_rem in Hcon.
     simpl. case_eq (is_in_pred a (preds_in beta)); intros Hin.
-      simpl. rewrite altered_Ip__list_consistent_lP_lpa with (pa2:=pa2).
-      rewrite altered_Ip__list_consistent_lP_lpa with (pa2:=pa2).
+      simpl. rewrite alt_Ip__list_consistent_lP_lpa with (pa2:=pa2).
+      rewrite alt_Ip__list_consistent_lP_lpa with (pa2:=pa2).
       apply IHlP with (pa2 := pa2).  assumption. assumption. 
 
       pose proof (consistent_lP_lpa_cap_pred (cons a lP) (preds_in beta)  W (cons P pa_l) pa2) as H.
@@ -2490,10 +2490,10 @@ Qed.
 
 Lemma lem_a21 : forall lP atm beta x W Iv Ip Ir,
 AT atm = true ->
-SOturnst W Iv (altered_Ip_list Ip
+SOturnst W Iv (alt_Ip_list Ip
    (vsS_pa_l Iv (FOv_att_P_l atm lP) (list_Var (length lP) x)) lP) Ir beta ->
 SOturnst W Iv
-  (altered_Ip_list Ip
+  (alt_Ip_list Ip
      (vsS_pa_l Iv (FOv_att_P_l atm (cap_pred lP (preds_in beta)))
         (list_Var (length (cap_pred lP (preds_in beta))) x))
      (cap_pred lP (preds_in beta))) Ir beta.
@@ -2503,8 +2503,8 @@ Proof.
   
     simpl in *. case_eq (is_in_pred a (preds_in beta));
       intros Hin2. simpl.
-      rewrite altered_Ip__list_consistent_lP_lpa with (pa2 := pa_t).
-      rewrite altered_Ip__list_consistent_lP_lpa with (pa2 := pa_t) in SOt.
+      rewrite alt_Ip__list_consistent_lP_lpa with (pa2 := pa_t).
+      rewrite alt_Ip__list_consistent_lP_lpa with (pa2 := pa_t) in SOt.
       apply IHlP; try assumption. 
 
       pose proof (lem_a27 (cons a lP)) as H. simpl in H.
@@ -2548,13 +2548,13 @@ Proof.
       apply IHlP. assumption.
 Qed.
 
-Lemma altered_Ip_list_cap_pred_nil :  forall lP beta W Iv Ip Ir lpa,
+Lemma alt_Ip_list_cap_pred_nil :  forall lP beta W Iv Ip Ir lpa,
   cap_pred lP (preds_in beta) = nil ->
-  (SOturnst W Iv (altered_Ip_list Ip lpa lP) Ir beta <->
+  (SOturnst W Iv (alt_Ip_list Ip lpa lP) Ir beta <->
   SOturnst W Iv Ip Ir beta).
 Proof.
   induction lP; intros beta W Iv Ip Ir lpa H.
-    rewrite altered_Ip_list_nil. apply iff_refl.
+    rewrite alt_Ip_list_nil. apply iff_refl.
 
     destruct lpa. simpl. apply iff_refl.
     simpl in H.

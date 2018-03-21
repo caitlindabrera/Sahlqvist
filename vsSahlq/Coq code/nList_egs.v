@@ -64,7 +64,7 @@ Fixpoint alt_Ip_l {W : Set} (Ip : predicate -> W -> Prop) (l : list predicate)
   match l, lpa with
   | nil, _ => Ip
   | _, nil => Ip
-  | cons P l', cons pa lpa' => alt_Ip_l (altered_Ip Ip pa P) l' lpa' 
+  | cons P l', cons pa lpa' => alt_Ip_l (alt_Ip Ip pa P) l' lpa' 
   end.
 
 Definition alt_Ip_pa_f {W : Set} (Ip : predicate -> W -> Prop) 

@@ -86,7 +86,7 @@ Lemma Ip_ext_pa_f : forall (W : Set)
                     (Ip : predicate -> W -> Prop)
                     (P : predicate)
                     (pa : W -> Prop),
-  Ip_extends W (altered_Ip Ip pa_f P) (altered_Ip Ip pa P) P.
+  Ip_extends W (alt_Ip Ip pa_f P) (alt_Ip Ip pa P) P.
 Proof.
   intros W Ip P pa.
   unfold Ip_extends.
@@ -117,8 +117,8 @@ Lemma mono1 : forall (W : Set) (Iv : FOvariable -> W)
                     (alpha : SecOrder) (P : predicate)
                     (pa : W -> Prop),
   P_is_pos_SO alpha P ->
-  SOturnst W Iv (altered_Ip Ip pa_f P) Ir alpha ->
-  SOturnst W Iv (altered_Ip Ip pa P) Ir alpha.
+  SOturnst W Iv (alt_Ip Ip pa_f P) Ir alpha ->
+  SOturnst W Iv (alt_Ip Ip pa P) Ir alpha.
 Proof.
   intros W Iv Ip Ir alpha P pa Hpos Hf.
   pose proof monotonicity_SO as H.
@@ -126,7 +126,7 @@ Proof.
   pose proof (P_is_pos_occ _ _ Hpos) as H2.
   specialize (H alpha P H2).
   destruct H as [Ha Hb].
-  apply Ha with (Ip := (altered_Ip Ip pa_f P));
+  apply Ha with (Ip := (alt_Ip Ip pa_f P));
   try assumption.
   apply Ip_ext_pa_f.
 Qed.
@@ -140,7 +140,7 @@ Lemma step1_empty : forall (W : Set) (Iv : FOvariable -> W)
   SOturnst W Iv Ip Ir (replace_pred alpha P (Var 1)
                           (negSO (eqFO (Var 1) (Var 1)))) ->
     forall pa : W -> Prop,
-      SOturnst W Iv (altered_Ip Ip pa P) Ir alpha.
+      SOturnst W Iv (alt_Ip Ip pa P) Ir alpha.
 Proof.
   intros W Iv Ip Ir alpha P SOQFree Hpos SOt pa.
   apply rep_pred_false_pa_f in SOt; try assumption.
@@ -158,20 +158,20 @@ Lemma step2_empty : forall (l : list predicate)
           (nlist_list _ (nlist_Var1 (length l)))
           (nlist_list _ (nlist_empty (length l))))) ->
   forall pa_l : nlist_pa W (length l),
-    SOturnst W Iv (altered_Ip_list Ip
+    SOturnst W Iv (alt_Ip_list Ip
      (nlist_list_pa W (length l) pa_l) l) Ir alpha.
 Proof.
   induction l;
     intros W Iv Ip Ir alpha Hno Huni SOt pa_l.
     simpl in *.
-    rewrite altered_Ip_list_nil.
+    rewrite alt_Ip_list_nil.
     apply SOt.
 
     simpl in pa_l.
     destruct (nlist_cons W (length l) pa_l) as [pa [pa_l' Heq]].
     rewrite Heq in *.
     simpl nlist_list_pa in *.
-    simpl altered_Ip_list in *.
+    simpl alt_Ip_list in *.
     simpl nlist_list in *.
     simpl replace_pred_l in *.
     case_eq (P_occurs_in_alpha alpha a); intros HPocc.

@@ -27,13 +27,13 @@ Inductive SecOrder :=
 (* SO Semantics *)
 
 (* Semantics requires ability to change interpretation on variables slightly: *)
-Fixpoint altered_Iv {D:Set} (Iv: FOvariable -> D) (d:D) (x:FOvariable) (y:FOvariable) : D :=
+Fixpoint alt_Iv {D:Set} (Iv: FOvariable -> D) (d:D) (x:FOvariable) (y:FOvariable) : D :=
   match y, x with 
     Var m, Var n=> (if beq_nat n m then d else (Iv (Var m)))
   end.
 
 (* Semantics requires ability to change interpretation on predicates slightly: *)
-Fixpoint altered_Ip {D:Set} (Ip: predicate -> D -> Prop) (pred_asgmt: D -> Prop) 
+Fixpoint alt_Ip {D:Set} (Ip: predicate -> D -> Prop) (pred_asgmt: D -> Prop) 
                       (P: predicate) (Q: predicate) : D -> Prop :=
   match Q, P with
     Pred m, Pred n => (if beq_nat n m then pred_asgmt else Ip (Pred m))
@@ -49,16 +49,16 @@ Fixpoint SOturnst (D:Set) (Iv: FOvariable -> D) (Ip: predicate -> D -> Prop) (Ir
     predSO P x => (Ip P (Iv x))
   | relatSO x y => (Ir (Iv x) (Iv y))
   | eqFO x y => (Iv x) = (Iv y)
-  | allFO x beta => forall d:D, SOturnst D (altered_Iv Iv d x) Ip Ir beta
-  | exFO x beta => (exists d:D, SOturnst D (altered_Iv Iv d x) Ip Ir beta)
+  | allFO x beta => forall d:D, SOturnst D (alt_Iv Iv d x) Ip Ir beta
+  | exFO x beta => (exists d:D, SOturnst D (alt_Iv Iv d x) Ip Ir beta)
   | negSO beta => ~ SOturnst D Iv Ip Ir beta
   | conjSO beta1 beta2 => (SOturnst D Iv Ip Ir beta1) /\ (SOturnst D Iv Ip Ir beta2)
   | disjSO beta1 beta2 => (SOturnst D Iv Ip Ir beta1) \/ (SOturnst D Iv Ip Ir beta2)
   | implSO beta1 beta2 => (SOturnst D Iv Ip Ir beta1) -> (SOturnst D Iv Ip Ir beta2)
   | allSO P beta => forall (pred_asgmt: D -> Prop), 
-                               SOturnst D Iv (altered_Ip Ip pred_asgmt P) Ir beta
+                               SOturnst D Iv (alt_Ip Ip pred_asgmt P) Ir beta
   | exSO P beta => (exists (pred_asgmt: D -> Prop), 
-                              (SOturnst D Iv (altered_Ip Ip pred_asgmt P) Ir beta))
+                              (SOturnst D Iv (alt_Ip Ip pred_asgmt P) Ir beta))
   end.
 
 
@@ -69,7 +69,7 @@ Fixpoint SOturnst (D:Set) (Iv: FOvariable -> D) (Ip: predicate -> D -> Prop) (Ir
 Lemma SOturnst_allFO : forall (D:Set) (Iv: FOvariable -> D) (Ip: predicate -> D -> Prop) (Ir: D -> D -> Prop)
                               (x:FOvariable) (beta:SecOrder), 
                                    (SOturnst D Iv Ip Ir (allFO x beta)) 
-                                        = (forall (d:D), SOturnst D (altered_Iv Iv d x) Ip Ir beta).
+                                        = (forall (d:D), SOturnst D (alt_Iv Iv d x) Ip Ir beta).
 Proof.
   intros D Iv Ip Ir x beta; destruct x.
   simpl; reflexivity.
@@ -78,7 +78,7 @@ Qed.
 Lemma SOturnst_exFO : forall (D:Set) (Iv: FOvariable -> D) (Ip: predicate -> D -> Prop) (Ir: D -> D -> Prop)
                               (x:FOvariable) (beta:SecOrder), 
                                    (SOturnst D Iv Ip Ir (exFO x beta)) 
-                                        = (exists (d:D), (SOturnst D (altered_Iv Iv d x) Ip Ir beta)).
+                                        = (exists (d:D), (SOturnst D (alt_Iv Iv d x) Ip Ir beta)).
 Proof.
   intros D Iv Ip Ir x beta; destruct x.
   simpl; reflexivity.
@@ -115,7 +115,7 @@ Qed.
 Lemma SOturnst_allSO : forall (D:Set) (Iv:FOvariable -> D) (Ip: predicate -> D -> Prop) 
                         (Ir: D -> D -> Prop) (P: predicate) (beta : SecOrder), 
          SOturnst D Iv Ip Ir (allSO P beta) = (forall (pred_asgmt: D -> Prop), 
-                               SOturnst D Iv (altered_Ip Ip pred_asgmt P) Ir beta).
+                               SOturnst D Iv (alt_Ip Ip pred_asgmt P) Ir beta).
 Proof.
   intros D Iv Ip Ir P beta.
   destruct P.
@@ -125,7 +125,7 @@ Qed.
 Lemma SOturnst_exSO : forall (D:Set) (Iv:FOvariable -> D) (Ip: predicate -> D -> Prop) 
                         (Ir: D -> D -> Prop) (P: predicate) (beta : SecOrder), 
          SOturnst D Iv Ip Ir (exSO P beta) = (exists (pred_asgmt: D -> Prop), 
-                               SOturnst D Iv (altered_Ip Ip pred_asgmt P) Ir beta).
+                               SOturnst D Iv (alt_Ip Ip pred_asgmt P) Ir beta).
 Proof.
   intros D Iv Ip Ir P beta.
   destruct P.
@@ -172,8 +172,8 @@ Definition uni_closed_SO (alpha:SecOrder) : SecOrder := list_closed_SO alpha (pr
 
 (* -------------------------------------------------------------------------------------------- *)
 
-Lemma unaltered_fun : forall (D:Set) (Ip: predicate -> D -> Prop) (P: predicate),
-                      (altered_Ip Ip (Ip P) P) = Ip.
+Lemma unalt_fun : forall (D:Set) (Ip: predicate -> D -> Prop) (P: predicate),
+                      (alt_Ip Ip (Ip P) P) = Ip.
 Proof.
   intros.
   apply functional_extensionality; intros.
@@ -192,8 +192,8 @@ Proof.
     reflexivity.
 Qed.
 
-Lemma unaltered_fun_Iv : forall (D:Set) (Iv: FOvariable -> D) (x : FOvariable),
-                      (altered_Iv Iv (Iv x) x) = Iv.
+Lemma unalt_fun_Iv : forall (D:Set) (Iv: FOvariable -> D) (x : FOvariable),
+                      (alt_Iv Iv (Iv x) x) = Iv.
 Proof.
   intros.
   apply functional_extensionality; intros y.

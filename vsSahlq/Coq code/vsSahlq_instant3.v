@@ -593,7 +593,7 @@ Qed.
 
 Lemma try : forall lv x (W : Set) Iv (d : W),
   is_in_var x lv = false ->
-  CM_pa2_l Iv lv = CM_pa2_l (altered_Iv Iv d x) lv.
+  CM_pa2_l Iv lv = CM_pa2_l (alt_Iv Iv d x) lv.
 Proof.
   induction lv; intros x W Iv d Hin.
     simpl in *. reflexivity.
@@ -829,7 +829,7 @@ Lemma equiv_new_simpl1 : forall alpha P lv x W Iv Ip Ir,
   SOQFree_P alpha P = true ->
   ex_attached_allFO_lv alpha lv = false ->
   ex_attached_exFO_lv alpha lv = false ->
-    SOturnst W Iv (altered_Ip Ip (CM_pa2_l Iv lv) P) Ir alpha <->
+    SOturnst W Iv (alt_Ip Ip (CM_pa2_l Iv lv) P) Ir alpha <->
     SOturnst W Iv Ip Ir (replace_pred alpha P x (fun1 lv x)).
 Proof.
   induction alpha; intros [Pn] lv [xn] W Iv Ip Ir Hin HSO Hat1 Hat2.
@@ -926,12 +926,12 @@ Proof.
     split; intros SOt pa.
       apply (IHalpha (Pred Pn) lv (Var xn)
           W Iv _ Ir Hin HSO); try assumption.
-      rewrite altered_Ip_switch.
+      rewrite alt_Ip_switch.
       apply SOt.
         intros H; rewrite H in Hbeq.
         rewrite <- beq_nat_refl in Hbeq. discriminate.
 
-      rewrite altered_Ip_switch.
+      rewrite alt_Ip_switch.
       apply (IHalpha (Pred Pn) lv (Var xn)
           W Iv _ Ir Hin HSO); try assumption.
       apply SOt.
@@ -948,12 +948,12 @@ Proof.
     split; intros [pa SOt]; exists pa.
       apply (IHalpha (Pred Pn) lv (Var xn)
           W Iv _ Ir Hin HSO); try assumption.
-      rewrite altered_Ip_switch.
+      rewrite alt_Ip_switch.
       apply SOt.
         intros H; rewrite H in Hbeq.
         rewrite <- beq_nat_refl in Hbeq. discriminate.
 
-      rewrite altered_Ip_switch.
+      rewrite alt_Ip_switch.
       apply (IHalpha (Pred Pn) lv (Var xn)
           W Iv _ Ir Hin HSO); try assumption.
         intros H; rewrite H in Hbeq.
@@ -998,7 +998,7 @@ Lemma equiv_new_simpl_try2 : forall alpha P lv x W Iv Ip Ir,
   SOQFree_P alpha P = true ->
   ex_attached_allFO_lv alpha lv = false ->
   ex_attached_exFO_lv alpha lv = false ->
-    SOturnst W Iv (altered_Ip Ip pa_t P) Ir alpha <->
+    SOturnst W Iv (alt_Ip Ip pa_t P) Ir alpha <->
     SOturnst W Iv Ip Ir (replace_pred alpha P x (fun1 lv x)).
 Proof.
   induction alpha; intros [Pn] lv [xn] W Iv Ip Ir Hin HSO Hat1 Hat2.
@@ -1092,14 +1092,14 @@ Proof.
     rewrite ex_att_exFO_lv_allSO in Hat2.
     split; intros SOt pa.
       apply (IHalpha (Pred Pn) lv (Var xn) W Iv _ Ir); try assumption.
-      rewrite altered_Ip_switch.
+      rewrite alt_Ip_switch.
       apply SOt.
         intros H; rewrite H in Hbeq; rewrite <- beq_nat_refl in Hbeq;
         discriminate.
 
       specialize (SOt pa).
       apply (IHalpha (Pred Pn) lv (Var xn) W Iv _ Ir) in SOt; try assumption.
-      rewrite altered_Ip_switch in SOt.
+      rewrite alt_Ip_switch in SOt.
       apply SOt.
         intros H; rewrite H in Hbeq; rewrite <- beq_nat_refl in Hbeq;
         discriminate.
@@ -1111,13 +1111,13 @@ Proof.
     rewrite ex_att_exFO_lv_exSO in Hat2.
     split; intros [pa SOt]; exists pa.
       apply (IHalpha (Pred Pn) lv (Var xn) W Iv _ Ir); try assumption.
-      rewrite altered_Ip_switch.
+      rewrite alt_Ip_switch.
       apply SOt.
         intros H; rewrite H in Hbeq; rewrite <- beq_nat_refl in Hbeq;
         discriminate.
 
       apply (IHalpha (Pred Pn) lv (Var xn) W Iv _ Ir) in SOt; try assumption.
-      rewrite altered_Ip_switch in SOt.
+      rewrite alt_Ip_switch in SOt.
       apply SOt.
         intros H; rewrite H in Hbeq; rewrite <- beq_nat_refl in Hbeq;
         discriminate.
@@ -1130,7 +1130,7 @@ Lemma equiv_new_simpl3 : forall alpha P lv x W Iv Ip Ir,
   SOQFree_P alpha P = true ->
   ex_attached_allFO_lv alpha lv = false ->
   ex_attached_exFO_lv alpha lv = false ->
-    SOturnst W Iv (altered_Ip Ip (CM_pa2_l_gen Iv lv x) P) Ir alpha <->
+    SOturnst W Iv (alt_Ip Ip (CM_pa2_l_gen Iv lv x) P) Ir alpha <->
     SOturnst W Iv Ip Ir (replace_pred alpha P x (fun1 lv x)).
 Proof.
   intros until 0.
@@ -1170,10 +1170,10 @@ Proof.
   simpl. rewrite <- IHl. reflexivity.
 Qed.
 
-Lemma altered_Ip__list_occ_f : forall l W pa_l pa P Ip,
+Lemma alt_Ip__list_occ_f : forall l W pa_l pa P Ip,
   occ_in_l l P = false ->
-  altered_Ip_list (@altered_Ip W Ip pa P) pa_l l =
-  altered_Ip (altered_Ip_list Ip pa_l l) pa P.
+  alt_Ip_list (@alt_Ip W Ip pa P) pa_l l =
+  alt_Ip (alt_Ip_list Ip pa_l l) pa P.
 Proof.
   induction l; intros W pa_l pa P Ip Hocc.
     destruct pa_l; reflexivity.
@@ -1187,7 +1187,7 @@ Proof.
       rewrite Hbeq in Hocc.
       discriminate.
     rewrite IHl.
-    rewrite altered_Ip_switch.
+    rewrite alt_Ip_switch.
       reflexivity.
 
       intros H. rewrite H in Hbeq.

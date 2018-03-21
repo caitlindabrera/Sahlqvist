@@ -10,9 +10,9 @@ Require Import My_Prop my_arith__my_leb_nat.
 
 Lemma correct_ST_world_box : forall (W:Set) (R: W -> W -> Prop) (V: propvar -> W -> Prop) (phi:Modal), 
                                (forall (w:W) (x:FOvariable) (Iv: FOvariable -> W), 
-       (mturnst W R V w phi) <-> (SOturnst W (altered_Iv Iv w x) (V_to_Ip W V) R (ST phi x))) 
+       (mturnst W R V w phi) <-> (SOturnst W (alt_Iv Iv w x) (V_to_Ip W V) R (ST phi x))) 
                                   -> (forall (w:W) (x:FOvariable) (Iv: FOvariable -> W), 
-          (mturnst W R V w (box phi)) <-> (SOturnst W (altered_Iv Iv w x) (V_to_Ip W V) R (ST (box phi) x))).
+          (mturnst W R V w (box phi)) <-> (SOturnst W (alt_Iv Iv w x) (V_to_Ip W V) R (ST (box phi) x))).
 Proof.
   intros W R V phi.
   intros IHphi.
@@ -35,12 +35,12 @@ Proof.
     intros pf_SOturnst.
     rewrite mturnst_box.
     intros d pf_R.
-    apply (IHphi d (Var (n+1)) (altered_Iv Iv w (Var n))).
+    apply (IHphi d (Var (n+1)) (alt_Iv Iv w (Var n))).
     apply (R_relatSO W R w d Iv (V_to_Ip W V) n) in pf_R.
     rewrite ST_box_phi in pf_SOturnst.
     rewrite SOturnst_allFO in pf_SOturnst.
     assert (SOturnst W
-        (altered_Iv (altered_Iv Iv w (Var n)) d (Var (n + 1)))
+        (alt_Iv (alt_Iv Iv w (Var n)) d (Var (n + 1)))
           (V_to_Ip W V) R (implSO (relatSO (Var n) (Var (n + 1)))
             (ST phi (Var (n + 1)))))
               as pf_SOturnst_d.
@@ -54,9 +54,9 @@ Qed.
 
 Lemma correct_ST_world_diam : forall (W:Set) (R: W -> W -> Prop) (V: propvar -> W -> Prop) (phi:Modal), 
                                  (forall (w:W) (x:FOvariable) (Iv: FOvariable -> W), 
-      (mturnst W R V w phi) <-> (SOturnst W (altered_Iv Iv w x) (V_to_Ip W V) R (ST phi x))) 
+      (mturnst W R V w phi) <-> (SOturnst W (alt_Iv Iv w x) (V_to_Ip W V) R (ST phi x))) 
                                    -> (forall (w:W) (x:FOvariable) (Iv: FOvariable -> W), 
-         (mturnst W R V w (diam phi)) <-> (SOturnst W (altered_Iv Iv w x) (V_to_Ip W V) R (ST (diam phi) x))).
+         (mturnst W R V w (diam phi)) <-> (SOturnst W (alt_Iv Iv w x) (V_to_Ip W V) R (ST (diam phi) x))).
 Proof.
   intros W R V phi.
   intros IHphi.
@@ -113,14 +113,14 @@ SearchAbout eq S.
     split.
       exact H1.
 
-      apply (IHphi d (Var (n+1)) (altered_Iv Iv w (Var n))).
+      apply (IHphi d (Var (n+1)) (alt_Iv Iv w (Var n))).
       apply H2.
 Qed.
 
 Theorem correctness_ST_world : forall (W:Set) (R: W -> W -> Prop) (V: propvar -> W -> Prop) 
                                       (phi:Modal) (w:W) (x:FOvariable) (Iv: FOvariable -> W),
               (mturnst W R V w phi) <-> 
-                    (SOturnst W (altered_Iv Iv w x) (V_to_Ip W V) R (ST phi x)).
+                    (SOturnst W (alt_Iv Iv w x) (V_to_Ip W V) R (ST phi x)).
 Proof.
   intros W R V phi.
   induction phi.
@@ -130,7 +130,7 @@ Proof.
     unfold mturnst.
     unfold ST.
     unfold SOturnst.
-    unfold altered_Iv.
+    unfold alt_Iv.
     unfold V_to_Ip.
     rewrite <- EqNat.beq_nat_refl.
     apply iff_refl.

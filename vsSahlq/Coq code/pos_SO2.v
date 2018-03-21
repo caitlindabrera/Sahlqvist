@@ -1041,7 +1041,7 @@ Lemma P_not_occ_alt : forall (alpha : SecOrder) (P : predicate)
                               (pa : W -> Prop),
   P_occurs_in_alpha alpha P = false -> 
     SOturnst W Iv Ip Ir alpha <->
-      SOturnst W Iv (altered_Ip Ip pa P) Ir alpha.
+      SOturnst W Iv (alt_Ip Ip pa P) Ir alpha.
 Proof.
   induction alpha.
     intros P W Iv Ip Ir pa HPocc.
@@ -1081,7 +1081,7 @@ Proof.
         assumption.
         apply SOt.
 
-        specialize (IHalpha P W (altered_Iv Iv d (Var xn)) Ip Ir pa HPocc).
+        specialize (IHalpha P W (alt_Iv Iv d (Var xn)) Ip Ir pa HPocc).
         apply IHalpha; apply SOt.
 
     intros P W Iv Ip Ir pa HPocc;
@@ -1094,7 +1094,7 @@ Proof.
         assumption.
         apply SOt.
 
-        specialize (IHalpha P W (altered_Iv Iv d (Var xn)) Ip Ir pa HPocc).
+        specialize (IHalpha P W (alt_Iv Iv d (Var xn)) Ip Ir pa HPocc).
         apply IHalpha; apply SOt.
 
     intros P W Iv Ip Ir pa HPocc.
@@ -1182,7 +1182,7 @@ Proof.
     do 2 rewrite SOturnst_allSO.
     destruct HPocc as [Hf HPocc].
     split; intros SOt pa2.
-      rewrite altered_Ip_switch.
+      rewrite alt_Ip_switch.
         apply IHalpha.
           assumption.
 
@@ -1192,10 +1192,10 @@ Proof.
           rewrite Hneq in Hf; rewrite <- beq_nat_refl in Hf; discriminate.
 
       specialize (SOt pa2).
-      specialize (IHalpha (Pred Pn) W Iv (altered_Ip Ip pa2 (Pred Qm))
+      specialize (IHalpha (Pred Pn) W Iv (alt_Ip Ip pa2 (Pred Qm))
                      Ir pa HPocc).
       apply IHalpha.
-        rewrite altered_Ip_switch.
+        rewrite alt_Ip_switch.
         assumption.
 
         unfold not; intros Hneq.
@@ -1213,7 +1213,7 @@ Proof.
     do 2 rewrite SOturnst_exSO.
     destruct HPocc as [Hf HPocc].
     split; intros SOt; destruct SOt as [pa2 SOt]; exists pa2.
-      rewrite altered_Ip_switch.
+      rewrite alt_Ip_switch.
         apply IHalpha.
           assumption.
 
@@ -1222,10 +1222,10 @@ Proof.
           unfold not; intros Hneq.
           rewrite Hneq in Hf; rewrite <- beq_nat_refl in Hf; discriminate.
 
-      specialize (IHalpha (Pred Pn) W Iv (altered_Ip Ip pa2 (Pred Qm))
+      specialize (IHalpha (Pred Pn) W Iv (alt_Ip Ip pa2 (Pred Qm))
                      Ir pa HPocc).
       apply IHalpha.
-        rewrite altered_Ip_switch.
+        rewrite alt_Ip_switch.
         assumption.
 
         unfold not; intros Hneq.

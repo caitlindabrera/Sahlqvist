@@ -825,7 +825,7 @@ Lemma SOt_alt_SOQFree : forall (alpha : SecOrder) (W : Set)
                       (Iv : FOvariable -> W) (Ip : predicate -> W -> Prop)
                     (Ir : W -> W -> Prop)  (Q : predicate),
   SOQFree alpha = true ->
-    (SOturnst W Iv (altered_Ip Ip pa_f Q) Ir alpha <->
+    (SOturnst W Iv (alt_Ip Ip pa_f Q) Ir alpha <->
       SOturnst W Iv Ip Ir (replace_pred alpha Q (Var 1)
        (negSO (eqFO (Var 1) (Var 1))))).
 Proof.
@@ -918,7 +918,7 @@ Lemma SOt_alt_SOQFree_t : forall (alpha : SecOrder) (W : Set)
                       (Iv : FOvariable -> W) (Ip : predicate -> W -> Prop)
                     (Ir : W -> W -> Prop)  (Q : predicate),
   SOQFree alpha = true ->
-    (SOturnst W Iv (altered_Ip Ip pa_t Q) Ir alpha <->
+    (SOturnst W Iv (alt_Ip Ip pa_t Q) Ir alpha <->
       SOturnst W Iv Ip Ir (replace_pred alpha Q (Var 1)
        (eqFO (Var 1) (Var 1)))).
 Proof.
@@ -1412,7 +1412,7 @@ Lemma rep_pred_false_pa_t : forall (alpha : SecOrder)  (W : Set) (Iv : FOvariabl
   SOQFree alpha = true ->
   SOturnst W Iv Ip Ir (replace_pred alpha P (Var 1)
                           (eqFO (Var 1) (Var 1))) <->
-  SOturnst W Iv (altered_Ip Ip pa_t P) Ir alpha.
+  SOturnst W Iv (alt_Ip Ip pa_t P) Ir alpha.
 Proof.
   induction alpha; intros W Iv Ip Ir P noSO;
     try destruct P as [Pn]; try destruct p as [Qm];

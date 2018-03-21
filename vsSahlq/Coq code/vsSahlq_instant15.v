@@ -264,8 +264,8 @@ Fixpoint is_in_in_FOvar_ll (l1 l2 : list (list FOvariable)) : bool :=
   end.
 
 Lemma lem_try23 : forall lv P W Iv Ip1 Ip2 Ir pa,
-  SOturnst W Iv (altered_Ip Ip1 pa P) Ir (passing_conj (passing_predSO_l P lv)) ->
-  SOturnst W Iv (altered_Ip Ip2 pa P) Ir (passing_conj (passing_predSO_l P lv)).
+  SOturnst W Iv (alt_Ip Ip1 pa P) Ir (passing_conj (passing_predSO_l P lv)) ->
+  SOturnst W Iv (alt_Ip Ip2 pa P) Ir (passing_conj (passing_predSO_l P lv)).
 Proof.  
   induction lv; intros [Pn] W Iv Ip1 Ip2 Ir pa SOt.
     simpl in *. reflexivity.
@@ -549,8 +549,8 @@ Qed.
 Lemma lem_try18_pre_pre : forall l1 l2 a p f W Iv Ip Ir,
   ~ l1 = nil ->
   is_in_FOvar_l l1 l2 = true ->
-  SOturnst W Iv (altered_Ip Ip (CM_pa2_l_gen Iv l1 f) p) Ir (predSO p a) ->
-  SOturnst W Iv (altered_Ip Ip (CM_pa2_l_gen Iv l2 f) p) Ir (predSO p a).
+  SOturnst W Iv (alt_Ip Ip (CM_pa2_l_gen Iv l1 f) p) Ir (predSO p a) ->
+  SOturnst W Iv (alt_Ip Ip (CM_pa2_l_gen Iv l2 f) p) Ir (predSO p a).
 Proof.
   intros l1 l2 [ym] [Pn] [xn] W Iv Ip Ir H1 H2 H3.
   simpl in *. rewrite <- beq_nat_refl in *.
@@ -560,9 +560,9 @@ Qed.
 Lemma lem_try18_pre : forall lx l1 l2 p f W Iv Ip Ir,
   ~ l1 = nil ->
   is_in_FOvar_l l1 l2 = true ->
-  SOturnst W Iv (altered_Ip Ip (CM_pa2_l_gen Iv l1 f) p) Ir 
+  SOturnst W Iv (alt_Ip Ip (CM_pa2_l_gen Iv l1 f) p) Ir 
       (passing_conj (passing_predSO_l p lx)) ->
-  SOturnst W Iv (altered_Ip Ip (CM_pa2_l_gen Iv l2 f) p) Ir 
+  SOturnst W Iv (alt_Ip Ip (CM_pa2_l_gen Iv l2 f) p) Ir 
       (passing_conj (passing_predSO_l p lx)).
 Proof.
   induction lx; intros l1 l2 p f W Iv Ip Ir Hnil Hin SOt.

@@ -153,7 +153,7 @@ Proof.
     destruct Hocc as [Hbeq Hocc];
     clear H;  
     destruct (IHalpha Hocc) as [l r].
-    apply l with (Ip := altered_Ip Ip pa (Pred Qm)).
+    apply l with (Ip := alt_Ip Ip pa (Pred Qm)).
       unfold Ip_extends.
       apply conj.
         intros w H.
@@ -176,7 +176,7 @@ Proof.
 
         assumption.
 
-      apply r with (Ip := altered_Ip Ip pa (Pred Qm)).
+      apply r with (Ip := alt_Ip Ip pa (Pred Qm)).
         unfold Ip_extends in *.
         apply conj.
           simpl.
@@ -208,7 +208,7 @@ Proof.
     destruct Hocc as [Hbeq Hocc];
     clear H;  
     destruct (IHalpha Hocc) as [l r].
-    apply l with (Ip := altered_Ip Ip pa (Pred Qm)).
+    apply l with (Ip := alt_Ip Ip pa (Pred Qm)).
       unfold Ip_extends.
       apply conj.
         intros w H.
@@ -231,7 +231,7 @@ Proof.
 
         assumption.
 
-      apply r with (Ip := altered_Ip Ip pa (Pred Qm)).
+      apply r with (Ip := alt_Ip Ip pa (Pred Qm)).
         unfold Ip_extends in *.
         apply conj.
           simpl.
@@ -331,7 +331,7 @@ Proof.
   simpl in *.
   destruct x as [xn]; intros d.
   specialize (SOt d).
-  specialize (Hmono W (altered_Iv Iv d (Var xn)) R Ip Ip' Ipext).
+  specialize (Hmono W (alt_Iv Iv d (Var xn)) R Ip Ip' Ipext).
   apply Hmono.
   assumption.
 Qed.
@@ -347,7 +347,7 @@ Proof.
   simpl in *.
   destruct x as [xn]; destruct SOt as [d SOt].
   exists d.
-  specialize (Hmono W (altered_Iv Iv d (Var xn)) R Ip Ip' Ipext).
+  specialize (Hmono W (alt_Iv Iv d (Var xn)) R Ip Ip' Ipext).
   apply Hmono.
   assumption.
 Qed.
@@ -355,7 +355,7 @@ Qed.
 Lemma Ip_ext_alt_Ip : forall (W : Set) (Ip Ip' : predicate -> W -> Prop)
                              (pa : W -> Prop) (P Q : predicate),
   Ip_extends W Ip Ip' P ->
-  Ip_extends W (altered_Ip Ip pa Q) (altered_Ip Ip' pa Q) P.
+  Ip_extends W (alt_Ip Ip pa Q) (alt_Ip Ip' pa Q) P.
 Proof.
   intros W Ip Ip' pa P Q Ipext.
   unfold Ip_extends in *.
@@ -393,8 +393,8 @@ Proof.
   destruct Q as [Qm]; destruct P as [Pn].
   intros pa.
   specialize (SOt pa).
-  specialize (Hmono W Iv R (altered_Ip Ip pa (Pred Qm))
-        (altered_Ip Ip' pa (Pred Qm))).
+  specialize (Hmono W Iv R (alt_Ip Ip pa (Pred Qm))
+        (alt_Ip Ip' pa (Pred Qm))).
   apply Hmono.
   apply Ip_ext_alt_Ip; assumption.
 
@@ -412,8 +412,8 @@ Proof.
   destruct Q as [Qm]; destruct P as [Pn].
   destruct SOt as [pa SOt].
   exists pa.
-  specialize (Hmono W Iv R (altered_Ip Ip pa (Pred Qm))
-        (altered_Ip Ip' pa (Pred Qm))).
+  specialize (Hmono W Iv R (alt_Ip Ip pa (Pred Qm))
+        (alt_Ip Ip' pa (Pred Qm))).
   apply Hmono.
   apply Ip_ext_alt_Ip; assumption.
 
@@ -513,7 +513,7 @@ Proof.
   simpl in *.
   destruct x as [xn]; intros d.
   specialize (SOt d).
-  specialize (Hmono W (altered_Iv Iv d (Var xn)) R Ip Ip' Ipext).
+  specialize (Hmono W (alt_Iv Iv d (Var xn)) R Ip Ip' Ipext).
   apply Hmono.
   assumption.
 Qed. 
@@ -529,7 +529,7 @@ Proof.
   simpl in *.
   destruct x as [xn]; destruct SOt as [d SOt];
   exists d.
-  specialize (Hmono W (altered_Iv Iv d (Var xn)) R Ip Ip' Ipext).
+  specialize (Hmono W (alt_Iv Iv d (Var xn)) R Ip Ip' Ipext).
   apply Hmono.
   assumption.
 Qed. 
@@ -546,8 +546,8 @@ Proof.
   destruct Q as [Qm]; destruct P as [Pn].
   intros pa.
   specialize (SOt pa).
-  specialize (Hmono W Iv R (altered_Ip Ip pa (Pred Qm))
-        (altered_Ip  Ip' pa (Pred Qm))).
+  specialize (Hmono W Iv R (alt_Ip Ip pa (Pred Qm))
+        (alt_Ip  Ip' pa (Pred Qm))).
   apply Hmono.
   apply Ip_ext_alt_Ip; assumption.
 
@@ -565,8 +565,8 @@ Proof.
   destruct Q as [Qm]; destruct P as [Pn].
   destruct SOt as [pa SOt].
   exists pa.
-  specialize (Hmono W Iv R (altered_Ip Ip pa (Pred Qm))
-        (altered_Ip Ip' pa (Pred Qm))).
+  specialize (Hmono W Iv R (alt_Ip Ip pa (Pred Qm))
+        (alt_Ip Ip' pa (Pred Qm))).
   apply Hmono.
   apply Ip_ext_alt_Ip; assumption.
 
@@ -987,7 +987,7 @@ Lemma Ip_ext_pa_f : forall (W : Set)
                     (Ip : predicate -> W -> Prop)
                     (P : predicate)
                     (pa : W -> Prop),
-  Ip_extends W (altered_Ip Ip pa_f P) (altered_Ip Ip pa P) P.
+  Ip_extends W (alt_Ip Ip pa_f P) (alt_Ip Ip pa P) P.
 Proof.
   intros W Ip P pa.
   unfold Ip_extends.

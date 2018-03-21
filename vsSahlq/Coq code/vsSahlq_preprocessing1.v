@@ -87,9 +87,9 @@ Fixpoint no_free_FO_l (alpha : SecOrder) (l : list FOvariable) :=
 
 (* ------------------------------------------------------------------- *)
 
-Lemma altered_Iv_eq : forall W Iv d d2 x,
-  altered_Iv (@altered_Iv W Iv d x) d2 x =
-  altered_Iv Iv d2 x.
+Lemma alt_Iv_eq : forall W Iv d d2 x,
+  alt_Iv (@alt_Iv W Iv d x) d2 x =
+  alt_Iv Iv d2 x.
 Proof.
   intros W Iv d d2 x.
   apply functional_extensionality.
@@ -101,10 +101,10 @@ Proof.
     reflexivity.
 Qed.
 
-Lemma altered_Iv_switch : forall (W : Set) Iv dx dy x y,
+Lemma alt_Iv_switch : forall (W : Set) Iv dx dy x y,
   x <> y ->
-  altered_Iv (@altered_Iv W Iv dx x) dy y =
-  altered_Iv (altered_Iv Iv dy y) dx x.
+  alt_Iv (@alt_Iv W Iv dx x) dy y =
+  alt_Iv (alt_Iv Iv dy y) dx x.
 Proof.
   intros W Iv dx dt x y H.
   apply functional_extensionality.
@@ -123,16 +123,16 @@ Proof.
     reflexivity.
 Qed.
 
-Lemma altered_Iv_equiv_allFO : forall alpha f x W Iv Ip Ir d,
+Lemma alt_Iv_equiv_allFO : forall alpha f x W Iv Ip Ir d,
 (forall (x : FOvariable) (W : Set) (Iv : FOvariable -> W)
             (Ip : predicate -> W -> Prop) (Ir : W -> W -> Prop) 
             (d : W),
           free_FO alpha x = false ->
           SOturnst W Iv Ip Ir alpha <->
-          SOturnst W (altered_Iv Iv d x) Ip Ir alpha) ->
+          SOturnst W (alt_Iv Iv d x) Ip Ir alpha) ->
 (free_FO (allFO f alpha) x = false) ->
 SOturnst W Iv Ip Ir (allFO f alpha) <->
-SOturnst W (altered_Iv Iv d x) Ip Ir (allFO f alpha).
+SOturnst W (alt_Iv Iv d x) Ip Ir (allFO f alpha).
 Proof.
   intros alpha f x W Iv Ip Ir d IHalpha Hfree.
   destruct f as [yn]; destruct x as [xn].
@@ -143,18 +143,18 @@ Proof.
     split; intros H.
       intros d2.
       rewrite (beq_nat_true _ _ Hbeq).
-      rewrite altered_Iv_eq.
+      rewrite alt_Iv_eq.
       apply H.
 
       intros d2.
       specialize (H d2).
       rewrite (beq_nat_true _ _ Hbeq) in H.
-      rewrite altered_Iv_eq in H.
+      rewrite alt_Iv_eq in H.
       assumption.
 
     split; intros H.
       intros d2.
-      rewrite altered_Iv_switch.
+      rewrite alt_Iv_switch.
         apply IHalpha; try assumption.
         apply H.
 
@@ -164,23 +164,23 @@ Proof.
 
       intros d2.
       specialize (H d2).
-      rewrite altered_Iv_switch in H.
+      rewrite alt_Iv_switch in H.
         apply IHalpha in H; try assumption.
           intros H2; inversion H2 as [H3];
           rewrite H3 in *; rewrite <- beq_nat_refl in Hbeq;
           discriminate.
 Qed.
 
-Lemma altered_Iv_equiv_negSO : forall alpha x W Iv Ip Ir d,
+Lemma alt_Iv_equiv_negSO : forall alpha x W Iv Ip Ir d,
 (forall (x : FOvariable) (W : Set) (Iv : FOvariable -> W)
             (Ip : predicate -> W -> Prop) (Ir : W -> W -> Prop) 
             (d : W),
           free_FO alpha x = false ->
           SOturnst W Iv Ip Ir alpha <->
-          SOturnst W (altered_Iv Iv d x) Ip Ir alpha) ->
+          SOturnst W (alt_Iv Iv d x) Ip Ir alpha) ->
 (free_FO (negSO alpha) x = false) ->
 SOturnst W Iv Ip Ir (negSO alpha) <->
-SOturnst W (altered_Iv Iv d x) Ip Ir (negSO alpha).
+SOturnst W (alt_Iv Iv d x) Ip Ir (negSO alpha).
 Proof.
   intros alpha x W Iv Ip Ir d IHalpha Hfree.
   destruct x as [xn].
@@ -194,16 +194,16 @@ Proof.
     apply IHalpha; assumption.
 Qed.
 
-Lemma altered_Iv_equiv_exFO : forall alpha f x W Iv Ip Ir d,
+Lemma alt_Iv_equiv_exFO : forall alpha f x W Iv Ip Ir d,
 (forall (x : FOvariable) (W : Set) (Iv : FOvariable -> W)
             (Ip : predicate -> W -> Prop) (Ir : W -> W -> Prop) 
             (d : W),
           free_FO alpha x = false ->
           SOturnst W Iv Ip Ir alpha <->
-          SOturnst W (altered_Iv Iv d x) Ip Ir alpha) ->
+          SOturnst W (alt_Iv Iv d x) Ip Ir alpha) ->
 (free_FO (exFO f alpha) x = false) ->
 SOturnst W Iv Ip Ir (exFO f alpha) <->
-SOturnst W (altered_Iv Iv d x) Ip Ir (exFO f alpha).
+SOturnst W (alt_Iv Iv d x) Ip Ir (exFO f alpha).
 Proof.
   intros alpha f x W Iv Ip Ir d IHalpha Hfree.
   destruct f as [yn]; destruct x as [xn].
@@ -215,19 +215,19 @@ Proof.
       destruct H as [d2 H].
       exists d2.
       rewrite (beq_nat_true _ _ Hbeq).
-      rewrite altered_Iv_eq.
+      rewrite alt_Iv_eq.
       apply H.
 
       destruct H as [d2 H].
       exists d2.
       rewrite (beq_nat_true _ _ Hbeq) in H.
-      rewrite altered_Iv_eq in H.
+      rewrite alt_Iv_eq in H.
       assumption.
 
     split; intros H.
       destruct H as [d2 H].
       exists d2.
-      rewrite altered_Iv_switch.
+      rewrite alt_Iv_switch.
         apply IHalpha; try assumption.
         intros H2; inversion H2 as [H3];
         rewrite H3 in *; rewrite <- beq_nat_refl in Hbeq;
@@ -235,7 +235,7 @@ Proof.
 
         destruct H as [d2 H].
         exists d2.
-        rewrite altered_Iv_switch in H;
+        rewrite alt_Iv_switch in H;
         try assumption.
           apply IHalpha in H; try assumption.
           intros H2; inversion H2 as [H3];
@@ -243,22 +243,22 @@ Proof.
           discriminate.
 Qed.
 
-Lemma altered_Iv_equiv_conjSO : forall alpha1 alpha2 x W Iv Ip Ir d,
+Lemma alt_Iv_equiv_conjSO : forall alpha1 alpha2 x W Iv Ip Ir d,
  (forall (x : FOvariable) (W : Set) (Iv : FOvariable -> W)
              (Ip : predicate -> W -> Prop) (Ir : W -> W -> Prop) 
              (d : W),
            free_FO alpha1 x = false ->
            SOturnst W Iv Ip Ir alpha1 <->
-           SOturnst W (altered_Iv Iv d x) Ip Ir alpha1) ->
+           SOturnst W (alt_Iv Iv d x) Ip Ir alpha1) ->
   (forall (x : FOvariable) (W : Set) (Iv : FOvariable -> W)
              (Ip : predicate -> W -> Prop) (Ir : W -> W -> Prop) 
              (d : W),
            free_FO alpha2 x = false ->
            SOturnst W Iv Ip Ir alpha2 <->
-           SOturnst W (altered_Iv Iv d x) Ip Ir alpha2) ->
+           SOturnst W (alt_Iv Iv d x) Ip Ir alpha2) ->
   free_FO (conjSO alpha1 alpha2) x = false ->
 SOturnst W Iv Ip Ir (conjSO alpha1 alpha2) <->
-SOturnst W (altered_Iv Iv d x) Ip Ir (conjSO alpha1 alpha2).
+SOturnst W (alt_Iv Iv d x) Ip Ir (conjSO alpha1 alpha2).
 Proof.
   intros alpha1 alpha2 x Q Iv Ip Ir d IHalpha1 IHalpha2 Hfree.
   simpl in Hfree.
@@ -278,22 +278,22 @@ Proof.
 Qed.
 
 
-Lemma altered_Iv_equiv_disjSO : forall alpha1 alpha2 x W Iv Ip Ir d,
+Lemma alt_Iv_equiv_disjSO : forall alpha1 alpha2 x W Iv Ip Ir d,
  (forall (x : FOvariable) (W : Set) (Iv : FOvariable -> W)
              (Ip : predicate -> W -> Prop) (Ir : W -> W -> Prop) 
              (d : W),
            free_FO alpha1 x = false ->
            SOturnst W Iv Ip Ir alpha1 <->
-           SOturnst W (altered_Iv Iv d x) Ip Ir alpha1) ->
+           SOturnst W (alt_Iv Iv d x) Ip Ir alpha1) ->
   (forall (x : FOvariable) (W : Set) (Iv : FOvariable -> W)
              (Ip : predicate -> W -> Prop) (Ir : W -> W -> Prop) 
              (d : W),
            free_FO alpha2 x = false ->
            SOturnst W Iv Ip Ir alpha2 <->
-           SOturnst W (altered_Iv Iv d x) Ip Ir alpha2) ->
+           SOturnst W (alt_Iv Iv d x) Ip Ir alpha2) ->
   free_FO (disjSO alpha1 alpha2) x = false ->
 SOturnst W Iv Ip Ir (disjSO alpha1 alpha2) <->
-SOturnst W (altered_Iv Iv d x) Ip Ir (disjSO alpha1 alpha2).
+SOturnst W (alt_Iv Iv d x) Ip Ir (disjSO alpha1 alpha2).
 Proof.
   intros alpha1 alpha2 x Q Iv Ip Ir d IHalpha1 IHalpha2 Hfree.
   simpl in Hfree.
@@ -312,22 +312,22 @@ Proof.
 Qed.
 
 
-Lemma altered_Iv_equiv_implSO : forall alpha1 alpha2 x W Iv Ip Ir d,
+Lemma alt_Iv_equiv_implSO : forall alpha1 alpha2 x W Iv Ip Ir d,
  (forall (x : FOvariable) (W : Set) (Iv : FOvariable -> W)
              (Ip : predicate -> W -> Prop) (Ir : W -> W -> Prop) 
              (d : W),
            free_FO alpha1 x = false ->
            SOturnst W Iv Ip Ir alpha1 <->
-           SOturnst W (altered_Iv Iv d x) Ip Ir alpha1) ->
+           SOturnst W (alt_Iv Iv d x) Ip Ir alpha1) ->
   (forall (x : FOvariable) (W : Set) (Iv : FOvariable -> W)
              (Ip : predicate -> W -> Prop) (Ir : W -> W -> Prop) 
              (d : W),
            free_FO alpha2 x = false ->
            SOturnst W Iv Ip Ir alpha2 <->
-           SOturnst W (altered_Iv Iv d x) Ip Ir alpha2) ->
+           SOturnst W (alt_Iv Iv d x) Ip Ir alpha2) ->
   free_FO (implSO alpha1 alpha2) x = false ->
 SOturnst W Iv Ip Ir (implSO alpha1 alpha2) <->
-SOturnst W (altered_Iv Iv d x) Ip Ir (implSO alpha1 alpha2).
+SOturnst W (alt_Iv Iv d x) Ip Ir (implSO alpha1 alpha2).
 Proof.
   intros alpha1 alpha2 x Q Iv Ip Ir d IHalpha1 IHalpha2 Hfree.
   simpl in Hfree.
@@ -346,16 +346,16 @@ Proof.
     apply IHalpha1; try assumption.
 Qed.
 
-Lemma altered_Iv_equiv_allSO : forall alpha P x W Iv Ip Ir d,
+Lemma alt_Iv_equiv_allSO : forall alpha P x W Iv Ip Ir d,
  (forall (x : FOvariable) (W : Set) (Iv : FOvariable -> W)
              (Ip : predicate -> W -> Prop) (Ir : W -> W -> Prop) 
              (d : W),
            free_FO alpha x = false ->
            SOturnst W Iv Ip Ir alpha <->
-           SOturnst W (altered_Iv Iv d x) Ip Ir alpha) ->
+           SOturnst W (alt_Iv Iv d x) Ip Ir alpha) ->
   free_FO (allSO P alpha) x = false ->
   SOturnst W Iv Ip Ir (allSO P alpha) <->
-  SOturnst W (altered_Iv Iv d x) Ip Ir (allSO P alpha).
+  SOturnst W (alt_Iv Iv d x) Ip Ir (allSO P alpha).
 Proof.
   intros alpha P x Q Iv Ip Ir d IHalpha Hfree.
   simpl in Hfree.
@@ -369,16 +369,16 @@ Proof.
 Qed.
 
 
-Lemma altered_Iv_equiv_exSO : forall alpha P x W Iv Ip Ir d,
+Lemma alt_Iv_equiv_exSO : forall alpha P x W Iv Ip Ir d,
  (forall (x : FOvariable) (W : Set) (Iv : FOvariable -> W)
              (Ip : predicate -> W -> Prop) (Ir : W -> W -> Prop) 
              (d : W),
            free_FO alpha x = false ->
            SOturnst W Iv Ip Ir alpha <->
-           SOturnst W (altered_Iv Iv d x) Ip Ir alpha) ->
+           SOturnst W (alt_Iv Iv d x) Ip Ir alpha) ->
   free_FO (exSO P alpha) x = false ->
   SOturnst W Iv Ip Ir (exSO P alpha) <->
-  SOturnst W (altered_Iv Iv d x) Ip Ir (exSO P alpha).
+  SOturnst W (alt_Iv Iv d x) Ip Ir (exSO P alpha).
 Proof.
   intros alpha P x Q Iv Ip Ir d IHalpha Hfree.
   simpl in Hfree.
@@ -393,10 +393,10 @@ Proof.
     apply IHalpha in H; assumption.
 Qed.
 
-Lemma altered_Iv_equiv : forall alpha x W Iv Ip Ir d,
+Lemma alt_Iv_equiv : forall alpha x W Iv Ip Ir d,
   free_FO alpha x = false ->
   SOturnst W Iv Ip Ir alpha <->
-  SOturnst W (altered_Iv Iv d x) Ip Ir alpha.
+  SOturnst W (alt_Iv Iv d x) Ip Ir alpha.
 Proof.
   induction alpha; intros x W Iv Ip Ir d Hfree.
     destruct p as [Pn]; destruct x as [xn];
@@ -425,14 +425,14 @@ Proof.
       rewrite Hfree.
       apply iff_refl.
 
-    apply altered_Iv_equiv_allFO; assumption.
-    apply altered_Iv_equiv_exFO; assumption.
-    apply altered_Iv_equiv_negSO; assumption.
-    apply altered_Iv_equiv_conjSO; assumption.
-    apply altered_Iv_equiv_disjSO; assumption.
-    apply altered_Iv_equiv_implSO; assumption.
-    apply altered_Iv_equiv_allSO; assumption.
-    apply altered_Iv_equiv_exSO; assumption.
+    apply alt_Iv_equiv_allFO; assumption.
+    apply alt_Iv_equiv_exFO; assumption.
+    apply alt_Iv_equiv_negSO; assumption.
+    apply alt_Iv_equiv_conjSO; assumption.
+    apply alt_Iv_equiv_disjSO; assumption.
+    apply alt_Iv_equiv_implSO; assumption.
+    apply alt_Iv_equiv_allSO; assumption.
+    apply alt_Iv_equiv_exSO; assumption.
 Qed.
 
 (* ------------------------------------------------------- *)
@@ -451,7 +451,7 @@ Proof.
     exists d.
     simpl.
     apply conj; try assumption.
-    apply altered_Iv_equiv; assumption.
+    apply alt_Iv_equiv; assumption.
 
     destruct H2 as [d H2].
     simpl in H2.
@@ -459,7 +459,7 @@ Proof.
     apply conj.
       exists d; assumption.
 
-      apply altered_Iv_equiv in SO2; assumption.
+      apply alt_Iv_equiv in SO2; assumption.
 Qed.
 
 Lemma equiv_conj_ex2 : forall alpha beta x W Iv Ip Ir,
@@ -476,13 +476,13 @@ Proof.
     exists d.
     simpl.
     apply conj; try assumption.
-    apply altered_Iv_equiv; assumption.
+    apply alt_Iv_equiv; assumption.
 
     destruct H2 as [d H2].
     simpl in H2.
     destruct H2 as [SO2 SO1].
     apply conj.
-      apply altered_Iv_equiv in SO2; assumption.
+      apply alt_Iv_equiv in SO2; assumption.
 
       exists d; assumption.
 Qed.
@@ -498,17 +498,17 @@ Proof.
   rewrite SOturnst_allFO.
   split; intros H2.
     intros d SOt.
-    assert (exists d : W, SOturnst W (altered_Iv Iv d x) Ip Ir alpha) as H3.
+    assert (exists d : W, SOturnst W (alt_Iv Iv d x) Ip Ir alpha) as H3.
       exists d; assumption.
     specialize (H2 H3).
-    apply altered_Iv_equiv; assumption.
+    apply alt_Iv_equiv; assumption.
 
     intros SOt.
     destruct SOt as [d SOt].
     specialize (H2 d).
     rewrite SOturnst_implSO in H2.
     specialize (H2 SOt).
-    apply altered_Iv_equiv in H2; assumption.
+    apply alt_Iv_equiv in H2; assumption.
 Qed.
 
 
@@ -1060,8 +1060,8 @@ Lemma exFO_rename_FOv_max_FOv_pre_allFO_1_predSO : forall p f ym,
 Nat.leb (S (max_FOv (predSO p f))) ym = true ->
 forall (x : FOvariable) (W : Set) (Iv : FOvariable -> W)
   (Ip : predicate -> W -> Prop) (Ir : W -> W -> Prop) (d : W),
-SOturnst W (altered_Iv Iv d x) Ip Ir (predSO p f) <->
-SOturnst W (altered_Iv Iv d (Var ym)) Ip Ir (rename_FOv (predSO p f) x (Var ym)).
+SOturnst W (alt_Iv Iv d x) Ip Ir (predSO p f) <->
+SOturnst W (alt_Iv Iv d (Var ym)) Ip Ir (rename_FOv (predSO p f) x (Var ym)).
 Proof.
   intros p f ym Hleb x W  Iv Ip Ir d.
   destruct p; destruct f as [zn]; destruct x as [xn].
@@ -1094,8 +1094,8 @@ forall (x : FOvariable) (ym : nat),
 Nat.leb (max_FOv (relatSO f f0)) ym = true ->
 forall (W : Set) (Iv : FOvariable -> W) (Ip : predicate -> W -> Prop)
   (Ir : W -> W -> Prop) (d : W),
-SOturnst W (altered_Iv Iv d x) Ip Ir (relatSO f f0) <->
-SOturnst W (altered_Iv Iv d (Var (S ym))) Ip Ir
+SOturnst W (alt_Iv Iv d x) Ip Ir (relatSO f f0) <->
+SOturnst W (alt_Iv Iv d (Var (S ym))) Ip Ir
   (rename_FOv (relatSO f f0) x (Var (S ym))).
 Proof.
   intros f f0 x ym Hleb W Iv Ip Ir d.
@@ -1180,8 +1180,8 @@ forall (x : FOvariable) (ym : nat),
 Nat.leb (max_FOv (eqFO f f0)) ym = true ->
 forall (W : Set) (Iv : FOvariable -> W) (Ip : predicate -> W -> Prop)
   (Ir : W -> W -> Prop) (d : W),
-SOturnst W (altered_Iv Iv d x) Ip Ir (eqFO f f0) <->
-SOturnst W (altered_Iv Iv d (Var (S ym))) Ip Ir
+SOturnst W (alt_Iv Iv d x) Ip Ir (eqFO f f0) <->
+SOturnst W (alt_Iv Iv d (Var (S ym))) Ip Ir
   (rename_FOv (eqFO f f0) x (Var (S ym))).
 Proof.
   intros f f0 x ym Hleb W Iv Ip Ir d.
@@ -1265,15 +1265,15 @@ Lemma exFO_rename_FOv_max_FOv_pre_allFO_1_allFO : forall alpha f,
           Nat.leb (max_FOv alpha) ym = true ->
           forall (W : Set) (Iv : FOvariable -> W) (Ip : predicate -> W -> Prop)
             (Ir : W -> W -> Prop) (d : W),
-          SOturnst W (altered_Iv Iv d x) Ip Ir alpha <->
-          SOturnst W (altered_Iv Iv d (Var (S ym))) Ip Ir
+          SOturnst W (alt_Iv Iv d x) Ip Ir alpha <->
+          SOturnst W (alt_Iv Iv d (Var (S ym))) Ip Ir
             (rename_FOv alpha x (Var (S ym)))) ->
 forall (x : FOvariable) (ym : nat),
 Nat.leb (max_FOv (allFO f alpha)) ym = true ->
 forall (W : Set) (Iv : FOvariable -> W) (Ip : predicate -> W -> Prop)
   (Ir : W -> W -> Prop) (d : W),
-SOturnst W (altered_Iv Iv d x) Ip Ir (allFO f alpha) <->
-SOturnst W (altered_Iv Iv d (Var (S ym))) Ip Ir
+SOturnst W (alt_Iv Iv d x) Ip Ir (allFO f alpha) <->
+SOturnst W (alt_Iv Iv d (Var (S ym))) Ip Ir
   (rename_FOv (allFO f alpha) x (Var (S ym))).
 Proof.
   intros alpha f IHalpha x ym Hleb W Iv Ip Ir d.
@@ -1285,7 +1285,7 @@ Proof.
     do 2 rewrite SOturnst_allFO.
     split; intros SOt.
       intros d2.
-      rewrite altered_Iv_eq.
+      rewrite alt_Iv_eq.
       assert ((rename_FOv_n alpha xn (S ym)) = 
               (rename_FOv alpha (Var xn) (Var (S ym)))) as H.
         reflexivity.
@@ -1293,19 +1293,19 @@ Proof.
       apply IHalpha. apply Hleb.
       specialize (SOt d2).
       rewrite (beq_nat_true _ _ Hbeq) in SOt.
-      rewrite altered_Iv_eq in SOt.
+      rewrite alt_Iv_eq in SOt.
       apply SOt.
 
       intros d2.
       specialize (SOt d2).
-      rewrite altered_Iv_eq in SOt.
+      rewrite alt_Iv_eq in SOt.
       assert ((rename_FOv_n alpha xn (S ym)) = 
               (rename_FOv alpha (Var xn) (Var (S ym)))) as H.
         reflexivity.
       rewrite H in SOt.
       apply IHalpha in SOt.
         rewrite (beq_nat_true _ _ Hbeq).
-        rewrite altered_Iv_eq.
+        rewrite alt_Iv_eq.
         assumption. apply Hleb.
   
     assert (Var xn <> Var zn) as Hneq.
@@ -1322,7 +1322,7 @@ Proof.
     split; intros SOt.
       intros d2.
       specialize (SOt d2).
-      rewrite altered_Iv_switch in *.
+      rewrite alt_Iv_switch in *.
       assert ((rename_FOv_n alpha xn (S ym)) = 
               (rename_FOv alpha (Var xn) (Var (S ym)))) as H.
         reflexivity.
@@ -1332,7 +1332,7 @@ Proof.
 
       intros d2.
       specialize (SOt d2).
-      rewrite altered_Iv_switch in *.
+      rewrite alt_Iv_switch in *.
       assert ((rename_FOv_n alpha xn (S ym)) = 
               (rename_FOv alpha (Var xn) (Var (S ym)))) as H.
         reflexivity.
@@ -1347,15 +1347,15 @@ Lemma exFO_rename_FOv_max_FOv_pre_allFO_1_exFO : forall alpha f,
           Nat.leb (max_FOv alpha) ym = true ->
           forall (W : Set) (Iv : FOvariable -> W) (Ip : predicate -> W -> Prop)
             (Ir : W -> W -> Prop) (d : W),
-          SOturnst W (altered_Iv Iv d x) Ip Ir alpha <->
-          SOturnst W (altered_Iv Iv d (Var (S ym))) Ip Ir
+          SOturnst W (alt_Iv Iv d x) Ip Ir alpha <->
+          SOturnst W (alt_Iv Iv d (Var (S ym))) Ip Ir
             (rename_FOv alpha x (Var (S ym)))) ->
 forall (x : FOvariable) (ym : nat),
 Nat.leb (max_FOv (exFO f alpha)) ym = true ->
 forall (W : Set) (Iv : FOvariable -> W) (Ip : predicate -> W -> Prop)
   (Ir : W -> W -> Prop) (d : W),
-SOturnst W (altered_Iv Iv d x) Ip Ir (exFO f alpha) <->
-SOturnst W (altered_Iv Iv d (Var (S ym))) Ip Ir
+SOturnst W (alt_Iv Iv d x) Ip Ir (exFO f alpha) <->
+SOturnst W (alt_Iv Iv d (Var (S ym))) Ip Ir
   (rename_FOv (exFO f alpha) x (Var (S ym))).
 Proof.
   intros alpha f IHalpha x ym Hleb W Iv Ip Ir d.
@@ -1368,24 +1368,24 @@ Proof.
     split; intros SOt;
       destruct SOt as [d2 SOt];
       exists d2.
-      rewrite altered_Iv_eq.
+      rewrite alt_Iv_eq.
       assert ((rename_FOv_n alpha xn (S ym)) = 
               (rename_FOv alpha (Var xn) (Var (S ym)))) as H.
         reflexivity.
       rewrite H.
       apply IHalpha. apply Hleb.
       rewrite (beq_nat_true _ _ Hbeq) in SOt.
-      rewrite altered_Iv_eq in SOt.
+      rewrite alt_Iv_eq in SOt.
       apply SOt.
 
-      rewrite altered_Iv_eq in SOt.
+      rewrite alt_Iv_eq in SOt.
       assert ((rename_FOv_n alpha xn (S ym)) = 
               (rename_FOv alpha (Var xn) (Var (S ym)))) as H.
         reflexivity.
       rewrite H in SOt.
       apply IHalpha in SOt.
         rewrite (beq_nat_true _ _ Hbeq).
-        rewrite altered_Iv_eq.
+        rewrite alt_Iv_eq.
         assumption. apply Hleb.
   
     assert (Var xn <> Var zn) as Hneq.
@@ -1403,7 +1403,7 @@ Proof.
     split; intros SOt;
       destruct SOt as [d2 SOt];
       exists d2.
-      rewrite altered_Iv_switch in *.
+      rewrite alt_Iv_switch in *.
       assert ((rename_FOv_n alpha xn (S ym)) = 
               (rename_FOv alpha (Var xn) (Var (S ym)))) as H.
         reflexivity.
@@ -1411,7 +1411,7 @@ Proof.
       apply IHalpha. apply Hleb.
       assumption. apply Hneq. apply Hneq2. apply Hneq.
 
-      rewrite altered_Iv_switch in *.
+      rewrite alt_Iv_switch in *.
       assert ((rename_FOv_n alpha xn (S ym)) = 
               (rename_FOv alpha (Var xn) (Var (S ym)))) as H.
         reflexivity.
@@ -1426,22 +1426,22 @@ Lemma exFO_rename_FOv_max_FOv_pre_allFO_1_conjSO : forall alpha1 alpha2,
            Nat.leb (max_FOv alpha1) ym = true ->
            forall (W : Set) (Iv : FOvariable -> W) (Ip : predicate -> W -> Prop)
              (Ir : W -> W -> Prop) (d : W),
-           SOturnst W (altered_Iv Iv d x) Ip Ir alpha1 <->
-           SOturnst W (altered_Iv Iv d (Var (S ym))) Ip Ir
+           SOturnst W (alt_Iv Iv d x) Ip Ir alpha1 <->
+           SOturnst W (alt_Iv Iv d (Var (S ym))) Ip Ir
              (rename_FOv alpha1 x (Var (S ym)))) ->
   (forall (x : FOvariable) (ym : nat),
            Nat.leb (max_FOv alpha2) ym = true ->
            forall (W : Set) (Iv : FOvariable -> W) (Ip : predicate -> W -> Prop)
              (Ir : W -> W -> Prop) (d : W),
-           SOturnst W (altered_Iv Iv d x) Ip Ir alpha2 <->
-           SOturnst W (altered_Iv Iv d (Var (S ym))) Ip Ir
+           SOturnst W (alt_Iv Iv d x) Ip Ir alpha2 <->
+           SOturnst W (alt_Iv Iv d (Var (S ym))) Ip Ir
              (rename_FOv alpha2 x (Var (S ym)))) ->
 forall (x : FOvariable) (ym : nat),
 Nat.leb (max_FOv (conjSO alpha1 alpha2)) ym = true ->
 forall (W : Set) (Iv : FOvariable -> W) (Ip : predicate -> W -> Prop)
   (Ir : W -> W -> Prop) (d : W),
-SOturnst W (altered_Iv Iv d x) Ip Ir (conjSO alpha1 alpha2) <->
-SOturnst W (altered_Iv Iv d (Var (S ym))) Ip Ir
+SOturnst W (alt_Iv Iv d x) Ip Ir (conjSO alpha1 alpha2) <->
+SOturnst W (alt_Iv Iv d (Var (S ym))) Ip Ir
   (rename_FOv (conjSO alpha1 alpha2) x (Var (S ym))).
 Proof.
   intros alpha1 alpha2 IHalpha1 IHalpha2 x ym Hleb W Iv Ip Ir d.
@@ -1463,22 +1463,22 @@ Lemma exFO_rename_FOv_max_FOv_pre_allFO_1_disjSO : forall alpha1 alpha2,
            Nat.leb (max_FOv alpha1) ym = true ->
            forall (W : Set) (Iv : FOvariable -> W) (Ip : predicate -> W -> Prop)
              (Ir : W -> W -> Prop) (d : W),
-           SOturnst W (altered_Iv Iv d x) Ip Ir alpha1 <->
-           SOturnst W (altered_Iv Iv d (Var (S ym))) Ip Ir
+           SOturnst W (alt_Iv Iv d x) Ip Ir alpha1 <->
+           SOturnst W (alt_Iv Iv d (Var (S ym))) Ip Ir
              (rename_FOv alpha1 x (Var (S ym)))) ->
   (forall (x : FOvariable) (ym : nat),
            Nat.leb (max_FOv alpha2) ym = true ->
            forall (W : Set) (Iv : FOvariable -> W) (Ip : predicate -> W -> Prop)
              (Ir : W -> W -> Prop) (d : W),
-           SOturnst W (altered_Iv Iv d x) Ip Ir alpha2 <->
-           SOturnst W (altered_Iv Iv d (Var (S ym))) Ip Ir
+           SOturnst W (alt_Iv Iv d x) Ip Ir alpha2 <->
+           SOturnst W (alt_Iv Iv d (Var (S ym))) Ip Ir
              (rename_FOv alpha2 x (Var (S ym)))) ->
 forall (x : FOvariable) (ym : nat),
 Nat.leb (max_FOv (disjSO alpha1 alpha2)) ym = true ->
 forall (W : Set) (Iv : FOvariable -> W) (Ip : predicate -> W -> Prop)
   (Ir : W -> W -> Prop) (d : W),
-SOturnst W (altered_Iv Iv d x) Ip Ir (disjSO alpha1 alpha2) <->
-SOturnst W (altered_Iv Iv d (Var (S ym))) Ip Ir
+SOturnst W (alt_Iv Iv d x) Ip Ir (disjSO alpha1 alpha2) <->
+SOturnst W (alt_Iv Iv d (Var (S ym))) Ip Ir
   (rename_FOv (disjSO alpha1 alpha2) x (Var (S ym))).
 Proof.
   intros alpha1 alpha2 IHalpha1 IHalpha2 x ym Hleb W Iv Ip Ir d.
@@ -1500,22 +1500,22 @@ Lemma exFO_rename_FOv_max_FOv_pre_allFO_1_implSO : forall alpha1 alpha2,
            Nat.leb (max_FOv alpha1) ym = true ->
            forall (W : Set) (Iv : FOvariable -> W) (Ip : predicate -> W -> Prop)
              (Ir : W -> W -> Prop) (d : W),
-           SOturnst W (altered_Iv Iv d x) Ip Ir alpha1 <->
-           SOturnst W (altered_Iv Iv d (Var (S ym))) Ip Ir
+           SOturnst W (alt_Iv Iv d x) Ip Ir alpha1 <->
+           SOturnst W (alt_Iv Iv d (Var (S ym))) Ip Ir
              (rename_FOv alpha1 x (Var (S ym)))) ->
   (forall (x : FOvariable) (ym : nat),
            Nat.leb (max_FOv alpha2) ym = true ->
            forall (W : Set) (Iv : FOvariable -> W) (Ip : predicate -> W -> Prop)
              (Ir : W -> W -> Prop) (d : W),
-           SOturnst W (altered_Iv Iv d x) Ip Ir alpha2 <->
-           SOturnst W (altered_Iv Iv d (Var (S ym))) Ip Ir
+           SOturnst W (alt_Iv Iv d x) Ip Ir alpha2 <->
+           SOturnst W (alt_Iv Iv d (Var (S ym))) Ip Ir
              (rename_FOv alpha2 x (Var (S ym)))) ->
 forall (x : FOvariable) (ym : nat),
 Nat.leb (max_FOv (implSO alpha1 alpha2)) ym = true ->
 forall (W : Set) (Iv : FOvariable -> W) (Ip : predicate -> W -> Prop)
   (Ir : W -> W -> Prop) (d : W),
-SOturnst W (altered_Iv Iv d x) Ip Ir (implSO alpha1 alpha2) <->
-SOturnst W (altered_Iv Iv d (Var (S ym))) Ip Ir
+SOturnst W (alt_Iv Iv d x) Ip Ir (implSO alpha1 alpha2) <->
+SOturnst W (alt_Iv Iv d (Var (S ym))) Ip Ir
   (rename_FOv (implSO alpha1 alpha2) x (Var (S ym))).
 Proof.
   intros alpha1 alpha2 IHalpha1 IHalpha2 x ym Hleb W Iv Ip Ir d.
@@ -1534,8 +1534,8 @@ Qed.
 Lemma exFO_rename_FOv_max_FOv_pre_allFO_1 : forall alpha x ym,
   Nat.leb (max_FOv alpha) ym = true ->
   forall W Iv Ip Ir d,
-  SOturnst W (altered_Iv Iv d x) Ip Ir alpha <->
-  SOturnst W (altered_Iv Iv d (Var (S ym))) Ip Ir (rename_FOv alpha x (Var (S ym))).
+  SOturnst W (alt_Iv Iv d x) Ip Ir alpha <->
+  SOturnst W (alt_Iv Iv d (Var (S ym))) Ip Ir (rename_FOv alpha x (Var (S ym))).
 Proof.
  induction alpha.
   intros.
@@ -1659,8 +1659,8 @@ Lemma exFO_rename_FOv_max_FOv_pre_exFO_1_predSO : forall p f ym,
 Nat.leb (S (max_FOv (predSO p f))) ym = true ->
 forall (x : FOvariable) (W : Set) (Iv : FOvariable -> W)
   (Ip : predicate -> W -> Prop) (Ir : W -> W -> Prop) (d : W),
-SOturnst W (altered_Iv Iv d x) Ip Ir (predSO p f) <->
-SOturnst W (altered_Iv Iv d (Var ym)) Ip Ir (rename_FOv (predSO p f) x (Var ym)).
+SOturnst W (alt_Iv Iv d x) Ip Ir (predSO p f) <->
+SOturnst W (alt_Iv Iv d (Var ym)) Ip Ir (rename_FOv (predSO p f) x (Var ym)).
 Proof.
   intros p f ym Hleb x W  Iv Ip Ir d.
   destruct p; destruct f as [zn]; destruct x as [xn].
@@ -1693,8 +1693,8 @@ forall (x : FOvariable) (ym : nat),
 Nat.leb (max_FOv (relatSO f f0)) ym = true ->
 forall (W : Set) (Iv : FOvariable -> W) (Ip : predicate -> W -> Prop)
   (Ir : W -> W -> Prop) (d : W),
-SOturnst W (altered_Iv Iv d x) Ip Ir (relatSO f f0) <->
-SOturnst W (altered_Iv Iv d (Var (S ym))) Ip Ir
+SOturnst W (alt_Iv Iv d x) Ip Ir (relatSO f f0) <->
+SOturnst W (alt_Iv Iv d (Var (S ym))) Ip Ir
   (rename_FOv (relatSO f f0) x (Var (S ym))).
 Proof.
   intros f f0 x ym Hleb W Iv Ip Ir d.
@@ -1779,8 +1779,8 @@ forall (x : FOvariable) (ym : nat),
 Nat.leb (max_FOv (eqFO f f0)) ym = true ->
 forall (W : Set) (Iv : FOvariable -> W) (Ip : predicate -> W -> Prop)
   (Ir : W -> W -> Prop) (d : W),
-SOturnst W (altered_Iv Iv d x) Ip Ir (eqFO f f0) <->
-SOturnst W (altered_Iv Iv d (Var (S ym))) Ip Ir
+SOturnst W (alt_Iv Iv d x) Ip Ir (eqFO f f0) <->
+SOturnst W (alt_Iv Iv d (Var (S ym))) Ip Ir
   (rename_FOv (eqFO f f0) x (Var (S ym))).
 Proof.
   intros f f0 x ym Hleb W Iv Ip Ir d.
@@ -1864,15 +1864,15 @@ Lemma exFO_rename_FOv_max_FOv_pre_exFO_1_allFO : forall alpha f,
           Nat.leb (max_FOv alpha) ym = true ->
           forall (W : Set) (Iv : FOvariable -> W) (Ip : predicate -> W -> Prop)
             (Ir : W -> W -> Prop) (d : W),
-          SOturnst W (altered_Iv Iv d x) Ip Ir alpha <->
-          SOturnst W (altered_Iv Iv d (Var (S ym))) Ip Ir
+          SOturnst W (alt_Iv Iv d x) Ip Ir alpha <->
+          SOturnst W (alt_Iv Iv d (Var (S ym))) Ip Ir
             (rename_FOv alpha x (Var (S ym)))) ->
 forall (x : FOvariable) (ym : nat),
 Nat.leb (max_FOv (allFO f alpha)) ym = true ->
 forall (W : Set) (Iv : FOvariable -> W) (Ip : predicate -> W -> Prop)
   (Ir : W -> W -> Prop) (d : W),
-SOturnst W (altered_Iv Iv d x) Ip Ir (allFO f alpha) <->
-SOturnst W (altered_Iv Iv d (Var (S ym))) Ip Ir
+SOturnst W (alt_Iv Iv d x) Ip Ir (allFO f alpha) <->
+SOturnst W (alt_Iv Iv d (Var (S ym))) Ip Ir
   (rename_FOv (allFO f alpha) x (Var (S ym))).
 Proof.
   intros alpha f IHalpha x ym Hleb W Iv Ip Ir d.
@@ -1884,7 +1884,7 @@ Proof.
     do 2 rewrite SOturnst_allFO.
     split; intros SOt.
       intros d2.
-      rewrite altered_Iv_eq.
+      rewrite alt_Iv_eq.
       assert ((rename_FOv_n alpha xn (S ym)) = 
               (rename_FOv alpha (Var xn) (Var (S ym)))) as H.
         reflexivity.
@@ -1892,19 +1892,19 @@ Proof.
       apply IHalpha. apply Hleb.
       specialize (SOt d2).
       rewrite (beq_nat_true _ _ Hbeq) in SOt.
-      rewrite altered_Iv_eq in SOt.
+      rewrite alt_Iv_eq in SOt.
       apply SOt.
 
       intros d2.
       specialize (SOt d2).
-      rewrite altered_Iv_eq in SOt.
+      rewrite alt_Iv_eq in SOt.
       assert ((rename_FOv_n alpha xn (S ym)) = 
               (rename_FOv alpha (Var xn) (Var (S ym)))) as H.
         reflexivity.
       rewrite H in SOt.
       apply IHalpha in SOt.
         rewrite (beq_nat_true _ _ Hbeq).
-        rewrite altered_Iv_eq.
+        rewrite alt_Iv_eq.
         assumption. apply Hleb.
   
     assert (Var xn <> Var zn) as Hneq.
@@ -1921,7 +1921,7 @@ Proof.
     split; intros SOt.
       intros d2.
       specialize (SOt d2).
-      rewrite altered_Iv_switch in *.
+      rewrite alt_Iv_switch in *.
       assert ((rename_FOv_n alpha xn (S ym)) = 
               (rename_FOv alpha (Var xn) (Var (S ym)))) as H.
         reflexivity.
@@ -1931,7 +1931,7 @@ Proof.
 
       intros d2.
       specialize (SOt d2).
-      rewrite altered_Iv_switch in *.
+      rewrite alt_Iv_switch in *.
       assert ((rename_FOv_n alpha xn (S ym)) = 
               (rename_FOv alpha (Var xn) (Var (S ym)))) as H.
         reflexivity.
@@ -1946,15 +1946,15 @@ Lemma exFO_rename_FOv_max_FOv_pre_exFO_1_exFO : forall alpha f,
           Nat.leb (max_FOv alpha) ym = true ->
           forall (W : Set) (Iv : FOvariable -> W) (Ip : predicate -> W -> Prop)
             (Ir : W -> W -> Prop) (d : W),
-          SOturnst W (altered_Iv Iv d x) Ip Ir alpha <->
-          SOturnst W (altered_Iv Iv d (Var (S ym))) Ip Ir
+          SOturnst W (alt_Iv Iv d x) Ip Ir alpha <->
+          SOturnst W (alt_Iv Iv d (Var (S ym))) Ip Ir
             (rename_FOv alpha x (Var (S ym)))) ->
 forall (x : FOvariable) (ym : nat),
 Nat.leb (max_FOv (exFO f alpha)) ym = true ->
 forall (W : Set) (Iv : FOvariable -> W) (Ip : predicate -> W -> Prop)
   (Ir : W -> W -> Prop) (d : W),
-SOturnst W (altered_Iv Iv d x) Ip Ir (exFO f alpha) <->
-SOturnst W (altered_Iv Iv d (Var (S ym))) Ip Ir
+SOturnst W (alt_Iv Iv d x) Ip Ir (exFO f alpha) <->
+SOturnst W (alt_Iv Iv d (Var (S ym))) Ip Ir
   (rename_FOv (exFO f alpha) x (Var (S ym))).
 Proof.
   intros alpha f IHalpha x ym Hleb W Iv Ip Ir d.
@@ -1967,24 +1967,24 @@ Proof.
     split; intros SOt;
       destruct SOt as [d2 SOt];
       exists d2.
-      rewrite altered_Iv_eq.
+      rewrite alt_Iv_eq.
       assert ((rename_FOv_n alpha xn (S ym)) = 
               (rename_FOv alpha (Var xn) (Var (S ym)))) as H.
         reflexivity.
       rewrite H.
       apply IHalpha. apply Hleb.
       rewrite (beq_nat_true _ _ Hbeq) in SOt.
-      rewrite altered_Iv_eq in SOt.
+      rewrite alt_Iv_eq in SOt.
       apply SOt.
 
-      rewrite altered_Iv_eq in SOt.
+      rewrite alt_Iv_eq in SOt.
       assert ((rename_FOv_n alpha xn (S ym)) = 
               (rename_FOv alpha (Var xn) (Var (S ym)))) as H.
         reflexivity.
       rewrite H in SOt.
       apply IHalpha in SOt.
         rewrite (beq_nat_true _ _ Hbeq).
-        rewrite altered_Iv_eq.
+        rewrite alt_Iv_eq.
         assumption. apply Hleb.
   
     assert (Var xn <> Var zn) as Hneq.
@@ -2002,7 +2002,7 @@ Proof.
     split; intros SOt;
       destruct SOt as [d2 SOt];
       exists d2.
-      rewrite altered_Iv_switch in *.
+      rewrite alt_Iv_switch in *.
       assert ((rename_FOv_n alpha xn (S ym)) = 
               (rename_FOv alpha (Var xn) (Var (S ym)))) as H.
         reflexivity.
@@ -2010,7 +2010,7 @@ Proof.
       apply IHalpha. apply Hleb.
       assumption. apply Hneq. apply Hneq2. apply Hneq.
 
-      rewrite altered_Iv_switch in *.
+      rewrite alt_Iv_switch in *.
       assert ((rename_FOv_n alpha xn (S ym)) = 
               (rename_FOv alpha (Var xn) (Var (S ym)))) as H.
         reflexivity.
@@ -2025,22 +2025,22 @@ Lemma exFO_rename_FOv_max_FOv_pre_exFO_1_conjSO : forall alpha1 alpha2,
            Nat.leb (max_FOv alpha1) ym = true ->
            forall (W : Set) (Iv : FOvariable -> W) (Ip : predicate -> W -> Prop)
              (Ir : W -> W -> Prop) (d : W),
-           SOturnst W (altered_Iv Iv d x) Ip Ir alpha1 <->
-           SOturnst W (altered_Iv Iv d (Var (S ym))) Ip Ir
+           SOturnst W (alt_Iv Iv d x) Ip Ir alpha1 <->
+           SOturnst W (alt_Iv Iv d (Var (S ym))) Ip Ir
              (rename_FOv alpha1 x (Var (S ym)))) ->
   (forall (x : FOvariable) (ym : nat),
            Nat.leb (max_FOv alpha2) ym = true ->
            forall (W : Set) (Iv : FOvariable -> W) (Ip : predicate -> W -> Prop)
              (Ir : W -> W -> Prop) (d : W),
-           SOturnst W (altered_Iv Iv d x) Ip Ir alpha2 <->
-           SOturnst W (altered_Iv Iv d (Var (S ym))) Ip Ir
+           SOturnst W (alt_Iv Iv d x) Ip Ir alpha2 <->
+           SOturnst W (alt_Iv Iv d (Var (S ym))) Ip Ir
              (rename_FOv alpha2 x (Var (S ym)))) ->
 forall (x : FOvariable) (ym : nat),
 Nat.leb (max_FOv (conjSO alpha1 alpha2)) ym = true ->
 forall (W : Set) (Iv : FOvariable -> W) (Ip : predicate -> W -> Prop)
   (Ir : W -> W -> Prop) (d : W),
-SOturnst W (altered_Iv Iv d x) Ip Ir (conjSO alpha1 alpha2) <->
-SOturnst W (altered_Iv Iv d (Var (S ym))) Ip Ir
+SOturnst W (alt_Iv Iv d x) Ip Ir (conjSO alpha1 alpha2) <->
+SOturnst W (alt_Iv Iv d (Var (S ym))) Ip Ir
   (rename_FOv (conjSO alpha1 alpha2) x (Var (S ym))).
 Proof.
   intros alpha1 alpha2 IHalpha1 IHalpha2 x ym Hleb W Iv Ip Ir d.
@@ -2062,22 +2062,22 @@ Lemma exFO_rename_FOv_max_FOv_pre_exFO_1_disjSO : forall alpha1 alpha2,
            Nat.leb (max_FOv alpha1) ym = true ->
            forall (W : Set) (Iv : FOvariable -> W) (Ip : predicate -> W -> Prop)
              (Ir : W -> W -> Prop) (d : W),
-           SOturnst W (altered_Iv Iv d x) Ip Ir alpha1 <->
-           SOturnst W (altered_Iv Iv d (Var (S ym))) Ip Ir
+           SOturnst W (alt_Iv Iv d x) Ip Ir alpha1 <->
+           SOturnst W (alt_Iv Iv d (Var (S ym))) Ip Ir
              (rename_FOv alpha1 x (Var (S ym)))) ->
   (forall (x : FOvariable) (ym : nat),
            Nat.leb (max_FOv alpha2) ym = true ->
            forall (W : Set) (Iv : FOvariable -> W) (Ip : predicate -> W -> Prop)
              (Ir : W -> W -> Prop) (d : W),
-           SOturnst W (altered_Iv Iv d x) Ip Ir alpha2 <->
-           SOturnst W (altered_Iv Iv d (Var (S ym))) Ip Ir
+           SOturnst W (alt_Iv Iv d x) Ip Ir alpha2 <->
+           SOturnst W (alt_Iv Iv d (Var (S ym))) Ip Ir
              (rename_FOv alpha2 x (Var (S ym)))) ->
 forall (x : FOvariable) (ym : nat),
 Nat.leb (max_FOv (disjSO alpha1 alpha2)) ym = true ->
 forall (W : Set) (Iv : FOvariable -> W) (Ip : predicate -> W -> Prop)
   (Ir : W -> W -> Prop) (d : W),
-SOturnst W (altered_Iv Iv d x) Ip Ir (disjSO alpha1 alpha2) <->
-SOturnst W (altered_Iv Iv d (Var (S ym))) Ip Ir
+SOturnst W (alt_Iv Iv d x) Ip Ir (disjSO alpha1 alpha2) <->
+SOturnst W (alt_Iv Iv d (Var (S ym))) Ip Ir
   (rename_FOv (disjSO alpha1 alpha2) x (Var (S ym))).
 Proof.
   intros alpha1 alpha2 IHalpha1 IHalpha2 x ym Hleb W Iv Ip Ir d.
@@ -2099,22 +2099,22 @@ Lemma exFO_rename_FOv_max_FOv_pre_exFO_1_implSO : forall alpha1 alpha2,
            Nat.leb (max_FOv alpha1) ym = true ->
            forall (W : Set) (Iv : FOvariable -> W) (Ip : predicate -> W -> Prop)
              (Ir : W -> W -> Prop) (d : W),
-           SOturnst W (altered_Iv Iv d x) Ip Ir alpha1 <->
-           SOturnst W (altered_Iv Iv d (Var (S ym))) Ip Ir
+           SOturnst W (alt_Iv Iv d x) Ip Ir alpha1 <->
+           SOturnst W (alt_Iv Iv d (Var (S ym))) Ip Ir
              (rename_FOv alpha1 x (Var (S ym)))) ->
   (forall (x : FOvariable) (ym : nat),
            Nat.leb (max_FOv alpha2) ym = true ->
            forall (W : Set) (Iv : FOvariable -> W) (Ip : predicate -> W -> Prop)
              (Ir : W -> W -> Prop) (d : W),
-           SOturnst W (altered_Iv Iv d x) Ip Ir alpha2 <->
-           SOturnst W (altered_Iv Iv d (Var (S ym))) Ip Ir
+           SOturnst W (alt_Iv Iv d x) Ip Ir alpha2 <->
+           SOturnst W (alt_Iv Iv d (Var (S ym))) Ip Ir
              (rename_FOv alpha2 x (Var (S ym)))) ->
 forall (x : FOvariable) (ym : nat),
 Nat.leb (max_FOv (implSO alpha1 alpha2)) ym = true ->
 forall (W : Set) (Iv : FOvariable -> W) (Ip : predicate -> W -> Prop)
   (Ir : W -> W -> Prop) (d : W),
-SOturnst W (altered_Iv Iv d x) Ip Ir (implSO alpha1 alpha2) <->
-SOturnst W (altered_Iv Iv d (Var (S ym))) Ip Ir
+SOturnst W (alt_Iv Iv d x) Ip Ir (implSO alpha1 alpha2) <->
+SOturnst W (alt_Iv Iv d (Var (S ym))) Ip Ir
   (rename_FOv (implSO alpha1 alpha2) x (Var (S ym))).
 Proof.
   intros alpha1 alpha2 IHalpha1 IHalpha2 x ym Hleb W Iv Ip Ir d.
@@ -2133,8 +2133,8 @@ Qed.
 Lemma exFO_rename_FOv_max_FOv_pre_exFO_1 : forall alpha x ym,
   Nat.leb (max_FOv alpha) ym = true ->
   forall W Iv Ip Ir d,
-  SOturnst W (altered_Iv Iv d x) Ip Ir alpha <->
-  SOturnst W (altered_Iv Iv d (Var (S ym))) Ip Ir (rename_FOv alpha x (Var (S ym))).
+  SOturnst W (alt_Iv Iv d x) Ip Ir alpha <->
+  SOturnst W (alt_Iv Iv d (Var (S ym))) Ip Ir (rename_FOv alpha x (Var (S ym))).
 Proof.
  induction alpha.
   intros.
@@ -3119,7 +3119,7 @@ Proof.
     simpl list_closed_exFO.
     rewrite SOturnst_exFO.
     exists (Iv a).
-    rewrite unaltered_fun_Iv.
+    rewrite unalt_fun_Iv.
     apply IHlv.
     assumption.
 Qed.

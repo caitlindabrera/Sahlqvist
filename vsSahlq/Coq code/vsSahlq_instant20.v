@@ -1504,8 +1504,8 @@ Defined.
 is_unary_predless alpha = true /\
 closed_except alpha (Var xn) /\
 forall W Iv Ip Ir w,
-  SOturnst W (altered_Iv Iv w (Var xn)) Ip Ir alpha <->
-  SOturnst W (altered_Iv Iv w (Var xn)) Ip Ir (uni_closed_SO (ST (mimpl phi1 phi2) (Var xn))).
+  SOturnst W (alt_Iv Iv w (Var xn)) Ip Ir alpha <->
+  SOturnst W (alt_Iv Iv w (Var xn)) Ip Ir (uni_closed_SO (ST (mimpl phi1 phi2) (Var xn))).
 Proof.
   intros xn phi1 phi2 H1 H2.
   destruct (vsSahlq_full_SO_pre_loc xn phi1 phi2 H1 H2) as  [lx [atm [Hat [[rel [Hrel [Hin SOt]]]| [Hin SOt] ]]]].
@@ -1681,7 +1681,7 @@ Theorem vsSahlq_full_Modal_sep_loc : forall phi1 phi2,
 is_unary_predless alpha = true /\
 closed_except alpha x /\
 forall W Iv Ip Ir w,
-SOturnst W (altered_Iv Iv w x) Ip Ir alpha <->
+SOturnst W (alt_Iv Iv w x) Ip Ir alpha <->
   mturnst_frame_loc W Ir w (mimpl phi1 phi2).
 Proof.
   intros phi1 phi2 H1 H2.
@@ -1704,7 +1704,7 @@ Theorem vsSahlq_full_Modal_loc : forall phi,
 is_unary_predless alpha = true /\
 closed_except alpha x /\
 forall W Iv Ip Ir w,
-  SOturnst W (altered_Iv Iv w x) Ip Ir alpha <->
+  SOturnst W (alt_Iv Iv w x) Ip Ir alpha <->
   mturnst_frame_loc W Ir w phi.
 Proof.
   intros phi H. destruct phi; try contradiction.
