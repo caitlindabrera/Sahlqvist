@@ -28,18 +28,18 @@ Fixpoint mturnst (W:Set) (R: W -> W -> Prop) (V: propvar -> W -> Prop) (w:W) (ph
 
 (* Modal turnstile on model. *)
 Definition mturnst_model (W:Set) (R: W -> W -> Prop) (V: propvar -> W -> Prop) (phi: Modal) : Prop := 
-           forall w:W, mturnst W R V w phi.
+  forall w:W, mturnst W R V w phi.
 
 (* Modal turnstile on frame. *)
 Definition mturnst_frame (W:Set) (R: W -> W -> Prop) (phi: Modal) : Prop := 
-           forall V: propvar -> W -> Prop, mturnst_model W R V phi.
+  forall V: propvar -> W -> Prop, mturnst_model W R V phi.
 
 (* Modal validity w.r.t. all frames. *)
 Definition mvalid (phi:Modal) : Prop :=
-           forall (W:Set) (R: W -> W -> Prop), mturnst_frame W R phi.
+  forall (W:Set) (R: W -> W -> Prop), mturnst_frame W R phi.
 
 Definition mturnst_frame_loc (W:Set) (R: W -> W -> Prop) (w : W) (phi: Modal) : Prop := 
-           forall V: propvar -> W -> Prop, mturnst W R V w phi.
+  forall V: propvar -> W -> Prop, mturnst W R V w phi.
 
 (* --------------------------------------------------------------------------------------- *)
 

@@ -2,14 +2,14 @@ Require Import Coq.Arith.EqNat.
 Require Export Coq.Logic.FunctionalExtensionality.
 Require Export Coq.Logic.Classical_Prop.
 
-(* Definition of predicate and FO variable types, using Pred and Var constructors repectively.
+(* Definition of predicate and first order variable types, using Pred and Var constructors repectively.
 Assumes countably infinite for each. *)
 Inductive predicate : Type :=
   Pred : nat -> predicate.
 Inductive FOvariable : Type :=
   Var : nat -> FOvariable.
 
-(* SO formaula definition with equality. *)
+(* Second order fragment formaula definition. *)
 Inductive SecOrder :=
     predSO : predicate -> FOvariable -> SecOrder
   | relatSO : FOvariable -> FOvariable -> SecOrder
@@ -22,7 +22,6 @@ Inductive SecOrder :=
   | implSO : SecOrder -> SecOrder -> SecOrder 
   | allSO : predicate -> SecOrder -> SecOrder
   | exSO : predicate -> SecOrder -> SecOrder .
-(*  | eqSO : predicate -> predicate -> SecOrder. *)
 
 (* SO Semantics *)
 
@@ -157,7 +156,6 @@ Fixpoint preds_in (alpha:SecOrder) : list predicate :=
   | implSO beta1 beta2 => app (preds_in beta1) (preds_in beta2)
   | allSO P beta => cons P (preds_in beta)
   | exSO P beta => cons P (preds_in beta)
-(*  | eqSO (Pred n) (Pred m) => cons (Pred n) (cons (Pred m) nil) *)
   end.
 
 (* Function that quantifies over the predicates in the given list. *)
