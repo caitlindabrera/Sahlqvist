@@ -1,0 +1,12 @@
+My lemmas          Library lemmas
+
+bi_refl            iff_refl
+bi_contrapos       not_iff_compat 
+beq_nat_comm       Nat.eqb_sym
+arith_plus_comm    Nat.add_comm
+arith_plus_assoc   plus_assoc_reverse
+one_suc            Nat.add_1_r
+arith_minus_zero   Nat.sub_0_r
+arith_plus_3       minus_plus
+
+
