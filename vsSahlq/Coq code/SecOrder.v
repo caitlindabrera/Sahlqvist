@@ -206,7 +206,7 @@ Qed.
 
 (* Proof of classicality *)
 
-Lemma SO_lem : forall alpha D Iv Ip Ir,
+Lemma SO_LEM : forall alpha D Iv Ip Ir,
   SOturnst D Iv Ip Ir (disjSO alpha (negSO alpha)).
 Proof.
   intros alpha D Iv Ip Ir. apply classic.

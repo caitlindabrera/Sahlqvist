@@ -74,7 +74,7 @@ Fixpoint pv_in (phi : Modal) : list propvar :=
 
 (* Proof of classicality *)
 
-Lemma modal_lem : forall phi W R V w,
+Lemma modal_LEM : forall phi W R V w,
   mturnst W R V w (mdisj phi (mneg phi)).
 Proof.
   intros phi W R V w. apply classic.
