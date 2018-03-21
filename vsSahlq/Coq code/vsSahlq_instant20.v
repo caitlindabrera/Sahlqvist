@@ -1697,7 +1697,7 @@ Proof.
     assumption.
 Defined.
 
-Theorem vsSahlq_full_Modal_loc : forall phi,
+Theorem vsSahlq_full_Modal_loc_changing_the_name : forall phi,
   vsSahlq phi ->
   existsT2 (alpha : SecOrder),
   exists (x : FOvariable),
