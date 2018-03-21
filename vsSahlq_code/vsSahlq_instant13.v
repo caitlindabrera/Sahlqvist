@@ -863,7 +863,7 @@ Lemma equiv_new_simpl3_lP : forall lP llv x alpha W Iv Ip Ir pa0,
     SOturnst W Iv Ip Ir (replace_pred_l alpha lP (list_Var (length lP) x) (vsS_syn_l llv x)).
 Proof.
   induction lP; intros llv x alpha W Iv Ip Ir pa0 Hl Hno Hcon Hind Hat1 Hat2.
-    simpl in *. destruct llv. simpl. apply bi_refl.
+    simpl in *. destruct llv. simpl. apply iff_refl.
     discriminate.
 
     simpl. case_eq llv. intros H; rewrite H in *. discriminate.
@@ -968,7 +968,7 @@ Qed.
     SOturnst W Iv Ip Ir (replace_pred_l alpha lP (list_Var (length lP) x) (vsS_syn_l llv x)).
 Proof.
   induction lP; intros llv x alpha W Iv Ip Ir Hl Hno Hcon Hind Hat1 Hat2.
-    simpl in *. destruct llv. simpl. apply bi_refl.
+    simpl in *. destruct llv. simpl. apply iff_refl.
     discriminate.
 
     simpl. case_eq llv. intros H; rewrite H in *. discriminate.
@@ -3057,7 +3057,7 @@ Proof.
       right. rewrite <- beq_nat_refl.
       apply conj. reflexivity.
       intros.
-      apply bi_refl.
+      apply iff_refl.
 Defined.
 
 Lemma preds_in_exFO : forall alpha x,
@@ -3328,7 +3328,7 @@ Proof.
 
     exists nil. exists (relatSO f f0).
     apply conj. reflexivity.
-    simpl. intros. apply bi_refl.
+    simpl. intros. apply iff_refl.
 
     assert (forall P, P_occurs_in_alpha (alpha) P = false) as H2'.
       intros P. specialize (H2 P).

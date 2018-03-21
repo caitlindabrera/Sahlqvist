@@ -406,7 +406,7 @@ Proof.
       rewrite Hbeq in *.
       discriminate.
 
-      apply bi_refl.
+      apply iff_refl.
 
     destruct f as [yn]; destruct f0 as [ym];
     destruct x as [xn].
@@ -415,7 +415,7 @@ Proof.
       rewrite Hbeq1 in *.
       discriminate.
       rewrite Hfree.
-      apply bi_refl.
+      apply iff_refl.
     destruct f as [yn]; destruct f0 as [ym];
     destruct x as [xn].
     simpl in *.
@@ -423,7 +423,7 @@ Proof.
       rewrite Hbeq1 in *.
       discriminate.
       rewrite Hfree.
-      apply bi_refl.
+      apply iff_refl.
 
     apply altered_Iv_equiv_allFO; assumption.
     apply altered_Iv_equiv_exFO; assumption.
@@ -1013,7 +1013,7 @@ Proof.
   simpl in *.
   rewrite Hfree.
   simpl.
-  apply bi_refl.
+  apply iff_refl.
 Qed.
 
 Lemma exFO_rename_FOv_max_FOv_pre_relatSO : forall f f0,
@@ -1033,7 +1033,7 @@ Proof.
 
     rewrite Hfree.
     simpl.
-    apply bi_refl.
+    apply iff_refl.
 Qed.
 
 Lemma exFO_rename_FOv_max_FOv_pre_eqFO : forall f f0,
@@ -1053,7 +1053,7 @@ Proof.
 
     rewrite Hfree.
     simpl.
-    apply bi_refl.
+    apply iff_refl.
 Qed.
 
 Lemma exFO_rename_FOv_max_FOv_pre_allFO_1_predSO : forall p f ym,
@@ -1070,7 +1070,7 @@ Proof.
     simpl.
     rewrite Hbeq1.
     rewrite <- beq_nat_refl.
-    apply bi_refl.
+    apply iff_refl.
 
     simpl.
     rewrite Hbeq1.
@@ -1086,7 +1086,7 @@ Proof.
         rewrite leb_suc_f in Hleb.
         discriminate.
 
-        apply bi_refl.
+        apply iff_refl.
 Qed.
 
 Lemma exFO_rename_FOv_max_FOv_pre_allFO_1_relatSO : forall f f0,
@@ -1106,13 +1106,13 @@ Proof.
   case_eq (beq_nat xn z1); intros Hbeq1;
     case_eq (beq_nat xn z2); intros Hbeq2.
       simpl. rewrite <- beq_nat_refl.
-      apply bi_refl.
+      apply iff_refl.
 
       simpl. rewrite <- beq_nat_refl.
-      apply bi_refl.
+      apply iff_refl.
 
       case_eq z2.
-        intros; apply bi_refl.
+        intros; apply iff_refl.
  
         intros zz2 Hz2.
         case_eq (beq_nat ym zz2); intros Hbeq3.
@@ -1121,11 +1121,11 @@ Proof.
           rewrite leb_max_suc in Hleb.
           discriminate.
 
-          apply bi_refl.
+          apply iff_refl.
 
       simpl.
       case_eq z1.
-        intros. rewrite <- beq_nat_refl. apply bi_refl.
+        intros. rewrite <- beq_nat_refl. apply iff_refl.
  
         intros zz1 Hz1.
         case_eq (beq_nat ym zz1); intros Hbeq3.
@@ -1136,13 +1136,13 @@ Proof.
           discriminate.
 
           rewrite <- beq_nat_refl.
-          apply bi_refl.
+          apply iff_refl.
 
       simpl.
       case_eq z2.
         intros. 
         case_eq z1.
-          intros. apply bi_refl.
+          intros. apply iff_refl.
    
           intros zz1 Hz1.
           case_eq (beq_nat ym zz1); intros Hbeq3.
@@ -1152,7 +1152,7 @@ Proof.
             rewrite leb_max_suc in Hleb.
             discriminate.
 
-            apply bi_refl.
+            apply iff_refl.
  
         intros zz2 Hz2.
         case_eq (beq_nat ym zz2); intros Hbeq3.
@@ -1162,7 +1162,7 @@ Proof.
           discriminate.
 
           case_eq z1.
-            intros. apply bi_refl.
+            intros. apply iff_refl.
      
             intros zz1 Hz1.
             case_eq (beq_nat ym zz1); intros Hbeq4.
@@ -1171,7 +1171,7 @@ Proof.
               rewrite PeanoNat.Nat.max_comm with (m := z2) in Hleb.
               rewrite leb_max_suc in Hleb.
               discriminate.
-              apply bi_refl.
+              apply iff_refl.
 Qed.
 
 
@@ -1192,13 +1192,13 @@ Proof.
   case_eq (beq_nat xn z1); intros Hbeq1;
     case_eq (beq_nat xn z2); intros Hbeq2.
       simpl. rewrite <- beq_nat_refl.
-      apply bi_refl.
+      apply iff_refl.
 
       simpl. rewrite <- beq_nat_refl.
-      apply bi_refl.
+      apply iff_refl.
 
       case_eq z2.
-        intros; apply bi_refl.
+        intros; apply iff_refl.
  
         intros zz2 Hz2.
         case_eq (beq_nat ym zz2); intros Hbeq3.
@@ -1207,11 +1207,11 @@ Proof.
           rewrite leb_max_suc in Hleb.
           discriminate.
 
-          apply bi_refl.
+          apply iff_refl.
 
       simpl.
       case_eq z1.
-        intros. rewrite <- beq_nat_refl. apply bi_refl.
+        intros. rewrite <- beq_nat_refl. apply iff_refl.
  
         intros zz1 Hz1.
         case_eq (beq_nat ym zz1); intros Hbeq3.
@@ -1222,13 +1222,13 @@ Proof.
           discriminate.
 
           rewrite <- beq_nat_refl.
-          apply bi_refl.
+          apply iff_refl.
 
       simpl.
       case_eq z2.
         intros. 
         case_eq z1.
-          intros. apply bi_refl.
+          intros. apply iff_refl.
    
           intros zz1 Hz1.
           case_eq (beq_nat ym zz1); intros Hbeq3.
@@ -1238,7 +1238,7 @@ Proof.
             rewrite leb_max_suc in Hleb.
             discriminate.
 
-            apply bi_refl.
+            apply iff_refl.
  
         intros zz2 Hz2.
         case_eq (beq_nat ym zz2); intros Hbeq3.
@@ -1248,7 +1248,7 @@ Proof.
           discriminate.
 
           case_eq z1.
-            intros. apply bi_refl.
+            intros. apply iff_refl.
      
             intros zz1 Hz1.
             case_eq (beq_nat ym zz1); intros Hbeq4.
@@ -1257,7 +1257,7 @@ Proof.
               rewrite PeanoNat.Nat.max_comm with (m := z2) in Hleb.
               rewrite leb_max_suc in Hleb.
               discriminate.
-              apply bi_refl.
+              apply iff_refl.
 Qed.
 
 Lemma exFO_rename_FOv_max_FOv_pre_allFO_1_allFO : forall alpha f,
@@ -1669,7 +1669,7 @@ Proof.
     simpl.
     rewrite Hbeq1.
     rewrite <- beq_nat_refl.
-    apply bi_refl.
+    apply iff_refl.
 
     simpl.
     rewrite Hbeq1.
@@ -1685,7 +1685,7 @@ Proof.
         rewrite leb_suc_f in Hleb.
         discriminate.
 
-        apply bi_refl.
+        apply iff_refl.
 Qed.
 
 Lemma exFO_rename_FOv_max_FOv_pre_exFO_1_relatSO : forall f f0,
@@ -1705,13 +1705,13 @@ Proof.
   case_eq (beq_nat xn z1); intros Hbeq1;
     case_eq (beq_nat xn z2); intros Hbeq2.
       simpl. rewrite <- beq_nat_refl.
-      apply bi_refl.
+      apply iff_refl.
 
       simpl. rewrite <- beq_nat_refl.
-      apply bi_refl.
+      apply iff_refl.
 
       case_eq z2.
-        intros; apply bi_refl.
+        intros; apply iff_refl.
  
         intros zz2 Hz2.
         case_eq (beq_nat ym zz2); intros Hbeq3.
@@ -1720,11 +1720,11 @@ Proof.
           rewrite leb_max_suc in Hleb.
           discriminate.
 
-          apply bi_refl.
+          apply iff_refl.
 
       simpl.
       case_eq z1.
-        intros. rewrite <- beq_nat_refl. apply bi_refl.
+        intros. rewrite <- beq_nat_refl. apply iff_refl.
  
         intros zz1 Hz1.
         case_eq (beq_nat ym zz1); intros Hbeq3.
@@ -1735,13 +1735,13 @@ Proof.
           discriminate.
 
           rewrite <- beq_nat_refl.
-          apply bi_refl.
+          apply iff_refl.
 
       simpl.
       case_eq z2.
         intros. 
         case_eq z1.
-          intros. apply bi_refl.
+          intros. apply iff_refl.
    
           intros zz1 Hz1.
           case_eq (beq_nat ym zz1); intros Hbeq3.
@@ -1751,7 +1751,7 @@ Proof.
             rewrite leb_max_suc in Hleb.
             discriminate.
 
-            apply bi_refl.
+            apply iff_refl.
  
         intros zz2 Hz2.
         case_eq (beq_nat ym zz2); intros Hbeq3.
@@ -1761,7 +1761,7 @@ Proof.
           discriminate.
 
           case_eq z1.
-            intros. apply bi_refl.
+            intros. apply iff_refl.
      
             intros zz1 Hz1.
             case_eq (beq_nat ym zz1); intros Hbeq4.
@@ -1770,7 +1770,7 @@ Proof.
               rewrite PeanoNat.Nat.max_comm with (m := z2) in Hleb.
               rewrite leb_max_suc in Hleb.
               discriminate.
-              apply bi_refl.
+              apply iff_refl.
 Qed.
 
 
@@ -1791,13 +1791,13 @@ Proof.
   case_eq (beq_nat xn z1); intros Hbeq1;
     case_eq (beq_nat xn z2); intros Hbeq2.
       simpl. rewrite <- beq_nat_refl.
-      apply bi_refl.
+      apply iff_refl.
 
       simpl. rewrite <- beq_nat_refl.
-      apply bi_refl.
+      apply iff_refl.
 
       case_eq z2.
-        intros; apply bi_refl.
+        intros; apply iff_refl.
  
         intros zz2 Hz2.
         case_eq (beq_nat ym zz2); intros Hbeq3.
@@ -1806,11 +1806,11 @@ Proof.
           rewrite leb_max_suc in Hleb.
           discriminate.
 
-          apply bi_refl.
+          apply iff_refl.
 
       simpl.
       case_eq z1.
-        intros. rewrite <- beq_nat_refl. apply bi_refl.
+        intros. rewrite <- beq_nat_refl. apply iff_refl.
  
         intros zz1 Hz1.
         case_eq (beq_nat ym zz1); intros Hbeq3.
@@ -1821,13 +1821,13 @@ Proof.
           discriminate.
 
           rewrite <- beq_nat_refl.
-          apply bi_refl.
+          apply iff_refl.
 
       simpl.
       case_eq z2.
         intros. 
         case_eq z1.
-          intros. apply bi_refl.
+          intros. apply iff_refl.
    
           intros zz1 Hz1.
           case_eq (beq_nat ym zz1); intros Hbeq3.
@@ -1837,7 +1837,7 @@ Proof.
             rewrite leb_max_suc in Hleb.
             discriminate.
 
-            apply bi_refl.
+            apply iff_refl.
  
         intros zz2 Hz2.
         case_eq (beq_nat ym zz2); intros Hbeq3.
@@ -1847,7 +1847,7 @@ Proof.
           discriminate.
 
           case_eq z1.
-            intros. apply bi_refl.
+            intros. apply iff_refl.
      
             intros zz1 Hz1.
             case_eq (beq_nat ym zz1); intros Hbeq4.
@@ -1856,7 +1856,7 @@ Proof.
               rewrite PeanoNat.Nat.max_comm with (m := z2) in Hleb.
               rewrite leb_max_suc in Hleb.
               discriminate.
-              apply bi_refl.
+              apply iff_refl.
 Qed.
 
 Lemma exFO_rename_FOv_max_FOv_pre_exFO_1_allFO : forall alpha f,
@@ -2850,7 +2850,7 @@ Proof.
     rewrite Hnil.
     simpl.
     intros W Iv Ip Ir.
-    apply bi_refl.
+    apply iff_refl.
 
     destruct (nlist_cons2 _ lv) as [x [lvv Heq1]].
     pose proof (equiv_conjSO_exFO (list_closed_exFO alpha (nlist_list _ lvv)) x gamma) as SOt.
@@ -4439,7 +4439,7 @@ Proof.
     apply conj.
       reflexivity.
       intros.
-      apply bi_refl.
+      apply iff_refl.
 Qed.
 
 Lemma preprocess_vsSahlq_ante_relatSO : forall f f0,
@@ -4474,7 +4474,7 @@ Proof.
     intros.
     destruct f as [xn]; destruct f0 as [xm].
     simpl.
-    apply bi_refl.
+    apply iff_refl.
 Qed.
 
 Lemma preprocess_vsSahlq_ante_exFO : forall alpha f,

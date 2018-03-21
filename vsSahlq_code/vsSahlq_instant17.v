@@ -21,7 +21,7 @@ Proof.
         case_eq (is_in_var (Var xn) l2); intros Hin.
           split; intros H; [right|]; unfold pa_t; exact I.
 
-        destruct l2. contradiction (H2 eq_refl). apply bi_refl.
+        destruct l2. contradiction (H2 eq_refl). apply iff_refl.
 
       intros y ly Hly. rewrite <- Hly. unfold CM_pa2_l_gen. simpl.
       simpl. destruct x as [xn]. destruct a as [ym].
@@ -306,7 +306,7 @@ Lemma lem118'_equiv : forall atm W Iv Ip Ir,
     (atm_passing_predSO_ll_lP atm) (atm_passing_predSO_ll_llx atm))).
 Proof.
   induction atm; intros  W Iv Ip Ir Hat; try discriminate.    
-    destruct p. destruct f. simpl. apply bi_refl.
+    destruct p. destruct f. simpl. apply iff_refl.
 
     simpl.  rewrite passing_predSO_ll_app.
     rewrite passing_conj_app. simpl.
@@ -359,7 +359,7 @@ Lemma fun2_atm_passing_predSO_ll_nil : forall atm1 P,
 Proof.
   induction atm1; intros [Pn] Hat; try discriminate.
     destruct p as [Qm]. destruct f as [xn].
-    simpl in *. apply bi_refl.
+    simpl in *. apply iff_refl.
 
     simpl. 
     pose proof (AT_conjSO_l _ _ Hat) as H1.
@@ -548,7 +548,7 @@ Proof.
       simpl. case_eq l2. intros Hl2. rewrite Hl2 in *.
         contradiction (H2 eq_refl).
       intros beta lbeta Hl2. rewrite <- Hl2.
-      rewrite P_occurs_in_alpha_conjSO. apply bi_refl.
+      rewrite P_occurs_in_alpha_conjSO. apply iff_refl.
 
       intros beta lbeta Hl1. rewrite <- Hl1.
       simpl. case_eq (app l1 l2). intros Hl.
@@ -1419,7 +1419,7 @@ Lemma lem_a15_pre_pre_pre_pre : forall l2 Q P W lpa2 (pa pa1 pa2: W -> Prop) n,
   @ind_gen _ pa2 (indicies_l2 (cons Q l2) P) (cons pa1 lpa2) = constant_l pa n.
 Proof.
   induction l2; intros [Qm] [Pn] W lpa2 pa pa1 pa2 n Hlength.
-    simpl in *. destruct lpa2. simpl in *. apply bi_refl. discriminate.
+    simpl in *. destruct lpa2. simpl in *. apply iff_refl. discriminate.
     split; intros H.
 
     simpl in *. destruct lpa2. discriminate. simpl in *.
@@ -2368,9 +2368,9 @@ Lemma lem_a19 : forall lP W Iv Ip Ir pa_l beta pa2,
 Proof.
   induction lP; intros W Iv Ip Ir pa_l beta pa2 Hl Hcon.
     simpl in *. do 2 rewrite altered_Ip_list_nil.
-    apply bi_refl.
+    apply iff_refl.
 
-    destruct pa_l. simpl. apply bi_refl.
+    destruct pa_l. simpl. apply iff_refl.
     inversion Hl as [Hl'].
     pose proof Hcon as Hcon'.
     apply consistent_lP_lpa_cons_rem in Hcon.
@@ -2554,9 +2554,9 @@ Lemma altered_Ip_list_cap_pred_nil :  forall lP beta W Iv Ip Ir lpa,
   SOturnst W Iv Ip Ir beta).
 Proof.
   induction lP; intros beta W Iv Ip Ir lpa H.
-    rewrite altered_Ip_list_nil. apply bi_refl.
+    rewrite altered_Ip_list_nil. apply iff_refl.
 
-    destruct lpa. simpl. apply bi_refl.
+    destruct lpa. simpl. apply iff_refl.
     simpl in H.
     case_eq (is_in_pred a (preds_in beta)); intros Hin;
       rewrite Hin in *. discriminate.

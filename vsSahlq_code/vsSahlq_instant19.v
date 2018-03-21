@@ -73,11 +73,11 @@ Lemma lem_d28 : forall l P Q W Iv Ip Ir pa,
   SOturnst W Iv Ip Ir (passing_conj (passing_predSO_l P l)).
 Proof.
   induction l; intros [Pn] [Qm] W Iv Ip Ir  pa Hneq.
-    simpl. apply bi_refl.
+    simpl. apply iff_refl.
 
     simpl passing_conj. case_eq (passing_predSO_l (Pred Pn) l).
       intros Hp. destruct a as [xn]. simpl. rewrite (beq_nat_comm).
-      rewrite neq_beq_nat. apply bi_refl. assumption.
+      rewrite neq_beq_nat. apply iff_refl. assumption.
 
       intros beta lbeta Hp. rewrite <- Hp.
       destruct a as [xn]. do 2 rewrite SOturnst_conjSO.
@@ -723,7 +723,7 @@ SOturnst W Iv
      (cap_pred lP (preds_in beta))) Ir beta.
 Proof.
   induction lP; intros atm beta lx W Iv Ip Ir Hat Hl Hcon.
-    simpl in *. apply bi_refl.
+    simpl in *. apply iff_refl.
   
     destruct lx. discriminate.
     inversion Hl.
@@ -1895,12 +1895,12 @@ Proof.
   induction l; intros x y lP lx lcond W Iv Ip Ir.
     simpl. destruct x as [xn].
     case_eq (beq_nat xn 1); intros Hbeq;
-      rewrite rep_pred_l_eqFO; apply bi_refl.
+      rewrite rep_pred_l_eqFO; apply iff_refl.
 
     simpl. destruct l. simpl.
     destruct x as [xn]. destruct a as [ym].
     rewrite <- beq_nat_refl. case_eq (beq_nat xn ym);
-      intros Hbeq; rewrite rep_pred_l_eqFO; apply bi_refl.
+      intros Hbeq; rewrite rep_pred_l_eqFO; apply iff_refl.
 
     rewrite replace_FOv_disjSO. rewrite rep_pred_l_disjSO.
     split; intros [H1 | H2].
@@ -1986,11 +1986,11 @@ consistent_lP_llv lP l2 ->
       (list_Var (length lP) x) (vsS_syn_l l2 x)).
 Proof.
   induction lP; intros l1 l2 [Pn] y x W Iv Ip Ir Hin1 Hin2 Hcon1 Hcon2.
-    simpl in *. destruct y as [ym]. apply bi_refl.
+    simpl in *. destruct y as [ym]. apply iff_refl.
 
     simpl in *. destruct y as [ym]. case_eq l1.
       intros Hl1. simpl. destruct l2. simpl.
-      apply bi_refl. rewrite Hl1 in *. discriminate.
+      apply iff_refl. rewrite Hl1 in *. discriminate.
 
       intros la l1' Hl1. rewrite <- Hl1.
       case_eq (vsS_syn_l l1 x). intros H. rewrite Hl1 in H.
@@ -2066,10 +2066,10 @@ Proof.
     apply (lem_e19 _ l1 l2); assumption.
 
     rewrite rep_pred_l_relatSO.
-    rewrite rep_pred_l_relatSO. apply bi_refl. simpl.
+    rewrite rep_pred_l_relatSO. apply iff_refl. simpl.
 
     rewrite rep_pred_l_eqFO.
-    rewrite rep_pred_l_eqFO. apply bi_refl. simpl.
+    rewrite rep_pred_l_eqFO. apply iff_refl. simpl.
 
     do 2 rewrite rep_pred_l_allFO.
     do 2 rewrite SOturnst_allFO. simpl in Hno.
@@ -2245,7 +2245,7 @@ Proof.
   induction l1; intros l2 x y W Iv Ip Ir Hnil1 Hnil2. contradiction (Hnil1 eq_refl).
   simpl. case_eq l1. intros Hl1. destruct l2. contradiction (Hnil2 eq_refl).
     simpl. destruct x as [xn]. destruct y as [ym]. rewrite <- beq_nat_refl.
-    destruct a as [zn]. apply bi_refl.
+    destruct a as [zn]. apply iff_refl.
 
     intros z lz Hl1. rewrite <- Hl1.
     case_eq (app l1 l2).
@@ -2325,9 +2325,9 @@ Proof.
   induction atm; intros atm0 [Qm] [ym] [xn] W Iv Ip Ir Hat1 Hat2; try discriminate.
     destruct p as [Pn]. destruct f as [zn]. simpl in *. rewrite Hat2.
     case_eq (beq_nat Qm Pn); intros Hbeq. simpl. rewrite Hbeq.
-      simpl. rewrite <- beq_nat_refl. apply bi_refl.
+      simpl. rewrite <- beq_nat_refl. apply iff_refl.
 
-      simpl. rewrite Hbeq. simpl. apply bi_refl.
+      simpl. rewrite Hbeq. simpl. apply iff_refl.
 
     simpl in *. rewrite Hat2.
     pose proof (AT_conjSO_l _ _ Hat1) as Hata.
@@ -2395,7 +2395,7 @@ SOturnst W Iv Ip Ir (replace_pred_l (predSO p f) lP (list_Var (length lP) y) (vs
 SOturnst W Iv Ip Ir (replace_pred_l (predSO p f) lP (list_Var (length lP) y) (vsS_syn_l (FOv_att_P_l atm lP) y)).
 Proof.
   induction lP; intros atm atm2 [Pn] [xn] [ym] W Iv Ip Ir Hat1 Hat2.
-    simpl in *. apply bi_refl.
+    simpl in *. apply iff_refl.
 
     assert (length lP = length (list_Var (length lP) (Var ym))) as Hass1.
         symmetry. apply length_list_Var.
@@ -2466,7 +2466,7 @@ Proof.
     contradiction (Hnil1 eq_refl).
 
     simpl. case_eq l1. intros Hl1. simpl. destruct l2. contradiction (Hnil2 eq_refl).
-      rewrite rep_pred_l_conjSO. rewrite SOturnst_conjSO. apply bi_refl.
+      rewrite rep_pred_l_conjSO. rewrite SOturnst_conjSO. apply iff_refl.
     intros beta lbeta Hl1. rewrite <- Hl1.
     assert (~ l1 = nil) as Hass. rewrite Hl1. discriminate.
     case_eq (app l1 l2).
@@ -2491,7 +2491,7 @@ Lemma lem_e22_pre2 : forall atm atm0 atm2 lP y W Iv Ip Ir,
   SOturnst W Iv Ip Ir (replace_pred_l atm lP (list_Var (length lP) y) (vsS_syn_l (FOv_att_P_l atm0 lP) y)).
 Proof.
   induction atm; intros atm0 atm3 lP y W Iv Ip Ir Hat1 Hat2 Hat3; try discriminate.
-    rewrite Hat1. simpl in *. apply bi_refl.
+    rewrite Hat1. simpl in *. apply iff_refl.
 
     pose proof (AT_conjSO_l _ _ Hat3) as Hata.
     pose proof (AT_conjSO_r _ _ Hat3) as Hatb.

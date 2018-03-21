@@ -2874,7 +2874,7 @@ Lemma same_Ip_list_comm: forall l W Ip Ip',
   same_Ip_list W Ip' Ip l.
 Proof.
   induction l; intros W Iv Ip'.
-    apply bi_refl.
+    apply iff_refl.
 
     simpl. split ;intros H; (apply conj;
       [symmetry; apply H | apply IHl; apply H]).

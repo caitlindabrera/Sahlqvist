@@ -1727,8 +1727,4 @@ Proof.
   apply vsSahlq_full_Modal_sep; assumption.
 Defined.
 
-Locate iff_refl.
-
-Search "((_ <-> _) -> (_ <-> _))" Prop  not.
-
-Print All Dependencies vsSahlq_full_Modal.
+(* Print All Dependencies vsSahlq_full_Modal. *)

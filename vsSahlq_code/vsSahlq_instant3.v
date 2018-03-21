@@ -505,7 +505,7 @@ Lemma CM_pa2_l_base : forall lv xn zn W Iv Ip Ir,
 Proof.
   induction lv; intros xn zn W Iv Ip Ir Hin.
     simpl. case_eq (beq_nat xn 1); intros Hbeq;
-      simpl; apply bi_refl.
+      simpl; apply iff_refl.
       split; intros; reflexivity.
 
     destruct a as [ym].
@@ -513,7 +513,7 @@ Proof.
       rewrite Hbeq in *. discriminate.
     destruct lv. simpl in *.
       rewrite <- beq_nat_refl.
-      simpl. rewrite Hbeq. apply bi_refl.
+      simpl. rewrite Hbeq. apply iff_refl.
 
       simpl. rewrite <- beq_nat_refl.
       split; intros [SOt | SOt].
@@ -838,13 +838,13 @@ Proof.
     case_eq (beq_nat Pn Qm); intros Hbeq.
       apply CM_pa2_l_base. assumption.
 
-      simpl. apply bi_refl.
+      simpl. apply iff_refl.
 
     destruct f; destruct f0.
-    simpl. apply bi_refl.
+    simpl. apply iff_refl.
 
     destruct f; destruct f0.
-    simpl. apply bi_refl.
+    simpl. apply iff_refl.
 
     destruct f as [ym].
     apply ex_attached_allFO_lv_allFO in Hat1.
@@ -1010,13 +1010,13 @@ Proof.
         apply equiv_new_simpl_try2_pre. assumption.
         exact I.
 
-      simpl. apply bi_refl.
+      simpl. apply iff_refl.
 
     destruct f; destruct f0.
-    simpl. apply bi_refl.
+    simpl. apply iff_refl.
 
     destruct f; destruct f0.
-    simpl. apply bi_refl.
+    simpl. apply iff_refl.
 
     destruct f as [zn].
     simpl replace_pred.

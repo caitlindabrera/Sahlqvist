@@ -30,7 +30,7 @@ Lemma equiv_list_closed_SO_app_l : forall l alpha W Iv Ip Ir,
   SOturnst W Iv Ip Ir (list_closed_SO alpha (preds_in alpha)).
 Proof.
   induction l; intros alpha W Iv Ip Ir.
-    simpl. apply bi_refl.
+    simpl. apply iff_refl.
 
     simpl app. destruct a as [Pn].
     split; intros SOt.
@@ -51,7 +51,7 @@ Lemma equiv_list_closed_SO_app_cons : forall l P alpha W Iv Ip Ir,
   SOturnst W Iv Ip Ir (list_closed_SO alpha (cons P l)).
 Proof.
   induction l; intros [Pn] alpha W Iv Ip Ir.
-    simpl. apply bi_refl.
+    simpl. apply iff_refl.
 
     destruct a as [Qm].
     simpl list_closed_SO.
@@ -106,7 +106,7 @@ Lemma equiv_list_closed_SO_app : forall l1 l2 alpha W Iv Ip Ir,
   SOturnst W Iv Ip Ir (list_closed_SO alpha (app l2 l1)).
 Proof.
   induction l1; intros l2 alpha W Iv Ip Ir.
-    simpl. rewrite app_nil_r. apply bi_refl.
+    simpl. rewrite app_nil_r. apply iff_refl.
 
     destruct a as [Pn]. simpl app.
     assert (app l2 (cons (Pred Pn) l1) = 
@@ -281,7 +281,7 @@ Proof.
     rewrite Hnil.
     simpl.
     intros W Iv Ip Ir.
-    apply bi_refl.
+    apply iff_refl.
 
     destruct (nlist_cons2 _ lv) as [x [lvv Heq1]].
     pose proof (equiv_implSO_exFO (list_closed_exFO alpha (nlist_list _ lvv)) gamma x) as SOt.

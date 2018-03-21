@@ -767,21 +767,21 @@ Lemma equiv_rename_FOv_free_FO_f : forall alpha y z,
 Proof.
   induction alpha; intros [xn] [ym] Hf1 Hf2 Hneq  Hocc W Iv Ip Ir.
     destruct p; destruct f as [zn].
-    simpl in *. rewrite Hf1. simpl. apply bi_refl.
+    simpl in *. rewrite Hf1. simpl. apply iff_refl.
 
     destruct f as [z1]; destruct f0 as [z2].
     simpl in *. case_eq (beq_nat xn z1); intros Hbeq1;
       rewrite Hbeq1 in *. discriminate.
     case_eq (beq_nat ym z1); intros Hbeq2;
       rewrite Hbeq2 in *. discriminate.
-    rewrite Hf1. simpl. apply bi_refl.
+    rewrite Hf1. simpl. apply iff_refl.
 
     destruct f as [z1]; destruct f0 as [z2].
     simpl in *. case_eq (beq_nat xn z1); intros Hbeq1;
       rewrite Hbeq1 in *. discriminate.
     case_eq (beq_nat ym z1); intros Hbeq2;
       rewrite Hbeq2 in *. discriminate.
-    rewrite Hf1. simpl. apply bi_refl.
+    rewrite Hf1. simpl. apply iff_refl.
 
     destruct f as [un]. simpl in Hf1. simpl in Hf2.
     case_eq (beq_nat xn un); intros Hbeq.
@@ -1452,9 +1452,9 @@ Lemma kk10 : forall lx ln alpha x,
   SOturnst W Iv Ip Ir (newnew_pre alpha lx ln).
 Proof.
   induction lx; intros ln alpha x Hc Hin Hleb Hd W Iv Ip Ir.
-    simpl. apply bi_refl.
+    simpl. apply iff_refl.
 
-    simpl. destruct ln. apply bi_refl.
+    simpl. destruct ln. apply iff_refl.
     apply is_in_FOvar_cons_f in Hin.
     destruct Hin.
     pose proof (neq_comm _ _ H0) as H0'.
@@ -1464,7 +1464,7 @@ Proof.
       destruct Hc as [Hc1 Hc2].
       destruct a as [an]. case_eq (beq_nat an n); intros Hbeq0.
         rewrite (beq_nat_true _ _ Hbeq0).
-        rewrite rename_FOv_same. apply bi_refl.
+        rewrite rename_FOv_same. apply iff_refl.
       apply equiv_rename_FOv_free_FO_f;
         try apply Hc2. apply not_eq_sym. assumption.
 

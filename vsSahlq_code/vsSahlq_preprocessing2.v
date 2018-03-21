@@ -880,18 +880,18 @@ Proof.
 
       simpl.
       rewrite Hbeq in *.
-      apply bi_refl.
+      apply iff_refl.
 
     simpl in *.
     destruct f as [xn]; destruct f0 as [xm].
     destruct Q as [Qm].
     simpl.
-    apply bi_refl.
+    apply iff_refl.
 
     destruct f as [xn]; destruct f0 as [xm].
     destruct Q as [Qm].
     simpl.
-    apply bi_refl.
+    apply iff_refl.
 
     rewrite rep_pred_allFO.
     do 2 rewrite SOturnst_allFO.
@@ -1896,7 +1896,7 @@ Lemma equiv_list_closed_SO_list_closed_allFO : forall lv lP alpha W Iv Ip Ir,
   SOturnst W Iv Ip Ir (list_closed_allFO (list_closed_SO alpha lP) lv).
 Proof.
   induction lv; intros lP alpha W Iv Ip Ir.
-    simpl. apply bi_refl.
+    simpl. apply iff_refl.
 
     destruct a as [xn].
     simpl list_closed_allFO.

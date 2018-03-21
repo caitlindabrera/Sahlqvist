@@ -211,7 +211,7 @@ Proof.
     intros beta l' H. case_eq l1.
 
       intros Hnil. rewrite <- H. rewrite Hnil.
-      simpl. apply bi_refl.
+      simpl. apply iff_refl.
 
       intros beta1 l1' Hl1.
       rewrite <- Hl1. rewrite <- H.

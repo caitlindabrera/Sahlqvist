@@ -232,9 +232,9 @@ Proof.
     destruct p; destruct f as [zn].
     simpl. case_eq (beq_nat xn zn);
       intros Hbeq; simpl. rewrite <- beq_nat_refl.
-      apply bi_refl.
+      apply iff_refl.
       simpl in Hocc. rewrite Hocc.
-      apply bi_refl.
+      apply iff_refl.
 
     destruct f as [z1]; destruct f0 as [z2].
     simpl rename_FOv.
@@ -246,22 +246,22 @@ Proof.
       case_eq (beq_nat z1 z2); intros Hbeq2.
         rewrite (beq_nat_true _ _ Hbeq2).
         simpl. do 2 rewrite <- beq_nat_refl.
-        apply bi_refl.
+        apply iff_refl.
 
         simpl. rewrite <- beq_nat_refl.
         rewrite Hbeq2. rewrite Hocc.
-        rewrite <- beq_nat_refl. apply bi_refl.
+        rewrite <- beq_nat_refl. apply iff_refl.
 
       case_eq (beq_nat xn z2); intros Hbeq2.
         rewrite (beq_nat_true _ _ Hbeq2).
         simpl. rewrite Hbeq. 
         do 2 rewrite <- beq_nat_refl.
         rewrite <- (beq_nat_true _ _ Hbeq2).
-        rewrite Hbeq3. apply bi_refl.
+        rewrite Hbeq3. apply iff_refl.
 
         simpl. rewrite Hocc. rewrite Hbeq.
         rewrite Hbeq2. rewrite Hbeq3.
-        apply bi_refl.
+        apply iff_refl.
 
     destruct f as [z1]; destruct f0 as [z2].
     simpl rename_FOv.
@@ -273,22 +273,22 @@ Proof.
       case_eq (beq_nat z1 z2); intros Hbeq2.
         rewrite (beq_nat_true _ _ Hbeq2).
         simpl. do 2 rewrite <- beq_nat_refl.
-        apply bi_refl.
+        apply iff_refl.
 
         simpl. rewrite <- beq_nat_refl.
         rewrite Hbeq2. rewrite Hocc.
-        rewrite <- beq_nat_refl. apply bi_refl.
+        rewrite <- beq_nat_refl. apply iff_refl.
 
       case_eq (beq_nat xn z2); intros Hbeq2.
         rewrite (beq_nat_true _ _ Hbeq2).
         simpl. rewrite Hbeq. 
         do 2 rewrite <- beq_nat_refl.
         rewrite <- (beq_nat_true _ _ Hbeq2).
-        rewrite Hbeq3. apply bi_refl.
+        rewrite Hbeq3. apply iff_refl.
 
         simpl. rewrite Hocc. rewrite Hbeq.
         rewrite Hbeq2. rewrite Hbeq3.
-        apply bi_refl.
+        apply iff_refl.
 
     destruct f as [zn]. simpl in Hocc.
     case_eq (beq_nat ym zn); intros Hbeq; 
