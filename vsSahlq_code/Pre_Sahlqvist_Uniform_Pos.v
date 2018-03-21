@@ -50,10 +50,10 @@ Proof.
 
         contradiction.
       simpl.
-      apply bi_refl.
+      apply iff_refl.
 
-    simpl; apply bi_refl.
-    simpl; apply bi_refl.
+    simpl; apply iff_refl.
+    simpl; apply iff_refl.
 
     rewrite rep_pred_allFO.
     do 2 rewrite SOturnst_allFO.
