@@ -47,13 +47,13 @@ nList_egs.vo : Occ_In_Alpha.vo nList_egs.v
 
 Uniform_Defns.vo : nList_egs.vo Uniform_Defns.v 
 
-pos_SO2.v : Uniform_Defns.vo pos_SO2.v 
+pos_SO2.vo : Uniform_Defns.vo pos_SO2.v 
 
-Rep_Pred_FOv.vo : pos_SO2.v Rep_Pred_FOv.v  
+Rep_Pred_FOv.vo : pos_SO2.vo Rep_Pred_FOv.v  
 
-Indicies.v : Rep_Pred_FOv.vo Indicies.v 
+Indicies.vo : Rep_Pred_FOv.vo Indicies.v 
 
-Unary_Predless_l.vo : Indicies.v Unary_Predless_l.v 
+Unary_Predless_l.vo : Indicies.vo Unary_Predless_l.v 
 
 Num_Occ.vo : Unary_Predless_l.vo Num_Occ.v
 
