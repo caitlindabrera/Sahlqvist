@@ -19,7 +19,7 @@ my_arith__my_leb_nat.vo : my_arith.vo my_arith__my_leb_nat.v
 
 at_pv.vo : my_arith__my_leb_nat.vo at_pv.v 
 
-at_pred.vo : my_arith__my_leb_nat.vo at_pred.v
+at_pred.vo : at_pv.vo at_pred.v
 
 ST_setup.vo : at_pred.vo ST_setup.v
 
