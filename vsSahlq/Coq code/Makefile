@@ -102,6 +102,10 @@ vsSahlq_instant20.vo : vsSahlq_instant19.vo vsSahlq_instant20.v
 vsSahlq_extraction.vo : vsSahlq_instant20.vo vsSahlq_extraction.v  
 
 clean : 
-	rm -rf  *.vo *.glob
+	rm -rf  *.vo *.glob [^Main]*.hs Modal.hs
 
+clean_win : 
+	del /f *.vo *.glob  Bool.hs Datatypes.hs List_machinery_impl.hs Logic.hs Modal.hs Nat.hs NList_egs.hs P_occurs_in_alpha.hs PeanoNat.hs Rep_Pred_FOv.hs SecOrder.hs Specif.hs ST_setup.hs VsSahlq_instant3.hs VsSahlq_instant9.hs VsSahlq_instant13.hs VsSahlq_instant19.hs VsSahlq_instant20.hs VsSahlq_preprocessing1.hs VsSahlq_preprocessing2.hs VsSahlq_preprocessing3.hs
 
+run : 
+	ghci Main.hs 
