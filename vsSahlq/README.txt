@@ -10,10 +10,10 @@ What files are included?
   - There is one Haskell file called "Main.hs" that we wrote for pretty printing and we have included a copy in both the "Coq code" and "Haskell code" directories.
   - "Examples.txt" gives a few different examples of very simple Sahlqvist formulae and how to input them using the syntax specified in "Main.hs".
 
-Once you have navigated to the "Coq code" directory, you can execute the following commands:
+Once you have navigated to the "Coq code" directory, you can execute the following commands on the command line:
 
   - make run
-    This will take you straight to the verified Haskell program where you can compute via the function "corr" the first-order correspondent when given a very simple Sahlqvist modal formula. See "Examples.txt" for an explanation of how to compute the correspondent using correct syntax. It compiles all the required Coq *.v files, extracts the Haskell files from "vsSahlq_extraction.vo" and runs ghci on "Main.hs".
+    This will take you straight to the verified Haskell program where you can compute via the function "corr" the first-order correspondent when given a very simple Sahlqvist modal formula. See "Examples.txt" for an explanation of how to compute the correspondent using correct syntax. It compiles all the required Coq *.v files, extracts the Haskell files from "vsSahlq_extraction.vo" and runs ghci on "Main.hs". This is essentially "make vsSahlq_extraction.vo" followed by "make run_hs" (see below).
 
   - make vsSahlq_extraction.vo
     This compiles all the required *.v files and extracts the Haskell code into that directory. 
