@@ -1,0 +1,20 @@
+------------------
+How to use the extracted Haskell program and examples
+------------------
+
+Once you've run ghci on "Main.hs" and have loaded the extracted *.hs files, you can compute the first-order correspondents by calling the function "corr" followed by a space and the modal correspondent. Here are some examples that you can copy and paste yourself (and press enter):
+
+  - corr ( (p 1) --> (dia (p 1)) )
+  - corr ( (dia (p 1)) --> (box (dia (p 1))) )
+  - corr ( (p 1) --> (dia (dia (p 1))) )
+
+The following indicate the correct syntax that ghci will accept:
+
+  - proposition variable : p n, where n is a natural number.
+  - negation : neg
+  - conjunction : /\
+  - disjunction : \/
+  - implication : -->
+  - box : box
+  - diamond : dia
+
