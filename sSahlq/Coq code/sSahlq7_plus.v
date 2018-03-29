@@ -7868,6 +7868,8 @@ Proof.
     assumption.
 Defined.
 
+Testing.
+
 (*
  Locate correctness_ST_world       .
 Locate same_struc_rename_FOv_A_pre .
