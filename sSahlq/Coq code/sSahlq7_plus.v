@@ -7869,6 +7869,7 @@ Proof.
 Defined.
 
 Testing.
+Testing2.
 
 (*
  Locate correctness_ST_world       .
