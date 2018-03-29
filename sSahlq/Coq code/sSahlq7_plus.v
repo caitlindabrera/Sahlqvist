@@ -99,6 +99,8 @@ Lemma try : forall W lP lpa pa0,
   @consistent_lP_lpa W pa0 lP lpa <->
 (forall P, exists n pa, @ind_gen _ pa0 (indicies_l2 lP P) lpa = constant_l pa n) .
 Proof.
+Admitted.
+(* commented 28/03
  intros W. induction lP; intros lpa pa0; unfold consistent_lP_lpa;
     unfold consistent_lP_lpa_P.
     split; intros H P. exists 0. exists pa_t. reflexivity.
@@ -130,7 +132,7 @@ Search ind_gen nil.
 
  ; unfold constant_l; unfold is_constant.
     simpl.
-
+*)
 
 Lemma is_in_FOvar_l_app_cons_nil : forall l2 l x,
   is_in_FOvar_l (app l (cons x nil)) l2 = 
@@ -4424,6 +4426,8 @@ rename_FOv_list_l l
      (diff_l l (rename_FOv_list_l l l1 l2)))
   (order1 (diff_r l (rename_FOv_list_l l l1 l2))).
 Proof.
+Admitted.
+(* commented 28/03
   induction l1; intros l2 l.
     rewrite diff_r_refl. reflexivity. 
 
@@ -4458,12 +4462,12 @@ Lemma
   is_in_Fovar 
 Search is_in_FOvar rename_FOv_list_l.
 Search rename_FOv_list  is_in_FOvar.
-
       
 Lemma
   rename_FOv_list (rename_FOv_list_l l l1 l2) x y =
   rename
 Admitted.
+*)
 
 Lemma rep_FOv_l_order : forall l1 l2 alpha,
   length l1 = length l2 ->
@@ -4517,6 +4521,8 @@ Lemma replace_FOv_l_num_conn : forall m n l1 l2 alpha,
   length l1' = length l2' /\
   Nat.leb (length l1') (length l1) = true.
 Proof.
+Admitted.
+(* commented 28/03
   induction m; intros n l1 l2 alpha Hn Hleb Hl.
     destruct n. 2 : discriminate.
     destruct l1. destruct l2.
@@ -4569,15 +4575,17 @@ admit.
 
       
 rep_FOv__l_not_in
+*)
 
-
-Lemma replace_FOv_l : forall l1 l2 alpha,
+Lemma replace_FOv_l_lem : forall l1 l2 alpha,
   length l1 = length l2 ->
   exists l1' l2',
   replace_FOv_l alpha l1 l2 = replace_FOv_l alpha l1' l2' /\
   decr_strict_FOv l2' = true /\
   length l1' = length l2'.
 Proof.
+Admitted.
+(*
   induction l1; intros l2 alpha Hl. destruct l2.
     exists nil. exists nil. apply conj. reflexivity.
     apply conj; reflexivity.
@@ -4604,7 +4612,7 @@ Proof.
       rewrite rep_FOv__l_not_in.
       
     discriminate.
-
+*)
 
 Lemma rename_FOv_A_replace_FOv_l_num_conn : forall n lv alpha beta,
   length lv = n ->
@@ -6494,7 +6502,7 @@ Proof.
       right. rewrite <- beq_nat_refl.
       apply conj. reflexivity.
       intros.
-      apply bi_refl.
+      apply iff_refl.
 Defined.
 
 
@@ -6774,6 +6782,7 @@ apply rename_FOv_A_REL in Heq2; assumption.
         apply H_2. apply SOt.
 Defined.
 
+(* commented 28/03
 Lemma preprocess_sSahlq_ante_4_againTRY_BAT : forall alpha1 alpha2 lv1 rel1 lv2 rel2 atm2,
 ( forall lP,  (is_all_diff_FOv2 (flat_map (fun l : list (list FOvariable) => l)
        (calc_llv_lP atm2 lP)) = true)) ->
@@ -6918,7 +6927,7 @@ apply rename_FOv_A_REL in Heq2; assumption.
       rewrite SOturnst_conjSO; apply conj.
         apply H_1. apply SOt.
         apply H_2. apply SOt.
-Defined.
+Defined. *)
 
 
 Lemma is_all_diff_FOv2_calc_llv_lP_conjSO1_pre : forall lP alpha1 alpha2,
@@ -7005,6 +7014,8 @@ Lemma preprocess_sSahlq_ante_againTRY : forall alpha,
           SOturnst W Iv Ip Ir alpha <->
           SOturnst W Iv Ip Ir (list_closed_exFO atm lv))).
 Proof.
+Admitted.
+(* commented 28/03
   intros alpha H Hall Hin0 Hocc.
   induction alpha; try (simpl in *; discriminate).
     apply preprocess_sSahlq_ante_predSO_againTRY_BAT; assumption.
@@ -7191,7 +7202,7 @@ right. simpl. apply conj.
 apply is_in_pred_l_refl.
 intros. apply iff_refl.
 Qed.
-
+*)
 
 (* sSahlq4_7_plus_I *)
 Lemma sS_preprocessing_Step1_pre_againTRY'_withex' : forall phi1 phi2 x,
@@ -7219,6 +7230,8 @@ Lemma sS_preprocessing_Step1_pre_againTRY'_withex' : forall phi1 phi2 x,
       SOturnst W Iv Ip Ir (ST (mimpl phi1 phi2) x) <->
       SOturnst W Iv Ip Ir (list_closed_allFO (implSO atm (ST phi2 x)) lv))))).
 Proof.
+Admitted.
+(* commented 28/03
   intros phi1 phi2 x Hnot Hvsa Hun.
   pose proof (preprocess_sSahlq_ante_againTRY (ST phi1 x)
       (sSahlq_ante_conjSO_exFO_relatSO_BAT _ _ Hvsa) 
@@ -7228,6 +7241,7 @@ Proof.
     apply sS_preprocessing_Step1_1_againTRY'_withex'' with (phi2 := phi2) in H; try assumption.
     apply sS_preprocessing_Step1_3_againTRY'_withex' with (phi2 := phi2) in H; try assumption.
 Defined.
+*)
 
 Lemma sSahlq_hopeful4_REV'_withex'_FULL : forall lP xn phi1 phi2,
   sSahlq_ante phi1 = true ->
@@ -7276,6 +7290,8 @@ forall W Iv Ip Ir,
  (Var xn)))))) )))))) <->
   SOturnst W Iv Ip Ir (list_closed_SO (ST (mimpl phi1 phi2) (Var xn)) lP))).
 Proof.
+Admitted.
+(* commented 28/03
   intros lP xn phi1 phi2 Hvs Hun Hnot Hin0.
   destruct (sS_preprocessing_Step1_pre_againTRY'_withex' _ _ (Var xn) Hnot Hvs Hun)
     as [lv [atm [[Hin00 HAT] [Hex [ [rel [HREL [Hin SOt]]]  | [Hin SOt]  ]]]]].
@@ -7394,7 +7410,7 @@ split; intros H.
       apply (is_in_pred_l_trans _ _ _ HH1 Hin0).
 
       apply ex_P_occ_in_alpha_ST.
-Defined.
+Defined. *)
 (* Defined. *)
 
 (* Lemma sSahlq_hopeful4_REV'_withex'_FULL : forall lP  xn phi1 phi2,
@@ -7565,6 +7581,8 @@ forall W Iv Ip Ir,
     (calc_lP atm lP))) <->
   SOturnst W Iv Ip Ir (allFO (Var xn) (list_closed_SO (ST (mimpl phi1 phi2) (Var xn)) lP)))).
 Proof.
+Admitted.
+(* commented 28/03
   intros lP xn phi1 phi2 H1 H2 Hnot H3.
   destruct (sSahlq_hopeful4_REV'_withex'_FULL lP xn phi1 phi2 H1 H2 Hnot H3) as [lx [atm [[Hin00 Hat] [ [rel [Hrel [Hin SOt]]]| [Hin SOt] ]]]];
   exists lx; exists atm; apply pair; try assumption ; [left | right].
@@ -7578,6 +7596,7 @@ Proof.
     apply equiv_allFO with (W := W) (Iv := Iv) (Ip := Ip) (Ir := Ir) (x := (Var xn)) in SOt.
     assumption.
 Defined.
+*)
 
 Lemma sSahlq_hopeful4_REV'_withex'_FULL_allFO_in : forall lP xn phi1 phi2 ,
   sSahlq_ante phi1 = true ->
