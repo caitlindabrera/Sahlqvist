@@ -1,4 +1,4 @@
-Require Export base_mods preds_in Unary_Predless.
+Require Export base_mods preds_in FO_frame_condition.
 Require Import nlist_syn_eg.
 
 Fixpoint FO_frame_condition_l (l : list SecOrder) : bool :=

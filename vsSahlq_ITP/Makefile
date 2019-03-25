@@ -43,7 +43,7 @@ FO_frame_condition.vo : lPred_in_SO.vo FO_frame_condition.v
 
 FO_frame_condition_l.vo : FO_frame_condition.vo FO_frame_condition_l.v
 
-occ_in_SO.vo : Unary_Predless_l.vo occ_in_SO.v
+occ_in_SO.vo : FO_frame_condition_l.vo occ_in_SO.v
 
 ltac_occ_in_SO.vo : occ_in_SO.vo ltac_occ_in_SO.v
 

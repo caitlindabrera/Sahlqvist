@@ -1,4 +1,4 @@
-Require Export base_mods preds_in Unary_Predless Pred_in_SO.
+Require Export base_mods preds_in FO_frame_condition Pred_in_SO.
 
 Definition occ_in_SO (alpha : SecOrder) (i : nat) : Prop :=
  i <> 0 /\ le i (length (preds_in alpha)).

@@ -1,5 +1,5 @@
 Require Export high_mods SO_sem_mods.
-Require Import vsSahlq_instant19 vsSahlq_instant13 newnew.
+Require Import vsSahlq_proof3 newnew.
 Require Import Correctness_ST vsS_syn_sem uniform SO_facts2.
 
 Open Scope type_scope.
