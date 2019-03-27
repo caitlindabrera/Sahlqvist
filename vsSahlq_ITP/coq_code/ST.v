@@ -18,7 +18,7 @@ Fixpoint ST (phi: Modal) (x:FOvariable) : SecOrder :=
   | mdisj psi1 psi2 => disjSO (ST psi1 x) (ST psi2 x)
   | mimpl psi1 psi2 => implSO (ST psi1 x) (ST psi2 x)
   | box psi => allFO (next_FOv x) (implSO (relatSO x (next_FOv x)) (ST psi (next_FOv x)))
-  | diam psi => exFO (next_FOv x) (conjSO (relatSO x (next_FOv x)) (ST psi (next_FOv x)))
+  | dia psi => exFO (next_FOv x) (conjSO (relatSO x (next_FOv x)) (ST psi (next_FOv x)))
     end.
 
 Definition ST_pv (p : propvar) : predicate :=
@@ -281,9 +281,9 @@ Proof.
       apply H2.
 Qed.
 
-Lemma occ_in_SO_diam : forall (phi : Modal) (x : FOvariable)
+Lemma occ_in_SO_dia : forall (phi : Modal) (x : FOvariable)
                                 ( i : nat),
-  occ_in_SO (ST (diam phi) x) i <-> occ_in_SO (ST phi x) i.
+  occ_in_SO (ST (dia phi) x) i <-> occ_in_SO (ST phi x) i.
 Proof.
   intros phi x i; simpl; split; intros [H1 H2]; constructor; try auto;
     destruct x as [n]; simpl in *; erewrite preds_in_ST_FOv in H2;

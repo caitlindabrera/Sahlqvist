@@ -76,25 +76,25 @@ Proof.
   rewrite is_neg_SO_pre_box. auto. firstorder.
 Qed.
 
-Lemma is_neg_SO_pre_diam : forall (phi : Modal) (x : FOvariable)
+Lemma is_neg_SO_pre_dia : forall (phi : Modal) (x : FOvariable)
                              (i : nat),
   i <> 0 ->
-  is_neg_SO_pre (ST (diam phi) x) i = is_neg_SO_pre (ST phi x) i.
+  is_neg_SO_pre (ST (dia phi) x) i = is_neg_SO_pre (ST phi x) i.
 Proof.
   intros phi [xn] i H. simpl. destruct i. contradiction. 
   simpl. apply is_neg_SO_pre_ST_FOv.
 Qed.
 
-Lemma is_neg_SO_diam : forall (phi : Modal) (x : FOvariable)
+Lemma is_neg_SO_dia : forall (phi : Modal) (x : FOvariable)
                              (i : nat),
-  is_neg_SO (ST (diam phi) x) i <-> is_neg_SO (ST phi x) i.
+  is_neg_SO (ST (dia phi) x) i <-> is_neg_SO (ST phi x) i.
 Proof.
   intros. split; intros [H1 H2].
-  rewrite is_neg_SO_pre_diam in H2.  apply conj.
+  rewrite is_neg_SO_pre_dia in H2.  apply conj.
   apply occ_in_SO_box. auto. auto.
   firstorder.
   apply conj. apply occ_in_SO_box. auto.
-  rewrite is_neg_SO_pre_diam. auto. firstorder.
+  rewrite is_neg_SO_pre_dia. auto. firstorder.
 Qed.
 
 Lemma is_neg__ST : forall (phi : Modal) (x : FOvariable) (i : nat),

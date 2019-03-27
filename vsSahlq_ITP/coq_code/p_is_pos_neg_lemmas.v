@@ -156,14 +156,14 @@ Proof.
   apply is_pos_box. apply H2. apply (occ_in_modal_box phi). all : auto.
 Qed.
 
-Lemma p_is_pos_diam : forall (phi : Modal) (p : propvar),
-    p_is_pos (diam phi) p -> p_is_pos phi p.
+Lemma p_is_pos_dia : forall (phi : Modal) (p : propvar),
+    p_is_pos (dia phi) p -> p_is_pos phi p.
 Proof.
   intros phi p H.
   destruct H as [H1 H2].
-  constructor. rewrite (pv_in_modal_diam phi) in H1. auto.
+  constructor. rewrite (pv_in_modal_dia phi) in H1. auto.
   intros i Hocc Hat.
-  apply is_pos_diam. apply H2. apply (occ_in_modal_diam phi). all : auto.
+  apply is_pos_dia. apply H2. apply (occ_in_modal_dia phi). all : auto.
 Qed.
 
 (* ---------------------------------------------------------------------------- *)
@@ -303,14 +303,14 @@ Proof.
   apply is_neg_box. apply H2. apply (occ_in_modal_box phi). all : auto.
 Qed.
 
-Lemma p_is_neg_diam : forall (phi : Modal) (p : propvar),
-  p_is_neg (diam phi) p -> p_is_neg phi p.
+Lemma p_is_neg_dia : forall (phi : Modal) (p : propvar),
+  p_is_neg (dia phi) p -> p_is_neg phi p.
 Proof.
   intros phi p H.
   destruct H as [H1 H2].
-  constructor. rewrite (pv_in_modal_diam phi) in H1. auto.
+  constructor. rewrite (pv_in_modal_dia phi) in H1. auto.
   intros i Hocc Hat.
-  apply is_neg_diam. apply H2. apply (occ_in_modal_diam phi). all : auto.
+  apply is_neg_dia. apply H2. apply (occ_in_modal_dia phi). all : auto.
 Qed.
 
 (* ---------------------------------------------------------------------------- *)

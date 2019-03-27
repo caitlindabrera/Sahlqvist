@@ -292,9 +292,9 @@ Proof.
   apply occ_in_SO_box. auto.
 Qed.
 
-Lemma is_pos_SO_pre_diam : forall phi x i,
+Lemma is_pos_SO_pre_dia : forall phi x i,
     occ_in_SO (ST phi x) i ->
-    is_pos_SO_pre (ST (diam phi) x) i = is_pos_SO_pre (ST phi x) i.
+    is_pos_SO_pre (ST (dia phi) x) i = is_pos_SO_pre (ST phi x) i.
 Proof.
   intros phi [xn] i [H1 H2]. simpl.
   destruct i. contradiction.
@@ -302,16 +302,16 @@ Proof.
   apply is_pos_SO_pre_ST_FOv.
 Qed.
 
-Lemma is_pos_SO_diam : forall (phi : Modal) (x : FOvariable)
+Lemma is_pos_SO_dia : forall (phi : Modal) (x : FOvariable)
                              (i : nat),
-    is_pos_SO (ST (diam phi) x) i <-> is_pos_SO (ST phi x) i.
+    is_pos_SO (ST (dia phi) x) i <-> is_pos_SO (ST phi x) i.
 Proof.
   intros phi [xn] i; split; intros [H1 H2]; constructor.
-  apply occ_in_SO_diam. auto.
-  rewrite <- is_pos_SO_pre_diam. auto. apply occ_in_SO_diam. auto.
-  apply occ_in_SO_diam. auto.
-  rewrite is_pos_SO_pre_diam. auto. apply occ_in_SO_diam. auto.
-  apply occ_in_SO_diam. auto.
+  apply occ_in_SO_dia. auto.
+  rewrite <- is_pos_SO_pre_dia. auto. apply occ_in_SO_dia. auto.
+  apply occ_in_SO_dia. auto.
+  rewrite is_pos_SO_pre_dia. auto. apply occ_in_SO_dia. auto.
+  apply occ_in_SO_dia. auto.
 Qed.
 
 Lemma is_pos_pre_ST: forall phi x i,

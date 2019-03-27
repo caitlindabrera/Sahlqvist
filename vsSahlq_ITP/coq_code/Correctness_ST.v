@@ -14,11 +14,11 @@ Proof.
     eapply IHphi; apply pf_mturnst; rewrite alt_Iv_eq in *; auto.
 Qed.
 
-Lemma correct_ST_world_diam : forall (W:Set) (R: W -> W -> Prop) (V: propvar -> W -> Prop) (phi:Modal), 
+Lemma correct_ST_world_dia : forall (W:Set) (R: W -> W -> Prop) (V: propvar -> W -> Prop) (phi:Modal), 
                                  (forall (w:W) (x:FOvariable) (Iv: FOvariable -> W), 
       (mturnst W R V w phi) <-> (SOturnst W (alt_Iv Iv w x) (V_to_Ip W V) R (ST phi x))) 
                                    -> (forall (w:W) (x:FOvariable) (Iv: FOvariable -> W), 
-         (mturnst W R V w (diam phi)) <-> (SOturnst W (alt_Iv Iv w x) (V_to_Ip W V) R (ST (diam phi) x))).
+         (mturnst W R V w (dia phi)) <-> (SOturnst W (alt_Iv Iv w x) (V_to_Ip W V) R (ST (dia phi) x))).
 Proof.
   intros W R V phi IHphi w x Iv.
   apply conj; (simpl; intros [d [pf_mturnst pf_relat]];
@@ -51,7 +51,7 @@ Proof.
 
   apply correct_ST_world_box. auto.
 
-  apply correct_ST_world_diam. auto.
+  apply correct_ST_world_dia. auto.
 Qed.
 
 Theorem correctness_ST_model: forall (W:Set) (R: W -> W -> Prop) (V: propvar -> W -> Prop) 

@@ -6,7 +6,7 @@ Inductive vsSahlq_ante : Modal -> Prop :=
 | vsSahlq_ante_atom p : vsSahlq_ante (atom p)
 | vsSahlq_ante_mconj psi1 psi2 :
     vsSahlq_ante psi1 -> vsSahlq_ante psi2 -> vsSahlq_ante (mconj psi1 psi2)
-| vsSahlq_ante_diam psi : vsSahlq_ante psi -> vsSahlq_ante (diam psi).
+| vsSahlq_ante_dia psi : vsSahlq_ante psi -> vsSahlq_ante (dia psi).
 
 Inductive vsSahlq : Modal -> Prop :=
 | vsSahlq_y phi1 phi2 :

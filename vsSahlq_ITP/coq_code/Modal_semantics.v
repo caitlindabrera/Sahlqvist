@@ -49,7 +49,7 @@ Lemma mturnst_box : forall (W:Set) (R: W -> W -> Prop) (V: propvar -> W -> Prop)
 <W R V w> ⊩w ([.]ϕ) = (forall d:W, (R w d) -> <W R V d> ⊩w ϕ).
 Proof. auto. Qed.
 
-Lemma mturnst_diam : forall (W:Set) (R: W -> W -> Prop) (V: propvar -> W -> Prop)
+Lemma mturnst_dia : forall (W:Set) (R: W -> W -> Prop) (V: propvar -> W -> Prop)
                             (w:W) (ϕ:Modal),
 <W R V w> ⊩w (<.> ϕ) = (exists d:W, ((R w d) /\ <W R V d> ⊩w ϕ)).
 Proof. auto. Qed.

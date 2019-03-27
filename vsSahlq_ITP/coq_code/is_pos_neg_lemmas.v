@@ -126,11 +126,11 @@ Proof.
     (constructor; [apply occ_in_modal_box|]; auto).
 Qed.
 
-Lemma is_pos_diam : forall (phi : Modal) (i : nat),
-  is_pos (diam phi) i <-> is_pos phi i.
+Lemma is_pos_dia : forall (phi : Modal) (i : nat),
+  is_pos (dia phi) i <-> is_pos phi i.
 Proof.
   split; intros [H1 H2];
-    (constructor; [apply occ_in_modal_diam|]; auto).
+    (constructor; [apply occ_in_modal_dia|]; auto).
 Qed.
 
 (* ------------------------------------------------------------ *)
@@ -169,11 +169,11 @@ Proof.
     (constructor; [apply occ_in_modal_box|]; auto).
 Qed.
 
-Lemma is_neg_diam: forall (phi : Modal) (i : nat),
-    is_neg (diam phi) i <-> is_neg phi i.
+Lemma is_neg_dia: forall (phi : Modal) (i : nat),
+    is_neg (dia phi) i <-> is_neg phi i.
 Proof.
   split; intros [H1 H2];
-    (constructor; [apply occ_in_modal_diam|]; auto).
+    (constructor; [apply occ_in_modal_dia|]; auto).
 Qed.
 
 Lemma is_neg_0 : forall (phi : Modal),
@@ -231,7 +231,7 @@ Proof.
       constructor; firstorder.
     apply conj; apply IHphi2; auto.
   - simpl. apply IHphi. apply occ_in_modal_box. auto.
-  - simpl. apply IHphi. apply occ_in_modal_diam. auto.
+  - simpl. apply IHphi. apply occ_in_modal_dia. auto.
 Qed.
 
 Lemma is_pos_neg_pre_not_t: forall phi i,
@@ -389,10 +389,10 @@ Proof.
     left. apply is_pos_box. auto.
     right. intros H2. apply (is_pos_box phi) in H2.
     auto.
-  - apply (occ_in_modal_diam phi) in Hocc.
+  - apply (occ_in_modal_dia phi) in Hocc.
     apply IHphi in Hocc. destruct Hocc as [H1 | H1].
-    left. apply is_pos_diam. auto.
-    right. intros H2. apply (is_pos_diam phi) in H2.
+    left. apply is_pos_dia. auto.
+    right. intros H2. apply (is_pos_dia phi) in H2.
     auto.
 Qed.
 
@@ -442,7 +442,7 @@ Proof.
     destruct H1. subst. contradiction. apply Gt.gt_not_le in H.
     unfold negb. if_then_else_dest_blind; auto; firstorder. auto.
   - simpl. apply IHphi. apply occ_in_modal_box. auto.
-  - simpl. apply IHphi. apply occ_in_modal_diam. auto.
+  - simpl. apply IHphi. apply occ_in_modal_dia. auto.
 Qed.
   
 Lemma is_pos_neg_f_t : forall (phi : Modal) (i : nat),
@@ -746,10 +746,10 @@ Proof.
     left. apply is_neg_box. auto.
     right. intros H2. apply (is_neg_box phi) in H2.
     auto.
-  - apply (occ_in_modal_diam phi) in Hocc.
+  - apply (occ_in_modal_dia phi) in Hocc.
     apply IHphi in Hocc. destruct Hocc as [H1 | H1].
-    left. apply is_neg_diam. auto.
-    right. intros H2. apply (is_neg_diam phi) in H2.
+    left. apply is_neg_dia. auto.
+    right. intros H2. apply (is_neg_dia phi) in H2.
     auto.
 Qed.
 

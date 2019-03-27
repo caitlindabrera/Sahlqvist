@@ -129,8 +129,8 @@ Proof.
   intros phi i. split; intros [Heq Hleb]; constructor; auto.
 Qed.
 
-Lemma occ_in_modal_diam : forall (phi : Modal) (i : nat),
-  occ_in_modal (diam phi) i <->
+Lemma occ_in_modal_dia : forall (phi : Modal) (i : nat),
+  occ_in_modal (dia phi) i <->
     occ_in_modal phi i.
 Proof.
   intros phi i. split; intros [Heq Hleb]; constructor; auto.

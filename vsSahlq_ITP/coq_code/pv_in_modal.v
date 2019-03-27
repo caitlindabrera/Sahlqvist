@@ -55,8 +55,8 @@ Lemma pv_in_modal_box : forall (phi : Modal) (p : propvar),
   pv_in_modal phi p.
 Proof. split; intros H; unfold pv_in_modal in *;  assumption. Qed.
 
-Lemma pv_in_modal_diam : forall (phi : Modal) (p : propvar),
-  pv_in_modal (diam phi) p <->
+Lemma pv_in_modal_dia : forall (phi : Modal) (p : propvar),
+  pv_in_modal (dia phi) p <->
     pv_in_modal phi p.
 Proof. split; intros H; unfold pv_in_modal in *; assumption. Qed.
 
@@ -109,10 +109,10 @@ Proof.
     apply IHphi in H2. destruct H2 as [i [H3 H4]].
     subst. exists i.
     split. apply occ_in_modal_box. auto. reflexivity. 
-  - pose proof (proj1 (pv_in_modal_diam phi q) H) as H2.
+  - pose proof (proj1 (pv_in_modal_dia phi q) H) as H2.
     apply IHphi in H2. destruct H2 as [i [H3 H4]].
     subst. exists i.
-    split. apply occ_in_modal_diam. auto. reflexivity.
+    split. apply occ_in_modal_dia. auto. reflexivity.
 Qed.
 
 

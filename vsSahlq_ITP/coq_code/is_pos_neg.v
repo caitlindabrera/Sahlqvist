@@ -16,7 +16,7 @@ Fixpoint is_pos_pre (phi : Modal) (i : nat) : bool :=
   | mimpl psi1 psi2 => if le_dec i (length (pv_in psi1)) then negb (is_pos_pre psi1 i)
                           else is_pos_pre psi2 (i-(length (pv_in psi1)))
   | box psi => is_pos_pre psi i
-  | diam psi => is_pos_pre psi i
+  | dia psi => is_pos_pre psi i
   end.
 
 Inductive is_pos phi i : Prop :=
@@ -37,7 +37,7 @@ Fixpoint is_neg_pre (phi : Modal) (i : nat) : bool :=
   | mimpl psi1 psi2 => if le_dec i (length (pv_in psi1)) then negb (is_neg_pre psi1 i)
                           else is_neg_pre psi2 (i-(length (pv_in psi1)))
   | box psi => is_neg_pre psi i
-  | diam psi => is_neg_pre psi i
+  | dia psi => is_neg_pre psi i
   end.
 
 Inductive is_neg phi i : Prop :=
