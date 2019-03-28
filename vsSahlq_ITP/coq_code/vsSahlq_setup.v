@@ -10,7 +10,7 @@ Inductive vsSahlq_ante : Modal -> Prop :=
 
 Inductive vsSahlq : Modal -> Prop :=
 | vsSahlq_y ϕ1 ϕ2:
-    vsSahlq_ante ϕ1 -> uniform_pos ϕ2 -> vsSahlq (mimpl ϕ1 ϕ2).
+    vsSahlq_ante ϕ1 -> pos ϕ2 -> vsSahlq (mimpl ϕ1 ϕ2).
 
 Definition corresponds (ϕ : Modal) (α: SecOrder) :=
   forall W Iv Ip Ir, <W Iv Ip Ir> ⊨ α <-> <W Ir> ⊩ ϕ.
@@ -32,7 +32,7 @@ Qed.
 
 Lemma vsSahlq_ex : forall phi,
   vsSahlq phi ->
-  exists phi1 phi2, vsSahlq_ante phi1 /\ uniform_pos phi2.
+  exists phi1 phi2, vsSahlq_ante phi1 /\ pos phi2.
 Proof. intros phi H. inversion H. firstorder.  Qed.
 
 Lemma vsSahlq_ante_mconj_rev : forall phi1 phi2,
@@ -54,7 +54,7 @@ Lemma vsSahlq_dest_ex : forall phi,
   vsSahlq phi ->
   exists phi1 phi2,
     phi = mimpl phi1 phi2 /\ 
-    vsSahlq_ante phi1 /\ uniform_pos phi2.
+    vsSahlq_ante phi1 /\ pos phi2.
 Proof.
   destruct phi; intros Hvs;
   inversion Hvs; subst. firstorder.
@@ -64,7 +64,7 @@ Lemma vsSahlq_dest_ex_comp : forall phi,
   vsSahlq phi ->
   existsT2 phi1 phi2,
     ((phi = mimpl phi1 phi2) * 
-    vsSahlq_ante phi1 * uniform_pos phi2).
+    vsSahlq_ante phi1 * pos phi2).
 Proof.
   intros phi Hphi. destruct phi;
     try solve [assert False; [inversion Hphi|]; contradiction].
@@ -91,7 +91,7 @@ Proof.
 Qed.
 
 Lemma vsSahlq_cons_dest : forall phi,
-  vsSahlq phi ->  uniform_pos (calc_cons_modal phi).
+  vsSahlq phi ->  pos (calc_cons_modal phi).
 Proof.
   intros phi Hvs. inversion Hvs; subst.
   simpl. auto.

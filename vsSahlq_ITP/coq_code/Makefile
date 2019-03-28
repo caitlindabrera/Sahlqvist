@@ -121,9 +121,9 @@ p_is_neg.vo : p_is_pos.vo p_is_neg.v
 
 p_is_pos_neg_lemmas.vo : p_is_neg.vo p_is_pos_neg_lemmas.v
 
-uniform.vo : p_is_pos_neg_lemmas.vo uniform.v
+pos.vo : p_is_pos_neg_lemmas.vo pos.v
 
-is_pos_SO.vo : uniform.vo is_pos_SO.v
+is_pos_SO.vo : pos.vo is_pos_SO.v
 
 is_neg_SO.vo : is_pos_SO.vo is_neg_SO.v
 
@@ -135,9 +135,9 @@ Pred_is_neg_SO.vo : Pred_is_pos_SO.vo Pred_is_neg_SO.v
 
 Pred_is_pos_neg_SO.vo : Pred_is_neg_SO.vo Pred_is_pos_neg_SO.v
 
-uniform_SO.vo : Pred_is_pos_neg_SO.vo uniform_SO.v
+pos_SO.vo : Pred_is_pos_neg_SO.vo pos_SO.v
 
-Is_Pos_Rep_Pred.vo : uniform_SO.vo Is_Pos_Rep_Pred.v
+Is_Pos_Rep_Pred.vo : pos_SO.vo Is_Pos_Rep_Pred.v
 
 Monotonicity_SO.vo : Is_Pos_Rep_Pred.vo Monotonicity_SO.v
 
@@ -156,9 +156,9 @@ SO_facts1.vo : SO_sem_mods.vo SO_facts1.v
 
 Monotonicity_lP_SO.vo : SO_facts1.vo Monotonicity_lP_SO.v
 
-Sahlqvist_Uniform_Pos.vo : Monotonicity_lP_SO.vo Sahlqvist_Uniform_Pos.v 
+Sahlqvist_Pos.vo : Monotonicity_lP_SO.vo Sahlqvist_Pos.v 
 
-SO_facts2.vo : Sahlqvist_Uniform_Pos.vo SO_facts2.v
+SO_facts2.vo : Sahlqvist_Pos.vo SO_facts2.v
 
 vsS_syn_sem.vo : SO_facts2.vo vsS_syn_sem.v
 

@@ -23,7 +23,7 @@ Lemma step2_empty : forall (l : list predicate)
                     (Ir : W -> W -> Prop)
                     (alpha : SecOrder),
   SOQFree alpha = true ->
-  uniform_pos_SO alpha ->
+  pos_SO alpha ->
     (SOturnst W Iv Ip Ir (replace_pred_l alpha l
           (nlist_list _ (nlist_var (length l) (Var 1)))
           (nlist_list _ (nlist_empty (length l))))) ->
@@ -39,7 +39,7 @@ Proof.
   - apply step1_empty; auto. 
     apply IHl; auto.
     + apply SOQFree_rep_pred_empty. auto.
-    + apply uni_pos_rep_pred; auto.
+    + apply pos_rep_pred; auto.
     + rewrite rep_pred__l_switch_empty; auto.
   - apply P_not_occ_alt. auto.
     apply IHl; auto.
@@ -52,7 +52,7 @@ Lemma step3_empty : forall (W : Set) (Iv : FOvariable -> W)
                     (Ir : W -> W -> Prop)
                     (alpha : SecOrder),
   SOQFree alpha = true ->
-  uniform_pos_SO alpha ->
+  pos_SO alpha ->
     (SOturnst W Iv Ip Ir (replace_pred_l alpha (preds_in alpha)
           (nlist_list _ (nlist_var (length (preds_in alpha)) (Var 1)))
           (nlist_list _ (nlist_empty (length (preds_in alpha)))))) ->
@@ -63,8 +63,8 @@ Proof.
   apply step2_empty; auto.
 Qed.
 
-Lemma Sahlqvist_uniform_pos_pre : forall (phi : Modal) (x : FOvariable),
-  uniform_pos phi ->
+Lemma Sahlqvist_pos_pre : forall (phi : Modal) (x : FOvariable),
+  pos phi ->
     exists (alpha : SecOrder),
       (forall (D : Set) (Iv:FOvariable -> D) (Ip: predicate -> D -> Prop)
              (Ir: D -> D -> Prop),
@@ -82,15 +82,15 @@ Proof.
     apply conj. apply instant_uni_closed; auto.
     simpl; intros H.
     apply step3_empty. apply SOQFree_ST.
-    apply uni_pos_SO_allFO. apply uni_pos__SO ; auto.
+    apply pos_SO_allFO. apply pos__SO ; auto.
     auto.
   + rewrite rep_pred_l_allFO. simpl.
     apply FO_frame_condition_rep_pred_l.
     apply FO_frame_condition_l_empty.
 Defined.
 
-Lemma Sahlqvist_uniform_pos : forall (phi : Modal),
-  uniform_pos phi ->
+Lemma Sahlqvist_pos : forall (phi : Modal),
+  pos phi ->
     exists (alpha : SecOrder),
     ((forall (W : Set) (R : W -> W -> Prop) (Iv : FOvariable -> W)
            (Ip : predicate -> W -> Prop),
@@ -98,7 +98,7 @@ Lemma Sahlqvist_uniform_pos : forall (phi : Modal),
     FO_frame_condition alpha = true).
 Proof.
   intros phi Hpos.
-  destruct (Sahlqvist_uniform_pos_pre phi (Var 1) Hpos) as [alpha H].
+  destruct (Sahlqvist_pos_pre phi (Var 1) Hpos) as [alpha H].
   exists alpha. apply conj; [|apply H].
   intros W R Iv Ip. split; intros H2.
   apply H. apply correctness_ST; auto.

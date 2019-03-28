@@ -6,7 +6,7 @@ Open Scope type_scope.
 
 Theorem vsSahlq_full_Modal_sep : forall phi1 phi2,
   vsSahlq_ante phi1 ->
-  uniform_pos phi2  ->
+  pos phi2  ->
   existsT (alpha : SecOrder),
 FO_frame_condition alpha = true /\
 forall W Iv Ip Ir,
@@ -35,21 +35,6 @@ Proof.
   subst. apply vsSahlq_full_Modal_sep; auto.
 Defined.
 
-(*
-Theorem vsSahlq_full_Modal_withoutnot : forall phi,
-  vsSahlq phi ->
-  existsT (alpha : SecOrder),
-FO_frame_condition alpha = true /\
-forall W Iv Ip Ir,
-  SOturnst W Iv Ip Ir alpha <->
-  mturnst_frame W Ir phi.
-Proof.
-  intros phi H.
-  destruct (vsSahlq_dest_ex_comp phi H)
-    as [phi1 [phi2 [[H1 H2] H3]]].
-  subst. apply vsSahlq_full_Modal_sep; auto.
-Defined.
-*)
 Theorem vsSahlq_full_Modal_ex : forall phi,
   vsSahlq phi ->
   exists (alpha : SecOrder),
@@ -59,6 +44,6 @@ Proof.
   destruct (vsSahlq_full_Modal phi H) as [alpha H2].
   exists alpha. auto.
 Qed.
-  
+
 (* Print Assumptions vsSahlq_full_Modal. *)
 (* Print All Dependencies vsSahlq_full_Modal. *)

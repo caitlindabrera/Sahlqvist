@@ -947,7 +947,7 @@ Proof.
 Qed.
 
 Lemma lP_is_pos_SO_uni : forall lP beta,
-  uniform_pos_SO beta ->
+  pos_SO beta ->
   ~ lP = nil ->
   (forall P, In P lP -> (Pred_in_SO beta P )) ->
   lP_is_pos_SO beta lP.

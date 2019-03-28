@@ -1,10 +1,10 @@
 Require Export med_mods Pred_is_pos_SO Pred_is_neg_SO.
 Require Import ST uniform.
 
-Definition uniform_pos_SO (alpha : SecOrder) : Prop :=
+Definition pos_SO (alpha : SecOrder) : Prop :=
 forall (P : predicate), Pred_in_SO alpha P -> Pred_is_pos_SO alpha P.
 
-Definition uniform_neg_SO (alpha : SecOrder) : Prop :=
+Definition neg_SO (alpha : SecOrder) : Prop :=
 forall (P : predicate), Pred_in_SO alpha P -> Pred_is_neg_SO alpha P.
 
 
@@ -18,10 +18,10 @@ Inductive uniform_neg_SO (alpha : SecOrder) : Prop :=
                           Pred_is_neg_SO alpha P) -> uniform_neg_SO alpha.
  *)
 
-Lemma uni_pos__SO : forall (phi : Modal) (x : FOvariable),
-  uniform_pos phi <-> uniform_pos_SO (ST phi x).
+Lemma pos__SO : forall (phi : Modal) (x : FOvariable),
+  pos phi <-> pos_SO (ST phi x).
 Proof.
-  intros phi x.  unfold uniform_pos; unfold uniform_pos_SO.
+  intros phi x.  unfold pos; unfold pos_SO.
   split; intros H [n] H2.
     apply (p_is_pos__SO phi x (pv n)).
     apply H. change (Pred n) with (ST_pv (pv n)) in H2.
@@ -31,11 +31,10 @@ Proof.
     apply H. apply p_occ__ST. auto.
 Qed.
 
-Lemma uni_neg__SO : forall (phi : Modal) (x : FOvariable),
-  uniform_neg phi <-> uniform_neg_SO (ST phi x).
+Lemma neg__SO : forall (phi : Modal) (x : FOvariable),
+  neg phi <-> neg_SO (ST phi x).
 Proof.
-  intros phi x.  unfold uniform_pos; unfold uniform_pos_SO.
-  split; intros H [n] H2.
+  intros phi x. split; intros H [n] H2.
     apply (p_is_neg__SO phi x (pv n)).
     apply H. change (Pred n) with (ST_pv (pv n)) in H2.
     apply p_occ__ST in H2. auto.
@@ -44,10 +43,10 @@ Proof.
     apply H. apply p_occ__ST. auto.
 Qed.
 
-Lemma uni_pos_SO_allFO : forall (alpha : SecOrder) (x : FOvariable),
-    uniform_pos_SO (allFO x alpha) <-> uniform_pos_SO alpha.
+Lemma pos_SO_allFO : forall (alpha : SecOrder) (x : FOvariable),
+    pos_SO (allFO x alpha) <-> pos_SO alpha.
 Proof.
-  intros alpha x; unfold uniform_pos_SO;
+  intros alpha x; unfold pos_SO;
     split; intros H [n] H2;
     eapply Pred_is_pos_SO_allFO; apply H.
   rewrite <- Pred_in_SO_allFO.  auto.
@@ -55,10 +54,10 @@ Proof.
   Unshelve. apply x.
 Qed.
 
-Lemma uni_neg_SO_allFO : forall (alpha : SecOrder) (x : FOvariable),
-  uniform_neg_SO (allFO x alpha) <-> uniform_neg_SO alpha.
+Lemma neg_SO_allFO : forall (alpha : SecOrder) (x : FOvariable),
+  neg_SO (allFO x alpha) <-> neg_SO alpha.
 Proof.
-  intros alpha x; unfold uniform_pos_SO;
+  intros alpha x; unfold pos_SO;
     split; intros H [n] H2;
     eapply Pred_is_neg_SO_allFO; apply H.
   rewrite <- Pred_in_SO_allFO.  auto.

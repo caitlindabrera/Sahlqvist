@@ -1,11 +1,11 @@
 Require Export med_mods.
 Require Import Rel At ST uniform_SO vsSahlq_setup Is_Pos_Rep_Pred.
 
-Lemma uni_pos_rep_pred : forall (alpha : SecOrder) (P : predicate)
+Lemma pos_rep_pred : forall (alpha : SecOrder) (P : predicate)
                                 (cond : SecOrder) (x : FOvariable),
   FO_frame_condition cond = true ->
-    uniform_pos_SO alpha ->
-      uniform_pos_SO (replace_pred alpha P x cond).
+    pos_SO alpha ->
+      pos_SO (replace_pred alpha P x cond).
 Proof.
   intros alpha P cond x Hunary Huni.
   intros Q HQ.  apply P_is_pos_rep_pred; auto.
@@ -34,16 +34,16 @@ Proof.
   all : assumption.
 Qed.
 
-Lemma uniform_pos_SO_rep_pred_l : forall lP n beta,
-  uniform_pos_SO beta ->
-  uniform_pos_SO (replace_pred_l beta lP (nlist_list _ (nlist_var n (Var 1)))
+Lemma pos_SO_rep_pred_l : forall lP n beta,
+  pos_SO beta ->
+  pos_SO (replace_pred_l beta lP (nlist_list _ (nlist_var n (Var 1)))
       (nlist_list _ (nlist_empty n))).
 Proof.
   induction lP; intros n beta Hun.
     simpl. assumption.
 
     simpl. destruct n. simpl. assumption.
-    simpl. apply uni_pos_rep_pred. reflexivity.
+    simpl. apply pos_rep_pred. reflexivity.
     apply IHlP. assumption.
 Qed.
 
@@ -448,15 +448,14 @@ Proof.
   all :assumption.
 Qed.
 
-Lemma uniform_pos_SO_calc_cons_SO: forall phi x,
+Lemma pos_SO_calc_cons_SO: forall phi x,
   vsSahlq phi ->
-  uniform_pos_SO (calc_cons_SO (ST phi x)).
+  pos_SO (calc_cons_SO (ST phi x)).
 Proof.
   intros phi x Hvs.
   destruct (vsSahlq_dest_ex phi Hvs) as [phi1 [phi2 [Heq [Hvs1 Hun]]]].
   rewrite Heq.
-  simpl.
-  apply uni_pos__SO.
+  simpl. apply pos__SO.
   assumption.
 Qed.
 

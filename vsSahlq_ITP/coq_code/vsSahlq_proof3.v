@@ -835,7 +835,7 @@ ex_FOvar_var_ll x (FOv_att_P_l atm lP) = false ->
   @consistent_lP_lpa W pa2 lP pa_l ->
   length lP = length pa_l ->
   SOturnst W Iv (alt_Ip_list Ip pa_l lP) Ir atm ->
-  uniform_pos_SO beta ->
+  pos_SO beta ->
   incl (preds_in beta) (preds_in atm) ->
 SOturnst W Iv
         (alt_Ip_list Ip
@@ -903,7 +903,7 @@ Lemma hopeful8_lP_again_mono_tryinggenlP: forall lP lP2 rel atm beta x llx W Iv 
   ex_FOvar_var_ll x (FOv_att_P_l atm lP2) = false ->
   length lP = length llx ->
   ex_nil_in_llv llx = false ->
-  uniform_pos_SO beta ->
+  pos_SO beta ->
 SOturnst W Iv (alt_Ip_list Ip
   (vsS_pa_l Iv (FOv_att_P_l (conjSO rel atm) lP2) (list_var (length lP2) x)) lP2) Ir
   (implSO (conjSO rel atm) beta) ->
@@ -981,7 +981,7 @@ Lemma hopeful8_lP_again_mono_tryinggenlP_atm: forall lP lP2 atm beta x llx W Iv 
   ex_FOvar_var_ll x (FOv_att_P_l atm lP2) = false ->
   length lP = length llx ->
   ex_nil_in_llv llx = false ->
-  uniform_pos_SO beta ->
+  pos_SO beta ->
 SOturnst W Iv (alt_Ip_list Ip
   (vsS_pa_l Iv (FOv_att_P_l atm lP2) (list_var (length lP2) x)) lP2) Ir
   (implSO atm beta) ->
@@ -1047,7 +1047,7 @@ Lemma vsSahlq_instant_aim1_fwd4_REV_mono_tryinggenlP : forall lP lP2 beta rel at
 incl lP2 lP  ->
   REL rel = true ->
     atm = passing_conj (passing_predSO_ll lP2 llx2) ->
-  uniform_pos_SO beta ->
+  pos_SO beta ->
   SOQFree beta = true ->
   ~ att_allFO_var beta (Var xn) ->
   ~ att_exFO_var beta (Var xn) ->
@@ -1101,7 +1101,7 @@ rewrite Halt.
     rewrite (preds_in_rel rel). simpl.
     rewrite list_rel_compl_passing_predSO_ll.
 
-    apply uniform_pos_SO_rep_pred_l. assumption.
+    apply pos_SO_rep_pred_l. assumption.
 
 
 all : try assumption.
@@ -1178,7 +1178,7 @@ Qed.
 Lemma vsSahlq_instant_aim1_fwd4_REV_mono_tryinggenlP_atm : forall lP lP2 beta atm y xn llx2 (W : Set) Iv Ip Ir (pa2 : W -> Prop),
 incl lP2 lP  ->
     atm = passing_conj (passing_predSO_ll lP2 llx2) ->
-  uniform_pos_SO beta ->
+  pos_SO beta ->
   SOQFree beta = true ->
   ~ att_allFO_var beta (Var xn)  ->
   ~ att_exFO_var beta (Var xn) ->
@@ -1232,7 +1232,7 @@ rewrite Halt.
     rewrite Hat. unfold instant_cons_empty'. simpl.
     rewrite list_rel_compl_passing_predSO_ll.
 
-    apply uniform_pos_SO_rep_pred_l. assumption.
+    apply pos_SO_rep_pred_l. assumption.
 
 
 all : try assumption.
@@ -1293,7 +1293,7 @@ Qed.
 Lemma list_closed_SO_instant_cons_empty2_REV : forall l alpha beta W Iv Ip Ir,
   incl (preds_in (implSO alpha beta)) l  ->
   SOQFree (implSO alpha beta) = true ->
-  uniform_pos_SO beta ->
+  pos_SO beta ->
 SOQFree beta = true ->
   SOturnst W Iv Ip Ir (list_closed_SO (implSO alpha (instant_cons_empty' alpha beta)) l) ->
   SOturnst W Iv Ip Ir (list_closed_SO (implSO alpha beta) l).
@@ -1313,7 +1313,7 @@ length lP2 = length llx2 ->
 lP2 <> nil ->
 ex_nil_in_llv llx2 = false ->
 ex_FOvar_var_ll y (FOv_att_P_l atm lP) = false ->
-  uniform_pos_SO beta ->
+  pos_SO beta ->
   SOQFree beta = true ->
   ~ att_allFO_var beta (Var xn) ->
   ~ att_exFO_var beta (Var xn) ->
@@ -1358,7 +1358,7 @@ length lP2 = length llx2 ->
 lP2 <> nil ->
 ex_nil_in_llv llx2 = false ->
 ex_FOvar_var_ll y (FOv_att_P_l atm lP) = false ->
-  uniform_pos_SO beta ->
+  pos_SO beta ->
   SOQFree beta = true ->
   ~ att_allFO_var beta (Var xn) ->
   ~ att_exFO_var beta (Var xn) ->
@@ -1403,7 +1403,7 @@ length lP2 = length llx2 ->
 lP2 <> nil ->
 ex_nil_in_llv llx2 = false ->
 ex_FOvar_var_ll y (FOv_att_P_l atm lP) = false ->
-  uniform_pos_SO beta ->
+  pos_SO beta ->
   SOQFree beta = true ->
   ~ att_allFO_var beta (Var xn) ->
   ~ att_exFO_var beta (Var xn) ->
@@ -1440,7 +1440,7 @@ length lP2 = length llx2 ->
 lP2 <> nil ->
 ex_nil_in_llv llx2 = false ->
 ex_FOvar_var_ll y (FOv_att_P_l atm lP) = false ->
-  uniform_pos_SO beta ->
+  pos_SO beta ->
   SOQFree beta = true ->
   ~ att_allFO_var beta (Var xn) ->
   ~ att_exFO_var beta (Var xn) ->
@@ -2366,7 +2366,7 @@ Lemma lem_e2 : forall lP beta rel atm y xn W1 Iv1 Ip1 Ir1,
   REL rel = true ->
   AT atm = true -> 
 ex_FOvar_var_ll y (FOv_att_P_l atm lP) = false ->
-  uniform_pos_SO beta ->
+  pos_SO beta ->
   SOQFree beta = true ->
   ~ att_allFO_var beta (Var xn)  ->
   ~ att_exFO_var beta (Var xn) ->
@@ -2452,7 +2452,7 @@ Qed.
 Lemma lem_e2_atm : forall lP beta atm y xn W1 Iv1 Ip1 Ir1,
   AT atm = true -> 
 ex_FOvar_var_ll y (FOv_att_P_l atm lP) = false ->
-  uniform_pos_SO beta ->
+  pos_SO beta ->
   SOQFree beta = true ->
   ~ att_allFO_var beta (Var xn) ->
   ~ att_exFO_var beta (Var xn) ->
@@ -2593,7 +2593,7 @@ Lemma vsSahlq_instant_aim1_fwd4_closer2_REV_gen : forall lx lP beta rel atm y xn
   REL rel = true ->
   AT atm = true -> 
 ex_FOvar_var_ll y (FOv_att_P_l atm lP) = false ->
-  uniform_pos_SO beta ->
+  pos_SO beta ->
   SOQFree beta = true ->
   ~ att_allFO_var beta (Var xn) ->
   ~ att_exFO_var beta (Var xn) ->
@@ -2651,7 +2651,7 @@ Qed.
 Lemma vsSahlq_instant_aim1_fwd4_closer2_REV_gen_atm : forall lx lP beta atm y xn W Iv Ip Ir,
   AT atm = true -> 
 ex_FOvar_var_ll y (FOv_att_P_l atm lP) = false ->
-  uniform_pos_SO beta ->
+  pos_SO beta ->
   SOQFree beta = true ->
   ~ att_allFO_var beta (Var xn) ->
   ~ att_exFO_var beta (Var xn) ->
@@ -2712,7 +2712,7 @@ Lemma hopeful3_REV : forall lx lP beta alpha rel atm y xn W Iv Ip Ir,
   REL rel = true ->
   AT atm = true ->
 ex_FOvar_var_ll y (FOv_att_P_l atm lP) = false ->
-  uniform_pos_SO beta ->
+  pos_SO beta ->
   SOQFree beta = true ->
   ~ att_allFO_var beta (Var xn) ->
   ~ att_exFO_var beta (Var xn) ->
@@ -2743,7 +2743,7 @@ Qed.
 Lemma hopeful3_REV_atm : forall lx lP beta alpha atm y xn W Iv Ip Ir,
   AT atm = true ->
 ex_FOvar_var_ll y (FOv_att_P_l atm lP) = false ->
-  uniform_pos_SO beta ->
+  pos_SO beta ->
   SOQFree beta = true ->
   ~ att_allFO_var beta (Var xn) ->
   ~ att_exFO_var beta (Var xn) ->
@@ -2842,7 +2842,7 @@ Defined.
 
 Lemma vsS_preprocessing_Step1_1_againTRY'_withex'' : forall phi1 phi2 rel atm x lv,
   vsSahlq_ante phi1 ->
-  uniform_pos phi2 ->
+  pos phi2 ->
   REL rel = true ->
   AT atm = true ->
           incl (preds_in (conjSO rel atm)) (preds_in (ST phi1 x)) ->
@@ -2893,7 +2893,7 @@ Defined.
 
 Lemma vsS_preprocessing_Step1_3_againTRY'_withex' : forall phi1 phi2 atm x lv,
   vsSahlq_ante phi1 ->
-  uniform_pos phi2 ->
+  pos phi2 ->
   AT atm = true ->
   incl (preds_in (atm)) (preds_in (ST phi1 x))  ->
   (forall (W : Set) (Iv : FOvariable -> W) (Ip : predicate -> W -> Prop)
@@ -2941,7 +2941,7 @@ Defined.
 
 Lemma vsS_preprocessing_Step1_pre_againTRY'_withex' : forall phi1 phi2 x,
   vsSahlq_ante phi1 ->
-  uniform_pos phi2  ->
+  pos phi2  ->
   existsT2 lv : list FOvariable,
    (existsT2 atm : SecOrder,
        (AT atm = true) *
@@ -2991,7 +2991,7 @@ Qed.
 
 Lemma hopeful4_REV'_withex'_FULL : forall lP xn phi1 phi2,
   vsSahlq_ante phi1 ->
-  uniform_pos phi2  ->
+  pos phi2  ->
   incl (preds_in (ST (mimpl phi1 phi2) (Var xn))) lP  ->
   existsT2 (lx : list FOvariable) (atm : SecOrder),
     (AT atm = true) *
@@ -3032,7 +3032,7 @@ split; intros H.
     apply hopeful3_REV with (alpha := (ST (mimpl phi1 phi2) (Var xn))) in H ;
       try assumption.
         apply lem_f3; assumption.
-      apply uni_pos__SO. assumption.
+      apply pos__SO. assumption.
       apply SOQFree_ST. 
 
       apply att_allFO_var_ST.
@@ -3051,7 +3051,7 @@ split; intros H.
       apply ex_P_occ_in_alpha_ST.
         apply hopeful3 with (alpha := (ST (mimpl phi1 phi2) (Var xn)));
       try assumption.
-      apply uni_pos__SO. assumption.
+      apply pos__SO. assumption.
       apply SOQFree_ST.
 
       apply att_allFO_var_ST.
@@ -3079,7 +3079,7 @@ split; intros H.
       try assumption.
       apply lem_f3; assumption.
 
-      apply uni_pos__SO. assumption.
+      apply pos__SO. assumption.
       apply SOQFree_ST.
 
       apply att_allFO_var_ST.
@@ -3099,7 +3099,7 @@ split; intros H.
 
     apply hopeful3_atm with (alpha := (ST (mimpl phi1 phi2) (Var xn)));
       try assumption.
-      apply uni_pos__SO. assumption.
+      apply pos__SO. assumption.
       apply SOQFree_ST.
 
       apply att_allFO_var_ST.
@@ -3122,7 +3122,7 @@ Defined.
 
 Lemma hopeful4_REV'_withex'_FULL_allFO : forall lP xn phi1 phi2,
   vsSahlq_ante phi1 ->
-  uniform_pos phi2  ->
+  pos phi2  ->
   incl (preds_in (ST (mimpl phi1 phi2) (Var xn))) lP  ->
   existsT2 lx atm,
     (AT atm = true) *
@@ -3167,7 +3167,7 @@ Defined.
 
 Lemma hopeful4_REV'_withex'_FULL_allFO_in : forall lP xn phi1 phi2,
   vsSahlq_ante phi1 ->
-  uniform_pos phi2  ->
+  pos phi2  ->
   incl (preds_in (ST (mimpl phi1 phi2) (Var xn))) lP ->
   existsT2 lx atm,
     (AT atm = true) *
@@ -3214,7 +3214,7 @@ Defined.
 
 Lemma vsSahlq_full_SO_pre : forall xn phi1 phi2,
   vsSahlq_ante phi1 ->
-  uniform_pos phi2  ->
+  pos phi2  ->
   existsT2 lx atm,
     (AT atm = true) *
     ((existsT rel,
@@ -3251,7 +3251,7 @@ Defined.
 
 Lemma vsSahlq_full_SO : forall xn phi1 phi2,
   vsSahlq_ante phi1 ->
-  uniform_pos phi2  ->
+  pos phi2  ->
   existsT (alpha : SecOrder),
 FO_frame_condition alpha = true /\
 forall W Iv Ip Ir,

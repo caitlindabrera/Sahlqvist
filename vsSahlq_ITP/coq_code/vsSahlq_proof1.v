@@ -89,7 +89,7 @@ Qed.
 Lemma vsSahlq_instant_aim1_fwd4 : forall lP beta rel atm y xn W Iv Ip Ir,
   REL rel = true ->
   AT atm = true ->
-  uniform_pos_SO beta ->
+  pos_SO beta ->
   SOQFree beta = true ->
   ~ att_allFO_var beta (Var xn) ->
   ~ att_exFO_var beta (Var xn) ->
@@ -187,7 +187,7 @@ Qed.
 
 Lemma vsSahlq_instant_aim1_fwd4_atm : forall lP beta atm y xn W Iv Ip Ir,
   AT atm = true ->
-  uniform_pos_SO beta ->
+  pos_SO beta ->
   SOQFree beta = true ->
   ~ att_allFO_var beta (Var xn) ->
   ~att_exFO_var beta (Var xn) ->
@@ -281,7 +281,7 @@ Qed.
 Lemma vsSahlq_instant_aim1_fwd4_closer : forall lP beta rel atm y xn W Iv Ip Ir,
   REL rel = true ->
   AT atm = true ->
-  uniform_pos_SO beta ->
+  pos_SO beta ->
   SOQFree beta = true ->
   ~ att_allFO_var beta (Var xn) ->
   ~ att_exFO_var beta (Var xn) ->
@@ -309,7 +309,7 @@ Qed.
 
 Lemma vsSahlq_instant_aim1_fwd4_closer_atm : forall lP beta atm y xn W Iv Ip Ir,
   AT atm = true ->
-  uniform_pos_SO beta ->
+  pos_SO beta ->
   SOQFree beta = true ->
   ~ att_allFO_var beta (Var xn) ->
   ~ att_exFO_var beta (Var xn) ->
@@ -337,7 +337,7 @@ Qed.
 Lemma vsSahlq_instant_aim1_fwd4_closer2 : forall lx lP beta rel atm y xn W Iv Ip Ir,
   REL rel = true ->
   AT atm = true ->
-  uniform_pos_SO beta ->
+  pos_SO beta ->
   SOQFree beta = true ->
   ~ att_allFO_var beta (Var xn)  ->
   ~ att_exFO_var beta (Var xn) ->
@@ -368,7 +368,7 @@ Qed.
 
 Lemma vsSahlq_instant_aim1_fwd4_closer2_atm : forall lx lP beta atm y xn W Iv Ip Ir,
   AT atm = true ->
-  uniform_pos_SO beta ->
+  pos_SO beta ->
   SOQFree beta = true ->
   ~ att_allFO_var beta (Var xn) ->
   ~ att_exFO_var beta (Var xn) ->
@@ -1511,7 +1511,7 @@ Defined.
 Lemma hopeful3 : forall lx lP beta alpha rel atm y xn W Iv Ip Ir,
   REL rel = true ->
   AT atm = true ->
-  uniform_pos_SO beta ->
+  pos_SO beta ->
   SOQFree beta = true ->
   ~ att_allFO_var beta (Var xn) ->
   ~ att_exFO_var beta (Var xn) ->
@@ -1541,7 +1541,7 @@ Qed.
 
 Lemma hopeful3_atm : forall lx lP beta alpha atm y xn W Iv Ip Ir,
   AT atm = true ->
-  uniform_pos_SO beta ->
+  pos_SO beta ->
   SOQFree beta = true ->
   ~ att_allFO_var beta (Var xn) ->
   ~ att_exFO_var beta (Var xn) ->

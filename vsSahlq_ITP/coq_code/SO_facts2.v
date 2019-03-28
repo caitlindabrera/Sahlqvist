@@ -14,7 +14,7 @@ Qed.
 
 Lemma uni_pos_SO_SOturnst_f_gen : forall beta l W Iv Ip Ir,
   SOQFree beta = true ->
-  uniform_pos_SO beta ->
+  pos_SO beta ->
    SOturnst W Iv Ip Ir (replace_pred_l beta (list_rel_compl l (preds_in beta))
      (nlist_list _
         (nlist_var (length (list_rel_compl l (preds_in beta))) (Var 1)))
@@ -30,7 +30,7 @@ Qed.
 
 Lemma uni_pos_SO_SOturnst_f_gen2 : forall beta l W Iv Ip Ir,
   SOQFree beta = true ->
-  uniform_pos_SO beta ->
+  pos_SO beta ->
    SOturnst W Iv Ip Ir (replace_pred_l beta (list_rel_compl (preds_in beta) l)
      (nlist_list _
         (nlist_var (length (list_rel_compl (preds_in beta) l)) (Var 1)))
@@ -46,7 +46,7 @@ Qed.
 
 Lemma instant_cons_empty_equiv : forall alpha beta W Iv Ip Ir,
   SOQFree beta = true ->
-  uniform_pos_SO beta ->
+  pos_SO beta ->
   SOturnst W Iv Ip Ir (instant_cons_empty (implSO alpha beta)) ->
   SOturnst W Iv Ip Ir (implSO alpha beta).
 Proof.
@@ -58,7 +58,7 @@ Qed.
 
 Lemma instant_cons_empty_equiv_list1 : forall l alpha beta W Iv Ip Ir,
   SOQFree beta = true ->
-  uniform_pos_SO beta ->
+  pos_SO beta ->
   SOturnst W Iv Ip Ir (list_closed_SO (instant_cons_empty (implSO alpha beta)) l) ->
   SOturnst W Iv Ip Ir (list_closed_SO (implSO alpha beta) l).
 Proof.
@@ -138,7 +138,7 @@ Qed.
 
 Lemma instant_cons_empty_equiv2_rev : forall alpha beta W Iv Ip Ir,
   SOQFree beta = true ->
-  uniform_pos_SO beta ->
+  pos_SO beta ->
   SOturnst W Iv Ip Ir (uni_closed_SO (instant_cons_empty (implSO alpha beta))) ->
   SOturnst W Iv Ip Ir (uni_closed_SO (implSO alpha beta)).
 Proof.
@@ -151,7 +151,7 @@ Qed.
 
 Lemma instant_cons_empty_equiv2 : forall alpha beta W Iv Ip Ir,
   SOQFree (implSO alpha beta) = true ->
-  uniform_pos_SO beta ->
+  pos_SO beta ->
   SOturnst W Iv Ip Ir (uni_closed_SO (implSO alpha beta)) <->
   SOturnst W Iv Ip Ir (uni_closed_SO (instant_cons_empty (implSO alpha beta))).
 Proof.
@@ -163,7 +163,7 @@ Qed.
 
 Lemma instant_cons_empty_equiv2_list_closed_allFO : forall l alpha beta W Iv Ip Ir,
   SOQFree (implSO alpha beta) = true ->
-  uniform_pos_SO beta ->
+  pos_SO beta ->
   SOturnst W Iv Ip Ir (uni_closed_SO (list_closed_allFO (implSO alpha beta) l)) <->
   SOturnst W Iv Ip Ir (uni_closed_SO (list_closed_allFO (instant_cons_empty (implSO alpha beta)) l)).
 Proof.
@@ -188,7 +188,7 @@ Qed.
 
 Lemma instant_cons_empty_equiv2_list_closed__allFO : forall l alpha beta x W Iv Ip Ir,
   SOQFree (implSO alpha beta) = true ->
-  uniform_pos_SO beta ->
+  pos_SO beta ->
   SOturnst W Iv Ip Ir (uni_closed_SO (allFO x (list_closed_allFO (implSO alpha beta) l))) <->
   SOturnst W Iv Ip Ir (uni_closed_SO (allFO x (list_closed_allFO (instant_cons_empty (implSO alpha beta)) l))).
 Proof.
