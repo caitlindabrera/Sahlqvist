@@ -1,22 +1,10 @@
 Require Import p_is_pos p_is_neg.
 
-Definition uniform_pos (phi : Modal) : Prop :=
-forall p, pv_in_modal phi p -> p_is_pos phi p.
+Definition uniform_pos (ϕ : Modal) : Prop :=
+forall p, pv_in_modal ϕ p -> p_is_pos ϕ p.
 
-Definition uniform_neg (phi : Modal) : Prop :=
-forall p, pv_in_modal phi p -> p_is_neg phi p.
+Definition uniform_neg (ϕ : Modal) : Prop :=
+forall p, pv_in_modal ϕ p -> p_is_neg ϕ p.
 
-Definition uniform (phi : Modal) : Prop :=
-forall p, pv_in_modal phi p -> p_is_pos phi p \/ p_is_neg phi p.
-
-(*
-Inductive uniform_pos (phi : Modal) : Prop :=
-  | uni_pos_y : (forall p, pv_in_modal phi p -> p_is_pos phi p) -> uniform_pos phi.
-
-Inductive uniform_neg (phi : Modal) : Prop :=
-  | uni_neg_y : (forall p, pv_in_modal phi p -> p_is_neg phi p) -> uniform_neg phi.
-
-Inductive uniform (phi : Modal) : Prop :=
-| uni_y : (forall p, pv_in_modal phi p -> p_is_pos phi p \/ p_is_neg phi p) ->
-          uniform phi.
-*)
+Definition uniform (ϕ : Modal) : Prop :=
+forall p, pv_in_modal ϕ p -> p_is_pos ϕ p \/ p_is_neg ϕ p.

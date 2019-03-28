@@ -4,13 +4,13 @@ Open Scope type_scope.
 
 Inductive vsSahlq_ante : Modal -> Prop :=
 | vsSahlq_ante_atom p : vsSahlq_ante (atom p)
-| vsSahlq_ante_mconj psi1 psi2 :
-    vsSahlq_ante psi1 -> vsSahlq_ante psi2 -> vsSahlq_ante (mconj psi1 psi2)
-| vsSahlq_ante_dia psi : vsSahlq_ante psi -> vsSahlq_ante (dia psi).
+| vsSahlq_ante_mconj ψ1 ψ2 :
+    vsSahlq_ante ψ1 -> vsSahlq_ante ψ2 -> vsSahlq_ante (mconj ψ1 ψ2)
+| vsSahlq_ante_dia ψ : vsSahlq_ante ψ -> vsSahlq_ante (dia ψ).
 
 Inductive vsSahlq : Modal -> Prop :=
-| vsSahlq_y phi1 phi2 :
-    vsSahlq_ante phi1 -> uniform_pos phi2 -> vsSahlq (mimpl phi1 phi2).
+| vsSahlq_y ϕ1 ϕ2:
+    vsSahlq_ante ϕ1 -> uniform_pos ϕ2 -> vsSahlq (mimpl ϕ1 ϕ2).
 
 Definition corresponds (ϕ : Modal) (α: SecOrder) :=
   forall W Iv Ip Ir, <W Iv Ip Ir> ⊨ α <-> <W Ir> ⊩ ϕ.

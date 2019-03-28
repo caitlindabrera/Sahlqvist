@@ -10,15 +10,15 @@ Lemma next_FOv_not : forall x,
 Proof. intros [xn] H. inversion H. lia. Qed.
 
 (* Definition of the standard translation from modal to SOL. *)
-Fixpoint ST (phi: Modal) (x:FOvariable) : SecOrder :=
-  match phi with
+Fixpoint ST (ϕ : Modal) (x : FOvariable) : SecOrder :=
+  match ϕ with
     atom (pv n) => predSO (Pred n) x
-  | mneg psi => negSO (ST psi x)
-  | mconj psi1 psi2 => conjSO (ST psi1 x) (ST psi2 x)
-  | mdisj psi1 psi2 => disjSO (ST psi1 x) (ST psi2 x)
-  | mimpl psi1 psi2 => implSO (ST psi1 x) (ST psi2 x)
-  | box psi => allFO (next_FOv x) (implSO (relatSO x (next_FOv x)) (ST psi (next_FOv x)))
-  | dia psi => exFO (next_FOv x) (conjSO (relatSO x (next_FOv x)) (ST psi (next_FOv x)))
+  | mneg ψ => negSO (ST ψ x)
+  | mconj ψ1 ψ2 => conjSO (ST ψ1 x) (ST ψ2 x)
+  | mdisj ψ1 ψ2 => disjSO (ST ψ1 x) (ST ψ2 x)
+  | mimpl ψ1 ψ2 => implSO (ST ψ1 x) (ST ψ2 x)
+  | box ψ => allFO (next_FOv x) (implSO (relatSO x (next_FOv x)) (ST ψ (next_FOv x)))
+  | dia ψ => exFO (next_FOv x) (conjSO (relatSO x (next_FOv x)) (ST ψ (next_FOv x)))
     end.
 
 Definition ST_pv (p : propvar) : predicate :=

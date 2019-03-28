@@ -240,11 +240,10 @@ Proof.
   rewrite list_pred_without_id. constructor.  
 Qed.
 
-Theorem correctness_ST : forall (W:Set) (R: W -> W -> Prop) (x:FOvariable) 
-                        (Iv: FOvariable -> W) (Ip: predicate -> W -> Prop) 
-                        (phi:Modal) ,
-       (mturnst_frame W R phi) <-> 
-                (SOturnst W Iv Ip R (uni_closed_SO (allFO x (ST phi x)))).
+Theorem correctness_ST : forall (W : Set) (R : W -> W -> Prop) (x : FOvariable) 
+                        (Iv : FOvariable -> W) (Ip : predicate -> W -> Prop) 
+                        (ϕ : Modal) ,
+    <W R> ⊩ ϕ  <->  <W Iv Ip R> ⊨ (uni_closed_SO (allFO x (ST ϕ x))).
 Proof.
   intros.
   unfold mturnst_frame.
@@ -254,14 +253,14 @@ Proof.
     apply nlist_list_closed_SO.
     intros.
     rewrite <- (Ip_V_Ip W) with (Ip := (alt_Ip_list Ip
-                  (nlist_list_pa W (length (preds_in (allFO x (ST phi x)))) pa_l)
-                  (preds_in (allFO x (ST phi x))))).
+                  (nlist_list_pa W (length (preds_in (allFO x (ST ϕ x)))) pa_l)
+                  (preds_in (allFO x (ST ϕ x))))).
     apply correctness_ST_model.
     apply H.
 
     intros.
-    apply (correctness_ST_model W R V phi x Iv).
-    remember (preds_in (allFO x (ST phi x))) as l.
+    apply (correctness_ST_model W R V ϕ x Iv).
+    remember (preds_in (allFO x (ST ϕ x))) as l.
     assert (alt_Ip_list (V_to_Ip W V)
        (nlist_list_pa W (length l)
           (ineffective_pa_l W (V_to_Ip W V) (length l) (list_nlist l))) l = 
@@ -269,9 +268,9 @@ Proof.
       rewrite Heql.
       apply ineffective_Ip2.
     rewrite <- H0.
-    apply (nlist_list_closed_SO W Iv R (allFO x (ST phi x)) l (V_to_Ip W V)).
+    apply (nlist_list_closed_SO W Iv R (allFO x (ST ϕ x)) l (V_to_Ip W V)).
     rewrite Heql.
-    pose proof (Ip_uni_closed W (allFO x (ST phi x)) Iv Ip (V_to_Ip W V) R H) as H1.
+    pose proof (Ip_uni_closed W (allFO x (ST ϕ x)) Iv Ip (V_to_Ip W V) R H) as H1.
     apply H1.
 Qed.
 

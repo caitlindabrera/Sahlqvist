@@ -30,22 +30,22 @@ Reserved Notation "< D Iv Ip Ir > '⊨' α"
          (at level 50, D at level 9, Iv at level 9, Ip at level 9, Ir at level 9,
           format "< D  Iv  Ip  Ir >  '⊨'  α").
 
-Fixpoint SOturnst (D:Set) (Iv: FOvariable -> D) (Ip: predicate -> D -> Prop)
-         (Ir: D -> D -> Prop) (α:SecOrder) : Prop :=
+Fixpoint SOturnst (D : Set) (Iv : FOvariable -> D) (Ip : predicate -> D -> Prop)
+         (Ir : D -> D -> Prop) (α : SecOrder) : Prop :=
   match α with
     predSO P x => (Ip P (Iv x))
   | relatSO x y => (Ir (Iv x) (Iv y))
   | eqFO x y => (Iv x) = (Iv y)
   | allFO x β => forall d:D, <D (alt_Iv Iv d x) Ip Ir> ⊨ β
-  | exFO x β => (exists d:D, <D (alt_Iv Iv d x) Ip Ir> ⊨ β)
+  | exFO x β => exists d:D, <D (alt_Iv Iv d x) Ip Ir> ⊨ β
   | negSO β => ~ <D Iv Ip Ir> ⊨ β
   | conjSO β1 β2 => (<D Iv Ip Ir> ⊨ β1) /\ (<D Iv Ip Ir> ⊨ β2)
   | disjSO β1 β2 => (<D Iv Ip Ir> ⊨ β1) \/ (<D Iv Ip Ir> ⊨ β2)
   | implSO β1 β2 => (<D Iv Ip Ir> ⊨ β1) -> (<D Iv Ip Ir> ⊨ β2)
   | allSO P β => forall (pred_asgmt: D -> Prop), 
                                <D Iv (alt_Ip Ip pred_asgmt P) Ir> ⊨ β
-  | exSO P β => (exists (pred_asgmt: D -> Prop), 
-                              <D Iv (alt_Ip Ip pred_asgmt P) Ir> ⊨ β)
+  | exSO P β => exists (pred_asgmt: D -> Prop), 
+                              <D Iv (alt_Ip Ip pred_asgmt P) Ir> ⊨ β
   end
   where "< D Iv Ip Ir > '⊨' α" := (SOturnst D Iv Ip Ir α) : SO_scope.
 

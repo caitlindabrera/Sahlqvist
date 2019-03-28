@@ -170,7 +170,7 @@ Lemma rep_pred_false_pa_t : forall (alpha : SecOrder)  (W : Set) (Iv : FOvariabl
 Proof.
   induction alpha; intros W Iv Ip Ir P noSO; try solve [firstorder];
 try discriminate;
-try (destruct_andb_t_simpl noSO noSO2; simpl).
+try (simpl in noSO; unfold andb in noSO; destruct_andb_t_simpl noSO noSO2; simpl).
 
 simpl. FOv_dec_l_rep.
  destruct (predicate_dec P p) as [H1 | H1].
@@ -186,7 +186,7 @@ simpl; split; intros H1 H2; apply H1; apply IHalpha; auto.
 split; (intros [H1 H2];
 apply conj; [apply IHalpha1| apply IHalpha2]; auto).
 
- split; (intros [H1 | H2]; [left; apply IHalpha1| right; apply IHalpha2]; auto).
+split; (intros [H1 | H2]; [left; apply IHalpha1| right; apply IHalpha2]; auto).
 
 split; intros H1 H2; apply IHalpha2; try auto;
  apply H1; apply IHalpha1; auto.

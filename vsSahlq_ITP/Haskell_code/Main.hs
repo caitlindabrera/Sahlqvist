@@ -1,5 +1,5 @@
 {-# LANGUAGE StandaloneDeriving, FlexibleInstances #-}
-import qualified VsSahlq_instant20
+import qualified VsSahlq_proof4
 import qualified Modal_syntax
 import qualified Datatypes
 import qualified SO_syntax
@@ -41,7 +41,7 @@ box phi = Modal_syntax.Coq_box phi
 
 -- diamond
 dia :: Modal_syntax.Modal -> Modal_syntax.Modal
-dia phi = Modal_syntax.Coq_diam phi
+dia phi = Modal_syntax.Coq_dia phi
 
 instance Show SO_syntax.SecOrder where
   show (SO_syntax.Coq_predSO n m) = "[what is this?]"
@@ -57,4 +57,4 @@ instance Show SO_syntax.SecOrder where
   show (SO_syntax.Coq_exSO _ _) = "[shouldn't happen!]"
 
 corr :: Modal_syntax.Modal -> SO_syntax.SecOrder
-corr phi = VsSahlq_instant20.vsSahlq_full_Modal phi
+corr phi = VsSahlq_proof4.vsSahlq_full_Modal phi

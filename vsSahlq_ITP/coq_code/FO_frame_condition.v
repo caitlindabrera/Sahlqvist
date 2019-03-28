@@ -1,19 +1,22 @@
 Require Export base_mods nlist_syn_eg.
 Require Import preds_in Pred_in_SO.
 
-Fixpoint SOQFree (alpha : SecOrder) : bool :=
-  match alpha with
-    predSO _ _ => true
+Fixpoint SOQFree (α : SecOrder) : bool :=
+  match α with
+    predSO _ _  => true
   | relatSO _ _ =>  true
-  | eqFO _ _ => true
-  | allFO _ beta => SOQFree beta
-  | exFO _ beta => SOQFree beta
-  | negSO beta => SOQFree beta
-  | conjSO beta1 beta2 => if SOQFree beta1 then SOQFree beta2 else false
-  | disjSO beta1 beta2 => if SOQFree beta1 then SOQFree beta2 else false
-  | implSO beta1 beta2 => if SOQFree beta1 then SOQFree beta2 else false
+  | eqFO _ _    => true
+  | allFO _ β => SOQFree β
+  | exFO _ β  => SOQFree β
+  | negSO β   => SOQFree β
+  | conjSO β1 β2 => andb (SOQFree β1) (SOQFree β2)
+  | disjSO β1 β2 => andb (SOQFree β1) (SOQFree β2)
+  | implSO β1 β2 => andb (SOQFree β1) (SOQFree β2)
+(*
+if SOQFree β1 then SOQFree β2 else false
+*)
   | allSO _ _ => false
-  | exSO _ _ => false
+  | exSO _ _  => false
   end.
 
 Fixpoint SOQFree_l (l : list SecOrder) : bool :=
@@ -54,19 +57,19 @@ Fixpoint FOQFree (alpha : SecOrder) : bool :=
   | exSO _ beta => FOQFree beta
   end.
 
-Fixpoint FO_frame_condition (alpha : SecOrder) : bool :=
-  match alpha with
-    predSO _ _ => false
-  | relatSO _ _ =>  true
-  | eqFO _ _ => true
-  | allFO _ beta => FO_frame_condition beta
-  | exFO _ beta => FO_frame_condition beta
-  | negSO beta => FO_frame_condition beta
-  | conjSO beta1 beta2 => andb (FO_frame_condition beta1) (FO_frame_condition beta2)
-  | disjSO beta1 beta2 => andb (FO_frame_condition beta1) (FO_frame_condition beta2)
-  | implSO beta1 beta2 => andb (FO_frame_condition beta1) (FO_frame_condition beta2)
-  | allSO _ beta => false
-  | exSO _ beta => false
+Fixpoint FO_frame_condition (α : SecOrder) : bool :=
+  match α with
+    predSO _ _  => false
+  | relatSO _ _ => true
+  | eqFO _ _    => true
+  | allFO _ β => FO_frame_condition β
+  | exFO _ β  => FO_frame_condition β
+  | negSO β   => FO_frame_condition β
+  | conjSO β1 β2 => andb (FO_frame_condition β1) (FO_frame_condition β2)
+  | disjSO β1 β2 => andb (FO_frame_condition β1) (FO_frame_condition β2)
+  | implSO β1 β2 => andb (FO_frame_condition β1) (FO_frame_condition β2)
+  | allSO _ β => false
+  | exSO _ β  => false
   end.
 
 (* -------------------------------------------------------------------- *)
@@ -334,10 +337,10 @@ Lemma SOQFree__P : forall alpha P,
   SOQFree alpha = true ->
   SOQFree_P alpha P = true.
 Proof.
-  induction alpha; intros P H; simpl in *; auto;
+  induction alpha; intros P H; simpl in *; unfold andb in *; auto;
     try discriminate;
   try (destruct_andb_t; rewrite IHalpha1; auto; 
-      try discriminate; rewrite IHalpha2; auto).
+       try discriminate; rewrite IHalpha2; auto).
 Qed.
 
 (* ------------------------------------------------- *)

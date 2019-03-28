@@ -597,7 +597,7 @@ Lemma SOQFree_rep_FOv : forall alpha x y,
   SOQFree alpha = true ->
   SOQFree (replace_FOv alpha x y) = true.
 Proof.
-  induction alpha; intros x y H;
+  induction alpha; intros x y H; simpl in *; unfold andb in *;
     try (simpl; if_then_else_reg);
     try (simpl; if_then_else_reg2);
     try (  simpl in H;  destruct_andb_t);
@@ -640,7 +640,7 @@ Lemma SOQFree_rep_pred_empty : forall (alpha : SecOrder) (Q : predicate) x y,
   SOQFree alpha = true -> 
     SOQFree (replace_pred alpha Q y (negSO (eqFO x x))) = true.
 Proof.
-  induction alpha; intros Q [xn] [ym] HSO; auto;
+  induction alpha; intros Q [xn] [ym] HSO; auto; simpl in *; unfold andb in *;
     try (  simpl in *; apply IHalpha; auto);
     try (  simpl in HSO; destruct_andb_t2;
            simpl; rewrite IHalpha1; try auto; [apply IHalpha2|]; auto);
@@ -648,7 +648,7 @@ Proof.
          simpl; rewrite IHalpha1; try auto; apply IHalpha2; auto);
     try discriminate.
 
-  simpl. dest_FOv_dec_blind; destruct (predicate_dec Q p) as [H1 | H1]; auto.
+  dest_FOv_dec_blind; destruct (predicate_dec Q p) as [H1 | H1]; auto.
 Qed.
 
 Lemma SOQFree_rep_pred_t : forall (alpha : SecOrder) (Q : predicate),
@@ -656,12 +656,12 @@ Lemma SOQFree_rep_pred_t : forall (alpha : SecOrder) (Q : predicate),
     SOQFree (replace_pred alpha Q (Var 1) 
       (eqFO (Var 1) (Var 1))) = true.
 Proof.
-  induction alpha; intros Q HSO; try reflexivity;
+  induction alpha; intros Q HSO; try reflexivity; simpl in *; unfold andb in *;
 try (simpl; apply IHalpha; auto);
 try (destruct_andb_t_simpl HSO HSO2; simpl; 
 rewrite IHalpha1; try auto; apply IHalpha2; auto); try discriminate.
 
-simpl; repeat (rewrite FOvariable_dec_l; auto); if_then_else_reg.
+repeat (rewrite FOvariable_dec_l; auto); if_then_else_reg.
 Qed.
 
 Lemma SOQFree_rep_pred_l : forall lP lx lcond alpha,

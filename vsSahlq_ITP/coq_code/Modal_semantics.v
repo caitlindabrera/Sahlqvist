@@ -59,15 +59,15 @@ Proof. auto. Qed.
 (* Proof of classicality *)
 
 Lemma modal_LEM : forall ϕ W R V w,
-    <W R V w> ⊩w (ϕ m∨ (m~ ϕ)).
+    <W R V w> ⊩w (ϕ m∨ m~ ϕ).
 Proof. intros. apply classic. Qed.
 
 Lemma modal_LEM_model : forall ϕ W R V,
-    <W R V> ⊩m (ϕ m∨ (m~ ϕ)).
+    <W R V> ⊩m (ϕ m∨ m~ ϕ).
 Proof. intros. intros w. apply modal_LEM. Qed.
 
 Lemma modal_LEM_frame : forall ϕ W R,
-    <W R> ⊩ (ϕ m∨ (m~ ϕ)).
+    <W R> ⊩ (ϕ m∨ m~ ϕ).
 Proof.
   intros. intros V.
   apply modal_LEM_model.
