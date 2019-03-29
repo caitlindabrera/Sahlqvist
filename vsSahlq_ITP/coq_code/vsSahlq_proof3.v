@@ -1,7 +1,7 @@
 Require Export high_mods SO_sem_mods.
 Require Import vsSahlq_proof1 vsSahlq_proof2.
 Require Import Monotonicity_lP_SO newnew.
-Require Import SO_facts3 Correctness_ST consistent vsS_syn_sem uniform.
+Require Import SO_facts3 Correctness_ST consistent vsS_syn_sem pos.
 
 Open Scope type_scope.
 

@@ -1,5 +1,5 @@
 Require Export high_mods SO_facts1.
-Require Import Correctness_ST Sahlqvist_Uniform_Pos.
+Require Import Correctness_ST Sahlqvist_Pos.
 
 
 Lemma instant_cons_empty_equiv_list2 : forall alpha beta W Iv Ip Ir,

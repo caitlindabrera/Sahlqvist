@@ -1,5 +1,5 @@
 Require Export SO_sem_mods high_mods.
-Require Import SO_facts1 Monotonicity_SO Correctness_ST uniform SO_facts_syn.
+Require Import SO_facts1 Monotonicity_SO Correctness_ST pos SO_facts_syn.
 
 Lemma step1_empty : forall (W : Set) (Iv : FOvariable -> W)
                     (Ip : predicate -> W -> Prop)

@@ -1,4 +1,4 @@
-Require Import Modal_syntax uniform conjSO_exFO_relatSO ST.
+Require Import Modal_syntax pos conjSO_exFO_relatSO ST.
 
 Open Scope type_scope.
 

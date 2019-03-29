@@ -1,5 +1,5 @@
 Require Export med_mods.
-Require Import Rel At ST uniform_SO vsSahlq_setup Is_Pos_Rep_Pred.
+Require Import Rel At ST pos_SO vsSahlq_setup Is_Pos_Rep_Pred.
 
 Lemma pos_rep_pred : forall (alpha : SecOrder) (P : predicate)
                                 (cond : SecOrder) (x : FOvariable),

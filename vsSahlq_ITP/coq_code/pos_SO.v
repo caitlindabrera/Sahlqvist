@@ -1,5 +1,5 @@
 Require Export med_mods Pred_is_pos_SO Pred_is_neg_SO.
-Require Import ST uniform.
+Require Import ST pos.
 
 Definition pos_SO (alpha : SecOrder) : Prop :=
 forall (P : predicate), Pred_in_SO alpha P -> Pred_is_pos_SO alpha P.
